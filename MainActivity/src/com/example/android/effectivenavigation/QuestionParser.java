@@ -41,6 +41,7 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Xml;
 import android.widget.Toast;
+import au.com.bytecode.opencsv.CSVWriter;
 
 // DATE CHANGER FILE ! ToDo here
 public class QuestionParser {
@@ -333,9 +334,10 @@ private String readText(XmlPullParser parser) throws IOException, XmlPullParserE
 	    return (InputElement) r;
 	}
 
-  
+//-----------------------------/IRA/------------------------------------------------  
   
 public void saveToFile(String filename,Context context){
+	String iTimeString = null;
 
 	String exStorageState = Environment.getExternalStorageState();
 	String outBuf = null;
@@ -356,20 +358,22 @@ public void saveToFile(String filename,Context context){
 				int day = calendar.get(Calendar.DAY_OF_MONTH);
 				int month = calendar.get(Calendar.MONTH)+1;
 				int year = calendar.get(Calendar.YEAR);
+                // --------------------IRA---------------------------
+                    iTimeString = year+"_"+month+"_"+day+"_"+minutes; 
 				// Test if the path exists
 				String surveyName[] =cSurvey.file.split("/");
 				String name;
+                // NAME is the SurveyName !!!
 				name=surveyName[surveyName.length-1];
-				String path = root+"/SurveyResults/"+minutes+"-"+day+"-"+month+"-"+year+"/"+name+"/";
-				// If not, create dirs
+				// String path = root+"/SurveyResults/"+minutes+"-"+day+"-"+month+"-"+year+"/"+name+"/";
+				String path = root+"/SurveyResults/";
+				// If not, create dirs // IRA // whats name ?
 				boolean exists = (new File(path).exists());
 				if (!exists) {new File(path).mkdirs();}
 				// Open the file and a writer
-				
-		
 				//+"-"+hours+"-"+minutes+"-"+seconds+".txt"
-				// AB
-				File logFile = new File(path+year+"-"+month+"-"+day+"-"+minutes+"-"+filename+".xls");
+				// apply PATH
+				File logFile = new File(path+year+"-"+month+"-"+day+"-"+minutes+"-IRA-"+name+filename+".xls");
 				logFile.createNewFile();
 				FileWriter logWriter = new FileWriter(logFile);
 				BufferedWriter outer = new BufferedWriter(logWriter);
@@ -399,6 +403,7 @@ public void saveToFile(String filename,Context context){
 					
 				}
 				lastInd=i;
+                // IRA ?
 				outer.write(outBuf);
 				outer.close();
 				Toast.makeText(context, "Survey saved", Toast.LENGTH_SHORT).show();
@@ -418,14 +423,22 @@ public void saveToFile(String filename,Context context){
 	}
 }
 
+//-----------------------------/NAT/---------------------------------------------  
 
 public void saveToPdf(String filename,Context context) {
 String exStorageState = Environment.getExternalStorageState();
 Document document;
 
 String outBuf = null;
+String xoutBuf = null;
+
 Question entry=null;
 int lastInd=0;
+
+String iTimeString = null;
+String USER_PASS = "asd";
+String OWNER_PASS = "asdf";
+
 
 if (Environment.MEDIA_MOUNTED.equals(exStorageState)){
 	for (int current = 0; current < surveys.size(); current++) {
@@ -443,36 +456,54 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
 			int day = calendar.get(Calendar.DAY_OF_MONTH);
 			int month = calendar.get(Calendar.MONTH)+1;
 			int year = calendar.get(Calendar.YEAR);
+                iTimeString = year+"_"+month+"_"+day+"_"+minutes; 
 			// Test if the path exists
 			String surveyName[] =cSurvey.file.split("/");
 			String name;
+            // NAT the survay name !!!
 			name=surveyName[surveyName.length-1];
 		
-			String path = root+"/SurveyResults/"+day+"-"+month+"-"+year+"/"+name+"/";
+			//String path = root+"/SurveyResults/"+day+"-"+month+"-"+year+"/"+name+"/";
+			String path = root+"/SurveyResults/aTest/";
 			boolean exists = (new File(path).exists());
 			if (!exists) {new File(path).mkdirs();}
-			//AB
-			File logFile = new File(path+year+"-"+month+"-"+day+"-"+minutes+"-"+filename+".xls");
+			//AB ___.XLS.___ long write out
+            //--------------------------------------------------------------------------------
+			File logFile = new File(path+year+"-"+month+"-"+day+"-"+filename+"-"+name+".xls");
+			File xlogFile = new File(path+name+".csv");
+    		//if file doesnt exists, then create it
+    		if(!xlogFile.exists()){
+    			xlogFile.createNewFile();
+    		}
+            //--------------------------------------------------------------------------------
 			logFile.createNewFile();
+			// DEL xlogFile.createNewFile();
 			FileWriter logWriter = new FileWriter(logFile);
+			//FileWriter xlogWriter = new FileWriter(xlogFile);
 			BufferedWriter outer = new BufferedWriter(logWriter);
+			// BufferedWriter xouter = new BufferedWriter(xlogWriter);
 			outBuf="";
+			xoutBuf="";
+            xoutBuf+=iTimeString+";";
+            xoutBuf+=filename+";";
+            xoutBuf+=name+";";
 			// If not, create dirs
 			// AB File logFile = new File(path+year+"-"+month+"-"+day+"-"+minutes+"-"+filename+".xls");
 
-			
 			try {
-				//AB
-				PdfWriter.getInstance(document, new FileOutputStream(path+year+"-"+month+"-"+day+"-"+minutes+"-"+filename+".pdf"));
+                //--------------------------- // ---------------------------
+                //    OutputStream file = new FileOutputStream(new File("D:\\Test.pdf"));
+                //    Document document = new Document();
+                //    PdfWriter writer = PdfWriter.getInstance(document, file);
+                //    writer.setEncryption(USER_PASS.getBytes(), OWNER_PASS.getBytes(), PdfWriter.ALLOW_PRINTING, PdfWriter.ENCRYPTION_AES_128);
+                //--------------------------- // ---------------------------
+				PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(path+year+"-"+month+"-"+day+"-"+filename+"-"+name+".pdf"));
+                writer.setEncryption(USER_PASS.getBytes(), OWNER_PASS.getBytes(), PdfWriter.ALLOW_PRINTING, PdfWriter.ENCRYPTION_AES_128);
 			} catch (DocumentException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			// Write log entries to file
-
-			//
-			
-			
 			//
 			document.open();
 			ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -499,12 +530,14 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
 						{	
 							 score=entry.evaluator.evaluate(entry.equation);
 							 outBuf+=score+"\r\n";
+							 xoutBuf+=score+";";
 							 if(entry.name!=null)
 								 cSurvey.evaluator.putVariable(entry.name, score);
 							 document.add(new Paragraph(" \nQuestion "+(i+1)+") score:"+score+"\n\n"));
 						}	
 						else
 							outBuf+="null"+"\r\n";
+							//xoutBuf+="null"+"\r\n";
 					
 					document.add(element);
 					
@@ -527,10 +560,25 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
 		    overall=cSurvey.evaluator.evaluate(cSurvey.equation);
 			document.add(new Paragraph(" \nOverall Score: "+overall+"\n\n"));
 			}
+
+            ///
+            // xoutBuf+="\r\n";
+            ///
 			outer.write(outBuf);
 			outer.close();
+			//xouter.append(xoutBuf);
+		    //xouter.close();
 			document.close();
 			logWriter.close();
+			//xlogWriter.close();
+
+          // String csv =xlogFile;
+           CSVWriter writer = new CSVWriter(new FileWriter(xlogFile, true));
+           String [] record = xoutBuf.split(";");
+           writer.writeNext(record);
+          // XXX
+           writer.close();
+
 			
 			Toast.makeText(context, "Survey saved", Toast.LENGTH_SHORT).show();
 		} catch (IOException e) {
@@ -557,6 +605,7 @@ else{
 	//Toast.makeText(context, R.string.pp_omni_file_not_accessible, Toast.LENGTH_SHORT).show();
 }
 }
+//-----------------------------/YYY/---------------------------------------------  
 
 }
   

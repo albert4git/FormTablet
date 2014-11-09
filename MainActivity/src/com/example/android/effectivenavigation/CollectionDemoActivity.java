@@ -220,7 +220,7 @@ public class CollectionDemoActivity extends FragmentActivity {
             if (current==questions.size())
             {
          	   TextView questionText=(TextView) rootView.findViewById(R.id.text1);
-        			questionText.setText("Thank you!");
+        			questionText.setText(" Danke !");
          	   return rootView;
             }
             Question question=questions.get(current);
