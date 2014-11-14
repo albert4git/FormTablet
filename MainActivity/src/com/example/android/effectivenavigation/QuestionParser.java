@@ -359,7 +359,7 @@ public void saveToFile(String filename,Context context){
 				int month = calendar.get(Calendar.MONTH)+1;
 				int year = calendar.get(Calendar.YEAR);
                 // --------------------IRA---------------------------
-                    iTimeString = year+"_"+month+"_"+day+"_"+minutes; 
+                iTimeString = year+"_"+month+"_"+day+"-"+hours+minutes; 
 				// Test if the path exists
 				String surveyName[] =cSurvey.file.split("/");
 				String name;
@@ -423,7 +423,8 @@ public void saveToFile(String filename,Context context){
 	}
 }
 
-//-----------------------------/NAT/---------------------------------------------  
+//-NAT-/-NAT-/-NAT-/-NAT-/-NAT/-/-NAT-/-NAT-/-NAT-/-NAT-/-NAT/-/-NAT-/-NAT-/-NAT-/-NAT-/-NAT/-
+//-NAT-/-NAT-/-NAT-/-NAT-/-NAT/-/-NAT-/-NAT-/-NAT-/-NAT-/-NAT/-/-NAT-/-NAT-/-NAT-/-NAT-/-NAT/-
 
 public void saveToPdf(String filename,Context context) {
 String exStorageState = Environment.getExternalStorageState();
@@ -434,10 +435,20 @@ String xoutBuf = null;
 
 Question entry=null;
 int lastInd=0;
+int y=0;
+int sumScore=0;
 
 String iTimeString = null;
 String USER_PASS = "asd";
-String OWNER_PASS = "asdf";
+String OWNER_PASS = "asd";
+//------------------------------
+String xoutName ="";
+String xoutCont ="";
+String x1Box ="";
+String x2Box ="";
+String subScore ="";
+int csvFileInd=0;
+
 
 
 if (Environment.MEDIA_MOUNTED.equals(exStorageState)){
@@ -456,7 +467,7 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
 			int day = calendar.get(Calendar.DAY_OF_MONTH);
 			int month = calendar.get(Calendar.MONTH)+1;
 			int year = calendar.get(Calendar.YEAR);
-                iTimeString = year+"_"+month+"_"+day+"_"+minutes; 
+                iTimeString = year+"_"+month+"_"+day+"-"+hours+minutes; 
 			// Test if the path exists
 			String surveyName[] =cSurvey.file.split("/");
 			String name;
@@ -464,7 +475,7 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
 			name=surveyName[surveyName.length-1];
 		
 			//String path = root+"/SurveyResults/"+day+"-"+month+"-"+year+"/"+name+"/";
-			String path = root+"/SurveyResults/aTest/";
+			String path = root+"/SurveyResults/box/";
 			boolean exists = (new File(path).exists());
 			if (!exists) {new File(path).mkdirs();}
 			//AB ___.XLS.___ long write out
@@ -474,6 +485,7 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
     		//if file doesnt exists, then create it
     		if(!xlogFile.exists()){
     			xlogFile.createNewFile();
+                csvFileInd=1;
     		}
             //--------------------------------------------------------------------------------
 			logFile.createNewFile();
@@ -487,6 +499,10 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
             xoutBuf+=iTimeString+";";
             xoutBuf+=filename+";";
             xoutBuf+=name+";";
+            //-----------------------
+            xoutCont+="Datum-Zeit;";
+            xoutCont+="Name;";
+            xoutCont+="Formular;";
 			// If not, create dirs
 			// AB File logFile = new File(path+year+"-"+month+"-"+day+"-"+minutes+"-"+filename+".xls");
 
@@ -528,9 +544,26 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
 					{
 						if(entry.equation!=null)
 						{	
+                             //--------------------------------------------
+							 x1Box=entry.name+";";
+							 x2Box=entry.content+";";
+							 //xoutCont+=xCont+";";
+							 xoutName+=x1Box;
+							 xoutCont+=x2Box;
+                             //--------------------------------------------
 							 score=entry.evaluator.evaluate(entry.equation);
 							 outBuf+=score+"\r\n";
 							 xoutBuf+=score+";";
+                             //AAA
+                             subScore = score.substring(0,1);
+							 try {
+                              y = Integer.parseInt(subScore);
+							 } catch (NumberFormatException e) {
+                              //do something! anything to handle the exception.
+							 }
+                              sumScore+=y;
+                             //----------------------------------------------------
+
 							 if(entry.name!=null)
 								 cSurvey.evaluator.putVariable(entry.name, score);
 							 document.add(new Paragraph(" \nQuestion "+(i+1)+") score:"+score+"\n\n"));
@@ -561,9 +594,10 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
 			document.add(new Paragraph(" \nOverall Score: "+overall+"\n\n"));
 			}
 
-            ///
+            /// /// /// /// /// /// /// /// /// /// /// ///
+            // XXX
+              xoutBuf+= sumScore+";";
             // xoutBuf+="\r\n";
-            ///
 			outer.write(outBuf);
 			outer.close();
 			//xouter.append(xoutBuf);
@@ -572,12 +606,27 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
 			logWriter.close();
 			//xlogWriter.close();
 
-          // String csv =xlogFile;
-           CSVWriter writer = new CSVWriter(new FileWriter(xlogFile, true));
-           String [] record = xoutBuf.split(";");
-           writer.writeNext(record);
-          // XXX
-           writer.close();
+    		if(csvFileInd == 1 ){
+                xoutCont+= "Overall_Score;";
+                // String CSV =xlogFile;
+                CSVWriter writer3 = new CSVWriter(new FileWriter(xlogFile, true));
+                String [] record3 = xoutCont.split(";");
+                writer3.writeNext(record3);
+                writer3.close();
+			}
+                /// /// /// /// /// /// /// /// /// /// /// ///
+                // String CSV =xlogFile;
+                CSVWriter writer = new CSVWriter(new FileWriter(xlogFile, true));
+                String [] record = xoutBuf.split(";");
+                writer.writeNext(record);
+                writer.close();
+                //----------------------
+                /// /// /// /// /// /// /// /// /// /// /// ///
+                // CSVWriter writer2 = new CSVWriter(new FileWriter(xlogFile, true));
+                // String [] record2 = xoutName.split(";");
+                // writer.writeNext(record2);
+                // writer.close();
+                /// /// /// /// /// /// /// /// /// /// /// ///
 
 			
 			Toast.makeText(context, "Survey saved", Toast.LENGTH_SHORT).show();
