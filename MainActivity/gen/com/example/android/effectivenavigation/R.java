@@ -18,9 +18,11 @@ public final class R {
         public static final int ic_launcher=0x7f020001;
         public static final int lmu_background=0x7f020002;
         public static final int lmubanner=0x7f020003;
+        public static final int radio_pick_color=0x7f020004;
     }
     public static final class id {
-        public static final int demo_collection_button=0x7f070009;
+        public static final int demo_collection_button=0x7f07000b;
+        public static final int dign=0x7f07000a;
         public static final int imageView1=0x7f070004;
         public static final int inputs_layout=0x7f070005;
         public static final int main_layout=0x7f070002;
@@ -30,6 +32,7 @@ public final class R {
         public static final int pager_title_strip=0x7f070001;
         public static final int text1=0x7f070003;
         public static final int textView1=0x7f070007;
+        public static final int textView2=0x7f070009;
     }
     public static final class layout {
         public static final int activity_collection_demo=0x7f030000;

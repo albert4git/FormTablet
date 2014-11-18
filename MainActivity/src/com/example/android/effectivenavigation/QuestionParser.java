@@ -42,7 +42,7 @@ import android.os.Environment;
 import android.util.Xml;
 import android.widget.Toast;
 import au.com.bytecode.opencsv.CSVWriter;
-
+//=====================================================
 // DATE CHANGER FILE ! ToDo here
 public class QuestionParser {
     // We don't use namespaces
@@ -426,7 +426,7 @@ public void saveToFile(String filename,Context context){
 //-NAT-/-NAT-/-NAT-/-NAT-/-NAT/-/-NAT-/-NAT-/-NAT-/-NAT-/-NAT/-/-NAT-/-NAT-/-NAT-/-NAT-/-NAT/-
 //-NAT-/-NAT-/-NAT-/-NAT-/-NAT/-/-NAT-/-NAT-/-NAT-/-NAT-/-NAT/-/-NAT-/-NAT-/-NAT-/-NAT-/-NAT/-
 
-public void saveToPdf(String filename,Context context) {
+public void saveToPdf(String filename,String PatDign, Context context) {
 String exStorageState = Environment.getExternalStorageState();
 Document document;
 
@@ -444,8 +444,10 @@ String OWNER_PASS = "asd";
 //------------------------------
 String xoutName ="";
 String xoutCont ="";
+String xoutInpt ="";
 String x1Box ="";
 String x2Box ="";
+String x3Box ="";
 String subScore ="";
 int csvFileInd=0;
 
@@ -467,25 +469,28 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
 			int day = calendar.get(Calendar.DAY_OF_MONTH);
 			int month = calendar.get(Calendar.MONTH)+1;
 			int year = calendar.get(Calendar.YEAR);
-                iTimeString = year+"_"+month+"_"+day+"-"+hours+minutes; 
+                iTimeString = year+"_"+month+"_"+day+"-"+hours+"_"+minutes; 
 			// Test if the path exists
 			String surveyName[] =cSurvey.file.split("/");
-			String name;
-            // NAT the survay name !!!
-			name=surveyName[surveyName.length-1];
+			String pname;
+            // NAT the survay pname !!!
+			pname=surveyName[surveyName.length-1];
 		
-			//String path = root+"/SurveyResults/"+day+"-"+month+"-"+year+"/"+name+"/";
+			//String path = root+"/SurveyResults/"+day+"-"+month+"-"+year+"/"+pname+"/";
 			String path = root+"/SurveyResults/box/";
 			boolean exists = (new File(path).exists());
 			if (!exists) {new File(path).mkdirs();}
 			//AB ___.XLS.___ long write out
+			//AB ___.CSV.___ long write out
+			//AB ___.ZIP.?.___ long write out
             //--------------------------------------------------------------------------------
-			File logFile = new File(path+year+"-"+month+"-"+day+"-"+filename+"-"+name+".xls");
-			File xlogFile = new File(path+name+".csv");
+			File logFile = new File(path+year+"-"+month+"-"+day+"-"+filename+"-"+pname+".xls");
+			File xlogFile = new File(path+pname+".csv");
     		//if file doesnt exists, then create it
     		if(!xlogFile.exists()){
     			xlogFile.createNewFile();
                 csvFileInd=1;
+                xoutBuf="";
     		}
             //--------------------------------------------------------------------------------
 			logFile.createNewFile();
@@ -495,14 +500,28 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
 			BufferedWriter outer = new BufferedWriter(logWriter);
 			// BufferedWriter xouter = new BufferedWriter(xlogWriter);
 			outBuf="";
+            //-----------------------
 			xoutBuf="";
             xoutBuf+=iTimeString+";";
             xoutBuf+=filename+";";
-            xoutBuf+=name+";";
+            xoutBuf+=PatDign+";";
+            xoutBuf+=pname+";";
             //-----------------------
             xoutCont+="Datum-Zeit;";
             xoutCont+="Name;";
+            xoutCont+="Diagnose;";
             xoutCont+="Formular;";
+            //-----------------------
+			xoutName="";
+            xoutName+=iTimeString+";";
+            xoutName+=filename+";";
+            xoutName+=pname+";";
+            //-----------------------
+			xoutInpt="";
+            xoutInpt+=iTimeString+";";
+            xoutInpt+=filename+";";
+            xoutInpt+=pname+";";
+            //-----------------------
 			// If not, create dirs
 			// AB File logFile = new File(path+year+"-"+month+"-"+day+"-"+minutes+"-"+filename+".xls");
 
@@ -513,7 +532,7 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
                 //    PdfWriter writer = PdfWriter.getInstance(document, file);
                 //    writer.setEncryption(USER_PASS.getBytes(), OWNER_PASS.getBytes(), PdfWriter.ALLOW_PRINTING, PdfWriter.ENCRYPTION_AES_128);
                 //--------------------------- // ---------------------------
-				PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(path+year+"-"+month+"-"+day+"-"+filename+"-"+name+".pdf"));
+				PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(path+year+"-"+month+"-"+day+"-"+filename+"-"+pname+".pdf"));
                 writer.setEncryption(USER_PASS.getBytes(), OWNER_PASS.getBytes(), PdfWriter.ALLOW_PRINTING, PdfWriter.ENCRYPTION_AES_128);
 			} catch (DocumentException e) {
 				// TODO Auto-generated catch block
@@ -547,9 +566,11 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
                              //--------------------------------------------
 							 x1Box=entry.name+";";
 							 x2Box=entry.content+";";
-							 //xoutCont+=xCont+";";
+							 // x3Box=entry.RadioGroup+";";
+							 //-------------------------
 							 xoutName+=x1Box;
 							 xoutCont+=x2Box;
+							 xoutInpt+=x3Box;
                              //--------------------------------------------
 							 score=entry.evaluator.evaluate(entry.equation);
 							 outBuf+=score+"\r\n";
@@ -595,37 +616,41 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
 			}
 
             /// /// /// /// /// /// /// /// /// /// /// ///
-            // XXX
-              xoutBuf+= sumScore+";";
-            // xoutBuf+="\r\n";
-			outer.write(outBuf);
-			outer.close();
+            //xoutBuf+="\r\n";
 			//xouter.append(xoutBuf);
 		    //xouter.close();
+			//xlogWriter.close();
+			outer.write(outBuf);
+			outer.close();
 			document.close();
 			logWriter.close();
-			//xlogWriter.close();
 
     		if(csvFileInd == 1 ){
+                /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///
+                // String CSV =xlogFile; Header Writer 
                 xoutCont+= "Overall_Score;";
-                // String CSV =xlogFile;
                 CSVWriter writer3 = new CSVWriter(new FileWriter(xlogFile, true));
                 String [] record3 = xoutCont.split(";");
                 writer3.writeNext(record3);
                 writer3.close();
+                xoutCont="";
 			}
-                /// /// /// /// /// /// /// /// /// /// /// ///
-                // String CSV =xlogFile;
+                /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///
+                // String CSV =xlogFile; The Content write out 
+                xoutBuf+= sumScore+";";
                 CSVWriter writer = new CSVWriter(new FileWriter(xlogFile, true));
                 String [] record = xoutBuf.split(";");
                 writer.writeNext(record);
                 writer.close();
+                xoutBuf="";
+
                 //----------------------
-                /// /// /// /// /// /// /// /// /// /// /// ///
+                /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///
                 // CSVWriter writer2 = new CSVWriter(new FileWriter(xlogFile, true));
-                // String [] record2 = xoutName.split(";");
-                // writer.writeNext(record2);
-                // writer.close();
+                // String [] record2 = xoutInpt.split(";");
+                // writer2.writeNext(record2);
+                // writer2.close();
+                // xoutInpt="";
                 /// /// /// /// /// /// /// /// /// /// /// ///
 
 			

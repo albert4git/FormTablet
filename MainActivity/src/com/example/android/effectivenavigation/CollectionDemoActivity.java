@@ -63,6 +63,7 @@ public class CollectionDemoActivity extends FragmentActivity {
      */
     DemoCollectionPagerAdapter mDemoCollectionPagerAdapter;
     public QuestionParser Qparser;
+
     /**
      * The {@link android.support.v4.view.ViewPager} that will display the object collection.
      */
@@ -77,6 +78,7 @@ public class CollectionDemoActivity extends FragmentActivity {
         
         
          Qparser=new QuestionParser(data.file);
+
         //FileInputStream in = null;
         
 			
@@ -85,32 +87,11 @@ public class CollectionDemoActivity extends FragmentActivity {
 //			stream = new FileInputStream();//new FileInputStream(data.file);
         questions=new ArrayList();
         questions=Qparser.parseAll(data.file);
-//			try {
-//			
-//				
-//			} catch (XmlPullParserException e) {
-//				// TODO Auto-generated catch block
-//				System.out.print("hata");
-//		
-//				e.printStackTrace();
-//				
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} 
 
-        
-       
-		
-        // Create an adapter that when requested, will return a fragment representing an object in
-        // the collection.
         // 
         // ViewPager and its adapters use support library fragments, so we must use
         // getSupportFragmentManager.
         mDemoCollectionPagerAdapter = new DemoCollectionPagerAdapter(getSupportFragmentManager());
-
-        // Set up action bar.
-       //final ActionBar actionBar = getActionBar();
 
         // Specify that the Home button should show an "Up" caret, indicating that touching the
         // button will take the user one step up in the application's hierarchy.
@@ -126,8 +107,9 @@ public class CollectionDemoActivity extends FragmentActivity {
 				
 				  if(mViewPager.getCurrentItem()==questions.size())
 		            {
-		            CollectionDemoActivity.this.Qparser.saveToPdf(data.name,mViewPager.getContext());
-		        	System.out.println("It works");
+					// DIGN ? //
+		            CollectionDemoActivity.this.Qparser.saveToPdf(data.name , data.dign ,mViewPager.getContext());
+		        	System.out.println("Qparser, mydata, data,  works ? Albert ");
 		            }
 			}
 			

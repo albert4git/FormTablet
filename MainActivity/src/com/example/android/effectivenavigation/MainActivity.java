@@ -62,6 +62,8 @@ import android.widget.Toast;
 public class MainActivity extends Activity{
 	private static final int REQUEST_CODE = 6384; // onActivityResult request code
 	private EditText subjectName;
+	private EditText subjectDign;
+
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -98,6 +100,7 @@ public class MainActivity extends Activity{
         label.setText(result);
         l.addView(label);
         subjectName = (EditText) findViewById(R.id.name);
+        subjectDign = (EditText) findViewById(R.id.dign);
         Button btn=(Button) findViewById(R.id.demo_collection_button);
          
         
@@ -133,6 +136,7 @@ public class MainActivity extends Activity{
                                      Mydata data1=new Mydata();
                                      data1.file=chosenDir;
                                      data1.name=subjectName.getText().toString();
+                                     data1.dign=subjectDign.getText().toString();
                                        intent.putExtra("Mydata", data1);
                                      startActivity(intent);
                                     }
@@ -153,22 +157,4 @@ public class MainActivity extends Activity{
         //  l.addView(btn);
                
         
-       
-        
-
-	
-	
-
-    
-
-
-
-
-
-    
-
-
-
-
-
 }
