@@ -132,6 +132,8 @@ public class QuestionParser {
 // Parses the contents of an entry. If it encounters a title, summary, or link tag, hands them off
 // to their respective "read" methods for processing. Otherwise, skips the tag.
 private Question readQuestion(XmlPullParser parser) throws XmlPullParserException, IOException {
+	//Toast.makeText(context, "ElementType :"+type, Toast.LENGTH_LONG).show();
+
     parser.require(XmlPullParser.START_TAG, ns, "question");
     int id = 0;
     String content = null;
@@ -151,6 +153,10 @@ private Question readQuestion(XmlPullParser parser) throws XmlPullParserExceptio
 		// TODO: handle exception
 	}
    
+                     		//Toast.makeText(getApplicationContext(), "msg msg", Toast.LENGTH_SHORT).show();
+                     		// The TOSTER
+                     		//display in long period of time
+                     		//Toast.makeText(getApplicationContext(), x1Box+" msg msg "+ x2Box, Toast.LENGTH_LONG).show();
     while (parser.next() != XmlPullParser.END_TAG) {
         if (parser.getEventType() != XmlPullParser.START_TAG) {
             continue;
@@ -201,6 +207,8 @@ private InputElement readInput(XmlPullParser parser,Question question) throws IO
 	
 	else if(type.equals("radio"))
 	{
+ 		// Toast.makeText(getApplicationContext(), question+" RADIO ", Toast.LENGTH_SHORT).show();
+		// Toast.makeText(context, "ElementType :"+type, Toast.LENGTH_LONG).show();
 		return readRadio(parser,question);
 	}
 	
@@ -439,9 +447,12 @@ int y=0;
 int sumScore=0;
 
 String iTimeString = null;
-String USER_PASS = "asd";
-String OWNER_PASS = "asd";
+String USER_PASS = "Nussbaum7";
+String OWNER_PASS ="Nussbaum7";
 //------------------------------
+String tBuf ="";
+
+
 String xoutName ="";
 String xoutCont ="";
 String xoutInpt ="";
@@ -449,7 +460,13 @@ String x1Box ="";
 String x2Box ="";
 String x3Box ="";
 String subScore ="";
+String ssumScore = filename ;
+
 int csvFileInd=0;
+//0000000000000000000000
+File rootA = Environment.getExternalStorageDirectory();  // getExternalStorageDirectory();
+String pathA = rootA+"/SurveyResults/";
+File xxlogFile = new File(pathA+"history.csv");
 
 
 
@@ -500,6 +517,12 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
 			BufferedWriter outer = new BufferedWriter(logWriter);
 			// BufferedWriter xouter = new BufferedWriter(xlogWriter);
 			outBuf="";
+            //-----------------------
+			tBuf="";
+            tBuf+=iTimeString+";";
+            tBuf+=filename+";";
+            tBuf+=PatDign+";";
+            tBuf+=pname+";";
             //-----------------------
 			xoutBuf="";
             xoutBuf+=iTimeString+";";
@@ -571,6 +594,17 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
 							 xoutName+=x1Box;
 							 xoutCont+=x2Box;
 							 xoutInpt+=x3Box;
+							 
+							/// Toast.makeText(saveToPdf.this, "This is: " + x1Box, x2Box).show();
+                     		/// Toast.makeText(saveToPdf.this, "Bitte geben Sie einen vollst?ndigen Namen", Toast.LENGTH_LONG).show();
+                     		
+							//display in short period of time
+                     		//Toast.makeText(getApplicationContext(), "msg msg", Toast.LENGTH_SHORT).show();
+                     		// The TOSTER
+                     		//display in long period of time
+                     		//Toast.makeText(getApplicationContext(), x1Box+" msg msg "+ x2Box, Toast.LENGTH_LONG).show();
+
+                     
                              //--------------------------------------------
 							 score=entry.evaluator.evaluate(entry.equation);
 							 outBuf+=score+"\r\n";
@@ -669,17 +703,47 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
-	}
+		ssumScore= tBuf+";"+sumScore;
+		try {
+			//if file doesnt exists, then create it
+			if(!xxlogFile.exists()){
+				xxlogFile.createNewFile();
+			    csvFileInd=2;
+			}
 
+			CSVWriter writer5 = new CSVWriter(new FileWriter(xxlogFile, true));
+			String [] record5 = ssumScore.split(";");
+			writer5.writeNext(record5);
+			writer5.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//00000000000000000000000000000000
+		
+	}
+	//==============================================================================
+
+	
 }
 else{
 	//FAIL
 	System.out.println("File not accessible");
 	//Toast.makeText(context, R.string.pp_omni_file_not_accessible, Toast.LENGTH_SHORT).show();
 }
+
 }
 //-----------------------------/YYY/---------------------------------------------  
+
+
+
+
+
+private Context getApplicationContext() {
+	// TODO Auto-generated method stub
+	return null;
+}
 
 }
   
