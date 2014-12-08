@@ -16,10 +16,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+            android:background="#777777"
     android:orientation="vertical" >
 
 <LinearLayout
     android:id="@+id/main_layout"
+    android:background="#777777"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_below="@android:id/text1"
@@ -27,4 +29,6 @@
     android:orientation="horizontal" >
 
 </LinearLayout>
+
+
 </RelativeLayout>
