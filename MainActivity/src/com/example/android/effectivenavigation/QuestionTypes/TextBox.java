@@ -14,6 +14,7 @@ import android.widget.RadioButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.app.Activity;
 import android.content.res.Resources;
 import java.io.BufferedInputStream;
@@ -43,6 +44,7 @@ public class TextBox extends InputElement implements TextWatcher
 
 	@Override
 	public View display(Activity context) {
+		// Toast.makeText(context, " textbox :", Toast.LENGTH_LONG).show();
 		 textbox = new EditText(context);
 		 textbox.setSingleLine();
 		 textbox.addTextChangedListener(this);

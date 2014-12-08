@@ -40,6 +40,7 @@ import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -55,6 +56,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,22 +71,22 @@ public class MainActivity extends Activity{
     public void onCreate(Bundle savedInstanceState) {
         //super.onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
+        //Creation theory !!!
+        //setContentView(R.layout.activity_collection_demo);
 
-
-        setContentView(R.layout.fragment_section_launchpad);
-
-      
-     // final ActionBar actionBar = getActionBar();
-
+       setContentView(R.layout.fragment_section_launchpad);
+      // setContentView(R.layout.my_table);
+        // final TableLayout table = (TableLayout) findViewById(R.id.tableLayout1);
+        // setContentView(R.layout.setBackgroundColor(Color.RED));
+        // set the background to green     
+        // final ActionBar actionBar = getActionBar();
         // Specify that the Home/Up button should not be enabled, since there is no hierarchical
         // parent.
-  // actionBar.setHomeButtonEnabled(false);
-
-       
- 
-
+        // actionBar.setHomeButtonEnabled(false);
         // Demonstration of a collection-browsing activity.
+        
         LinearLayout l=(LinearLayout) findViewById(R.id.mainlayout);
+        l.setBackgroundColor(Color.DKGRAY);
         TextView label= new TextView(this);
 
        
@@ -111,8 +113,8 @@ public class MainActivity extends Activity{
                            
                             @Override
                             public void onClick(View v) 
-                            {
-                            	
+                            {   // RED button on click ??
+                            	v.setBackgroundColor(Color.RED);
                             	System.out.println(subjectName.getText().toString());
                             	if(subjectName.getText().toString().contentEquals(""))
                             	{
@@ -129,7 +131,7 @@ public class MainActivity extends Activity{
                                     {
                                         m_chosenDir = chosenDir;
                                         Toast.makeText(
-                                        		MainActivity.this, "Chosen directory: " + 
+                                        		MainActivity.this, "This is chosen directory: " + 
                                           chosenDir, Toast.LENGTH_LONG).show();
                                         
                                      	Intent intent = new Intent(MainActivity.this, CollectionDemoActivity.class);

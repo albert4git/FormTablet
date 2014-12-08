@@ -15,6 +15,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.app.Activity;
 import android.content.res.Resources;
+import android.graphics.Color;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -38,6 +40,7 @@ public abstract class InputElement  {
 	public InputElement(Question question)
 	{
 		this.question=question;
+
 	}
 	public abstract View display(Activity context);
 	public abstract String writeData();

@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnKeyListener;
+import android.graphics.Color;
 import android.os.Environment;
 import android.text.Editable;
 import android.view.Gravity;
@@ -236,6 +237,8 @@ private AlertDialog.Builder createDirectoryChooserDialog(String title, List<Stri
     // Current directory TextView allows long directory path to be wrapped to multiple lines.
     LinearLayout titleLayout = new LinearLayout(m_context);
     titleLayout.setOrientation(LinearLayout.VERTICAL);
+    //titleLayout.setBackgroundColor(Color.RED);
+
 
     m_titleView = new TextView(m_context);
     m_titleView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));

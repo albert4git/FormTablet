@@ -37,9 +37,9 @@ public String text;
 	public View display(Activity context) {
 		TextView label = new TextView(context);
 		label.setText(text);
-	label.setTextSize(35);
-label.setPadding(5, 5, 5, 5);
-	
+	    label.setTextSize(35);
+        label.setPadding(5, 5, 5, 5);
+
 		return label;
 	}
 

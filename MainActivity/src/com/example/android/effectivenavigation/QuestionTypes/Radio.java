@@ -14,6 +14,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.app.Activity;
 import android.content.res.Resources;
+import android.graphics.Color;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -43,13 +45,16 @@ public class Radio extends InputElement {
 	public View display(Activity context) {
 		 radio = new RadioButton(context);
 		radio.setText(text);
+        radio.setBackgroundColor(Color.rgb(77, 77, 77));
+        //radio.setHeight(15);
+        //radio.setWidth(15);
 		radio.setTag(this);
 		radio.setOnClickListener(this.question.RadioGroup);
 		if (val!=null)
 		{
 		 radio.setChecked((Boolean.valueOf(val)));
 		}
-		radio.setTextSize(40);
+		radio.setTextSize(35);
 		return radio;
 	}
 

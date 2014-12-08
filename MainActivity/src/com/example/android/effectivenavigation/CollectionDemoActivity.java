@@ -17,6 +17,7 @@
 package com.example.android.effectivenavigation;
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -33,7 +34,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.content.res.Resources;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -52,8 +55,13 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import com.example.android.effectivenavigation.QuestionTypes.*;
 import com.example.android.effectivenavigation.QuestionParser.*;
-public class CollectionDemoActivity extends FragmentActivity {
 
+
+
+public class CollectionDemoActivity extends FragmentActivity {
+	// DISPLAY GOGO
+	//Toast.makeText(context, " DiiiSPLAY :", Toast.LENGTH_LONG).show();
+	
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide fragments representing
      * each object in a collection. We use a {@link android.support.v4.app.FragmentStatePagerAdapter}
@@ -73,6 +81,8 @@ public class CollectionDemoActivity extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collection_demo);
+        // final TableLayout table = (TableLayout) findViewById(R.id.tableLayout1);
+
         Intent intent=getIntent();
         data= (Mydata) intent.getSerializableExtra("Mydata");
         
@@ -80,7 +90,6 @@ public class CollectionDemoActivity extends FragmentActivity {
          Qparser=new QuestionParser(data.file);
 
         //FileInputStream in = null;
-        
 			
          BufferedInputStream buffer = null;
 //         buffer= new BufferedInputStream(this.getResources().openRawResource(R.raw.bdi)); 
@@ -95,13 +104,13 @@ public class CollectionDemoActivity extends FragmentActivity {
 
         // Specify that the Home button should show an "Up" caret, indicating that touching the
         // button will take the user one step up in the application's hierarchy.
-       // actionBar.setDisplayHomeAsUpEnabled(true);
-
+        // actionBar.setDisplayHomeAsUpEnabled(true);
         // Set up the ViewPager, attaching the adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mDemoCollectionPagerAdapter);
         OnPageChangeListener listener= new OnPageChangeListener() {
-			
+            // ?? setPageView(R.layout.activity_collection_demo);
+
 			@Override
 			public void onPageSelected(int arg0) {
 				
@@ -110,6 +119,8 @@ public class CollectionDemoActivity extends FragmentActivity {
 					// DIGN ? //
 		            CollectionDemoActivity.this.Qparser.saveToPdf(data.name , data.dign ,mViewPager.getContext());
 		        	System.out.println("Qparser, mydata, data,  works ? Albert ");
+		    		// DISPLAY GOGO nach dem Save Datat ...
+		    		// Toast.makeText(getBaseContext(), " ViewPager DISPLAY :", Toast.LENGTH_LONG).show();
 		            }
 			}
 			
@@ -158,6 +169,10 @@ public class CollectionDemoActivity extends FragmentActivity {
      * A {@link android.support.v4.app.FragmentStatePagerAdapter} that returns a fragment
      * representing an object in the collection.
      */
+    // GOGOGO
+  	// DISPLAY GOGO
+	// Toast.makeText(getBaseContext(), " textbox :", Toast.LENGTH_LONG).show();
+	// Toast.makeText(context, " textbox :", Toast.LENGTH_LONG).show();
     public static class DemoCollectionPagerAdapter extends FragmentStatePagerAdapter {
 
         public DemoCollectionPagerAdapter(FragmentManager fm) {
@@ -166,6 +181,7 @@ public class CollectionDemoActivity extends FragmentActivity {
 
         @Override
         public Fragment getItem(int i) {
+ 	
             Fragment fragment = new DemoObjectFragment();
             Bundle args = new Bundle();
             args.putInt(DemoObjectFragment.ARG_OBJECT, i + 1); // Our object is just an integer :-P
@@ -181,8 +197,10 @@ public class CollectionDemoActivity extends FragmentActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return "Question " + (position + 1);
+
+            return "Frage " + (position + 1);
         }
+      	// DISPLAY GOGO
     }
 
     /**
@@ -202,7 +220,7 @@ public class CollectionDemoActivity extends FragmentActivity {
             if (current==questions.size())
             {
          	   TextView questionText=(TextView) rootView.findViewById(R.id.text1);
-        			questionText.setText(" Danke !");
+        			questionText.setText(" Vielen dank !");
          	   return rootView;
             }
             Question question=questions.get(current);
