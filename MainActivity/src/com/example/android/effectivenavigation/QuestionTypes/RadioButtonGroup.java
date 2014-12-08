@@ -28,7 +28,7 @@ import java.util.List;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
-public class RadioButtonGroup implements OnClickListener
+public class RadioButtonGroup implements OnClickListener 
 {
 	List <ArrayList<Radio>> groups;
 	List <InputElement> childs;
@@ -41,10 +41,11 @@ public class RadioButtonGroup implements OnClickListener
 	public void addToGroup(Radio radio)
 	{
 		int g=radio.group;
-		if(groups.size()<g)
+		if(groups.size()<g) 
 		{
 			for (int i = 0; i<g; i++) {
 				groups.add(new ArrayList<Radio>());
+
 			}
 		
 		}
@@ -60,17 +61,26 @@ public class RadioButtonGroup implements OnClickListener
 		radio= (RadioButton) v;
 		radioCont=(Radio) v.getTag();
 		List<Radio> group=groups.get(radioCont.group-1);
+	
+		
 		for (Radio myradio : group) {
+			myradio.isGroupValidated=true;
 			myradio.radio.setChecked(false);
 			myradio.val="false";
 		}
+		
 		
 		radio.setChecked(true);
 		radioCont.val="true";
 	
 		
 	}
-	
-	
+
+
+
+
+
+
+
 
 }
