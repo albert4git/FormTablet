@@ -11,68 +11,50 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int blue=0x7f090002;
-        public static final int green=0x7f090001;
-        public static final int red=0x7f090000;
+        public static final int blue=0x7f070002;
+        public static final int green=0x7f070001;
+        public static final int red=0x7f070000;
     }
     public static final class dimen {
-        public static final int mydimension=0x7f060000;
+        public static final int mydimension=0x7f050000;
     }
     public static final class drawable {
         public static final int banner=0x7f020000;
-        public static final int button=0x7f020001;
-        public static final int button_radio=0x7f020002;
-        public static final int cell_shape=0x7f020003;
-        public static final int ic_launcher=0x7f020004;
-        public static final int lmu_background=0x7f020005;
-        public static final int lmubanner=0x7f020006;
-        public static final int radio_off=0x7f020007;
-        public static final int radio_off_pressed=0x7f020008;
-        public static final int radio_on=0x7f020009;
-        public static final int radio_on_pressed=0x7f02000a;
-        public static final int radio_pick_color=0x7f02000b;
+        public static final int ic_launcher=0x7f020001;
+        public static final int lmu_background=0x7f020002;
+        public static final int lmubanner=0x7f020003;
     }
     public static final class id {
-        public static final int demo_collection_button=0x7f0a000b;
-        public static final int dign=0x7f0a000a;
-        public static final int imageView1=0x7f0a0004;
-        public static final int inputs_layout=0x7f0a0005;
-        public static final int linearLayout1=0x7f0a000c;
-        public static final int main_layout=0x7f0a0002;
-        public static final int mainlayout=0x7f0a0006;
-        public static final int name=0x7f0a0008;
-        public static final int pager=0x7f0a0000;
-        public static final int pager_title_strip=0x7f0a0001;
-        public static final int tableLayout1=0x7f0a000d;
-        public static final int text1=0x7f0a0003;
-        public static final int textView1=0x7f0a0007;
-        public static final int textView2=0x7f0a0009;
+        public static final int demo_collection_button=0x7f08000b;
+        public static final int dign=0x7f08000a;
+        public static final int imageView1=0x7f080004;
+        public static final int inputs_layout=0x7f080005;
+        public static final int main_layout=0x7f080002;
+        public static final int mainlayout=0x7f080006;
+        public static final int name=0x7f080008;
+        public static final int pager=0x7f080000;
+        public static final int pager_title_strip=0x7f080001;
+        public static final int text1=0x7f080003;
+        public static final int textView1=0x7f080007;
+        public static final int textView2=0x7f080009;
     }
     public static final class layout {
         public static final int activity_collection_demo=0x7f030000;
         public static final int activity_main=0x7f030001;
-        public static final int custom_checkbox_layout=0x7f030002;
-        public static final int demo2=0x7f030003;
-        public static final int fragment_collection_object=0x7f030004;
-        public static final int fragment_section_dummy=0x7f030005;
-        public static final int fragment_section_launchpad=0x7f030006;
-        public static final int my_table=0x7f030007;
+        public static final int demo2=0x7f030002;
+        public static final int fragment_collection_object=0x7f030003;
+        public static final int fragment_section_dummy=0x7f030004;
+        public static final int fragment_section_launchpad=0x7f030005;
     }
     public static final class raw {
-        public static final int bdi=0x7f050000;
-        public static final int haendigkeitsfragebogen=0x7f050001;
-        public static final int sociodemographical_data=0x7f050002;
+        public static final int bdi=0x7f040000;
+        public static final int haendigkeitsfragebogen=0x7f040001;
+        public static final int sociodemographical_data=0x7f040002;
     }
     public static final class string {
-        public static final int app_name=0x7f080000;
-        public static final int chooser_title=0x7f080003;
-        public static final int demo_collection=0x7f080002;
-        public static final int dummy_section_text=0x7f080001;
-    }
-    public static final class style {
-        public static final int MyRadioButtonStyle=0x7f070000;
-    }
-    public static final class xml {
-        public static final int mypreference=0x7f040000;
+        public static final int app_name=0x7f060000;
+        public static final int chooser_title=0x7f060003;
+        public static final int demo_collection=0x7f060002;
+        public static final int dummy_section_text=0x7f060001;
     }
 }

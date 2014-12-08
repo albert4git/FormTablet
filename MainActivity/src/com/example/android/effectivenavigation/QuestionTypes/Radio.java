@@ -36,6 +36,7 @@ public class Radio extends InputElement {
 	public RadioButton radio;
 	public String coef=null;
 	public String name=null;
+	public boolean isGroupValidated=false;
 	public Radio(Question question) {
 		super(question);
 		
@@ -90,6 +91,11 @@ public class Radio extends InputElement {
 		if(Boolean.valueOf(val))
 		outBuf+="X";
 		return outBuf;
+	}
+	@Override
+	public boolean validate()
+	{
+	return this.isGroupValidated;
 	}
 	
 }

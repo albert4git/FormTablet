@@ -209,23 +209,31 @@ public class CollectionDemoActivity extends FragmentActivity {
     public static class DemoObjectFragment extends Fragment {
 
         public static final String ARG_OBJECT = "question";
-
+        private int current=0;
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_collection_object, container, false);
             Bundle args = getArguments();
             String content;
-            int current=args.getInt(ARG_OBJECT)-1;
+           // int current=args.getInt(ARG_OBJECT)-1;
             if (current==questions.size())
             {
          	   TextView questionText=(TextView) rootView.findViewById(R.id.text1);
         			questionText.setText(" Vielen dank !");
          	   return rootView;
             }
+            if(current!=0)
+            {
+             Question previousQuestion=questions.get(current-1);
+             if(previousQuestion.validate()==false)
+            	current=-1;
+            }
             Question question=questions.get(current);
-          
+            current=+1;
             return  question.display(getActivity(),rootView);
+         
+     
         }
 
 

@@ -45,6 +45,10 @@ public abstract class InputElement  {
 	public abstract View display(Activity context);
 	public abstract String writeData();
 	public abstract String writeDataToPdf();
+	public boolean validate()
+	{
+	return val==null;
+	}
 	
 	
 }

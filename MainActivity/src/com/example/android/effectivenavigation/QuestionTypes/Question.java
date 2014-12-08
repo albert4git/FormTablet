@@ -113,8 +113,8 @@ public class Question
 		TableRow tr = null;
 		  cellLp.topMargin = 2;  
 		  cellLp.rightMargin = 2;  
-		  cellLp.setMarginEnd(2);
-		  cellLp.setMarginStart(0);
+	//	  cellLp.setMarginEnd(2);
+	//	  cellLp.setMarginStart(0);
 
 	    
 		for (int i = 0; i < inputs.size(); i++) 
@@ -208,7 +208,19 @@ public class Question
 	
 	
 	
-}
 
+	
+	public boolean validate()
+	{
+		boolean finalValidation=true;
+		for(InputElement input:inputs)
+		{
+		 finalValidation =finalValidation & input.validate();	
+		}
+		return finalValidation;
+		
+	
+	}
+}
 
 
