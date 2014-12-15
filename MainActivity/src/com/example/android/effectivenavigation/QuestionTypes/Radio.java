@@ -96,6 +96,8 @@ public class Radio extends InputElement {
 	public boolean validate()
 	{
 	return this.isGroupValidated;
+	// System.out.println("error in popup");
+
 	}
 	
 }

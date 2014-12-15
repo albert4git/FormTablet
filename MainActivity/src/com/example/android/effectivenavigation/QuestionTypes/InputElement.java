@@ -47,7 +47,7 @@ public abstract class InputElement  {
 	public abstract String writeDataToPdf();
 	public boolean validate()
 	{
-	return val==null;
+	return val!=null;
 	}
 	
 	

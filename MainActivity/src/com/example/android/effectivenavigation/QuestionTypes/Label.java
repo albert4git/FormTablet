@@ -30,6 +30,7 @@ public class Label extends InputElement {
 public String text;
 	public Label(Question question) {
 		super(question);
+		val="f";
 		// TODO Auto-generated constructor stub
 	}
 

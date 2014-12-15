@@ -28,6 +28,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -78,6 +79,9 @@ public class CollectionDemoActivity extends FragmentActivity {
     ViewPager mViewPager;
     Mydata data;
     static List <Question> questions;
+    static int current=0;
+    static int oldFragment=0;
+    
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collection_demo);
@@ -209,13 +213,18 @@ public class CollectionDemoActivity extends FragmentActivity {
     public static class DemoObjectFragment extends Fragment {
 
         public static final String ARG_OBJECT = "question";
-        private int current=0;
+       
+      
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_collection_object, container, false);
             Bundle args = getArguments();
             String content;
+            Log.w("okan", "current is:"+current);
+            
+             int currentFragment =args.getInt(ARG_OBJECT)-1;
+             	
            // int current=args.getInt(ARG_OBJECT)-1;
             if (current==questions.size())
             {
@@ -227,10 +236,16 @@ public class CollectionDemoActivity extends FragmentActivity {
             {
              Question previousQuestion=questions.get(current-1);
              if(previousQuestion.validate()==false)
-            	current=-1;
-            }
+            	current-=1;
+                currentFragment -=1;
+                Log.w("albert", "currentFragment:"+currentFragment);
+             
+                }
             Question question=questions.get(current);
-            current=+1;
+            // current+=currentFragment-oldFragment;//forward back swipe ??
+
+            current+=1;//forward swipe
+            oldFragment=currentFragment;
             return  question.display(getActivity(),rootView);
          
      
