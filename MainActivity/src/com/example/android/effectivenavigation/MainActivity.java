@@ -17,7 +17,9 @@
 package com.example.android.effectivenavigation;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,16 +41,19 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,7 +79,8 @@ public class MainActivity extends Activity{
         //Creation theory !!!
         //setContentView(R.layout.activity_collection_demo);
 
-       setContentView(R.layout.fragment_section_launchpad);
+          setContentView(R.layout.fragment_section_launchpad);
+		
       // setContentView(R.layout.my_table);
         // final TableLayout table = (TableLayout) findViewById(R.id.tableLayout1);
         // setContentView(R.layout.setBackgroundColor(Color.RED));
@@ -85,6 +91,7 @@ public class MainActivity extends Activity{
         // actionBar.setHomeButtonEnabled(false);
         // Demonstration of a collection-browsing activity.
         
+       
         LinearLayout l=(LinearLayout) findViewById(R.id.mainlayout);
         l.setBackgroundColor(Color.DKGRAY);
         TextView label= new TextView(this);
@@ -101,11 +108,14 @@ public class MainActivity extends Activity{
 		}
         label.setText(result);
         l.addView(label);
+        //-----check-------
+
+    	
         subjectName = (EditText) findViewById(R.id.name);
         subjectDign = (EditText) findViewById(R.id.dign);
+   
         Button btn=(Button) findViewById(R.id.demo_collection_button);
-         
-        
+                 
                btn.setOnClickListener(new View.OnClickListener() {
                   
                             private String m_chosenDir = "";
@@ -114,11 +124,18 @@ public class MainActivity extends Activity{
                             @Override
                             public void onClick(View v) 
                             {   // RED button on click ??
-                            	v.setBackgroundColor(Color.RED);
+                            	
+                          	
+                            	///
+                            	v.setBackgroundColor(Color.GRAY);
                             	System.out.println(subjectName.getText().toString());
+                            	Calendar now = Calendar.getInstance();
+                            	int iYear=now.get(Calendar.YEAR);	
+                            	// ---==i==---                                   	
+                            	
                             	if(subjectName.getText().toString().contentEquals(""))
                             	{
-                            		Toast.makeText(MainActivity.this, "Bitte geben Sie einen vollständigen Namen", Toast.LENGTH_LONG).show();
+                            		Toast.makeText(MainActivity.this, "Bitte geben Sie einen vollständigen Namen !", Toast.LENGTH_LONG).show();
                             		return;
                             	}	
                                 // Create DirectoryChooserDialog and register a callback 

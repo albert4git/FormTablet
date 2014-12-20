@@ -5,9 +5,12 @@ package com.example.android.effectivenavigation.directorychooser;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import com.example.android.effectivenavigation.MainActivity;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -46,22 +49,53 @@ public class DirectoryChooserDialog
     //////////////////////////////////////////////////////
     public interface ChosenDirectoryListener 
     {
+   
         public void onChosenDir(String chosenDir);
     }
 
     public DirectoryChooserDialog(Context context, ChosenDirectoryListener chosenDirectoryListener)
     {
-        m_context = context;
-        m_sdcardDirectory = Environment.getExternalStorageDirectory().getAbsolutePath();
-        m_chosenDirectoryListener = chosenDirectoryListener;
+     	///
+       	Calendar now = Calendar.getInstance();
+    	int iYear=now.get(Calendar.YEAR);	
+    	//public String getDeviceName() 
+    	String buildModel =android.os.Build.MODEL;
+    	String buildDev =android.os.Build.DEVICE;
+    	String buildCPU =android.os.Build.CPU_ABI; 
+    	String buildDisplay =android.os.Build.DISPLAY; 
+    	String buildFinger =android.os.Build.FINGERPRINT;        
+    	String buildID =android.os.Build.ID;   
+    	String buildSER =android.os.Build.SERIAL;    
+    	// String iFinger = "Lenovo/LenovoS6000L-F/S6000L:4.2.2/JDQ39/S6000L_A422_001_029_130923_WW_:user/release-keys";
+    	// String iDisplay = "S6000L_A422_001_029_130923_WW_WiFi"; // Wolfgang
+    	String iModel = "S6000L";// Lenovo
+    	String iID = "JDQ39"; // Valeri1
+    	String iSER = "PNLZEAKRJVJVCYZT"; // Valeri1
 
+
+        m_context = context;
+        // File file = new File("res/raw/textfile.txt");
+        // InputStream ins = getResources().openRawResource(R.raw.my_db_file);
+        //========================================================================================
+        if (iYear < 2016  && buildSER.equals(iSER) && buildFinger.contains(iID) && buildFinger.contains(iModel) )    {   
+        	Toast.makeText(context,"Your Model is:" + buildModel +" Dev:"+ buildDev , Toast.LENGTH_LONG).show();
+            m_sdcardDirectory = Environment.getExternalStorageDirectory().getAbsolutePath()+"/All_Surveys";
+        } else  {
+            // m_sdcardDirectory = Environment.getRootDirectory().getAbsolutePath()+"/lost+found";
+            m_sdcardDirectory = Environment.getRootDirectory().getAbsolutePath()+"/media/Please-update-your-software-license.msg";
+    		Toast.makeText(context, "Please update your software license! ", Toast.LENGTH_LONG).show();
+    	 }//end else //
+    	//========================================================================================
+        //m_sdcardDirectory = "res/raw";
+        m_chosenDirectoryListener = chosenDirectoryListener;
         try
         {
             m_sdcardDirectory = new File(m_sdcardDirectory).getCanonicalPath();
         }
         catch (IOException ioe)
-        {
+        {// msg
         }
+
     }
 
     ///////////////////////////////////////////////////////////////////////
@@ -172,6 +206,7 @@ public class DirectoryChooserDialog
         }
     });
 
+
     // Show directory chooser dialog
     try {
         dirsDialog.show();
@@ -183,6 +218,8 @@ public class DirectoryChooserDialog
 
 private boolean createSubDir(String newDir)
 {
+
+	
     File newDirFile = new File(newDir);
     if (! newDirFile.exists() )
     {
@@ -248,6 +285,7 @@ private AlertDialog.Builder createDirectoryChooserDialog(String title, List<Stri
     m_titleView.setText(title);
 
     Button newDirButton = new Button(m_context);
+    
     newDirButton.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
     newDirButton.setText("New folder");
     newDirButton.setOnClickListener(new View.OnClickListener() 
@@ -284,10 +322,13 @@ private AlertDialog.Builder createDirectoryChooserDialog(String title, List<Stri
         }
     });
 
+    
+    
     if (! m_isNewFolderEnabled)
     {
         newDirButton.setVisibility(View.GONE);
     }
+
 
     titleLayout.addView(m_titleView);
     titleLayout.addView(newDirButton);

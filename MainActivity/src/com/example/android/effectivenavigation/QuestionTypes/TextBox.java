@@ -53,7 +53,7 @@ public class TextBox extends InputElement implements TextWatcher
 			 textbox.setText(val);
 			}
 		 
-		 textbox.setTextSize(40);
+		 textbox.setTextSize(35);
 		return textbox;
 	}
 

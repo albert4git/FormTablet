@@ -1,5 +1,6 @@
 package com.example.android.effectivenavigation.QuestionTypes;
 import android.R.*;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,8 +26,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +66,35 @@ public class Question
 	{   
 		// DISPLAY GOGO
 		//Toast.makeText(context, " DISPLAY :", Toast.LENGTH_LONG).show();
+    	///==================================================================
+    	//public String getDeviceName() 
+		/*        	
+    	String buildModel =android.os.Build.MODEL;
+    	String buildDev =android.os.Build.DEVICE;
+    	String buildCPU =android.os.Build.CPU_ABI;   
+    	String buildD =android.os.Build.DISPLAY;                            	
+      	// Toast.makeText(context, buildD , Toast.LENGTH_LONG).show();
+    	String Finger =android.os.Build.FINGERPRINT;    
+    	String buildID =android.os.Build.ID;   
+    	String buildSER =android.os.Build.SERIAL;                            	
 
+		Toast.makeText(context, " ID: "+ buildID + " SER: " + buildSER , Toast.LENGTH_LONG).show();
+
+        //+++++++++++++++++++++++++++++++++++++++++
+      	File rootA = Environment.getExternalStorageDirectory();  // getExternalStorageDirectory();
+      	String pathA = rootA+"/SurveyResults/";
+      	File xxlogFile = new File(pathA+"history.csv");
+      	//
+      	try {
+      	    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(xxlogFile, true)));
+      	    out.println("ID: " + buildID );
+      	    out.println("ID: " + buildSER );
+      	    out.close();
+      	} catch (IOException e) {
+      	    //exception handling left as an exercise for the reader
+      	}
+        */
+    	///==================================================================
 		TableLayout.LayoutParams rowLp = new TableLayout.LayoutParams(
 		        ViewGroup.LayoutParams.MATCH_PARENT,
 		        ViewGroup.LayoutParams.MATCH_PARENT,0.5f

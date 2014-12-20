@@ -13,6 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.app.Activity;
 import android.content.res.Resources;
 import java.io.BufferedInputStream;
@@ -33,6 +34,7 @@ public class RadioButtonGroup implements OnClickListener
 	List <ArrayList<Radio>> groups;
 	List <InputElement> childs;
 	private static RadioButtonGroup ref;
+	
 	public RadioButtonGroup() {
 	groups=new ArrayList<ArrayList<Radio>>();
 	}
@@ -55,6 +57,7 @@ public class RadioButtonGroup implements OnClickListener
 
 	@Override
 	public void onClick(View v) {
+
 		Radio radioCont;
 		RadioButton radio;
 		radio= (RadioButton) v;

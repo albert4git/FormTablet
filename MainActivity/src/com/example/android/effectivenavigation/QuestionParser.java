@@ -15,6 +15,8 @@ import java.util.Calendar;
 import java.util.List;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import net.sourceforge.jeval.EvaluationException;
 import net.sourceforge.jeval.Evaluator;
@@ -447,8 +449,8 @@ int y=0;
 int sumScore=0;
 
 String iTimeString = null;
-String USER_PASS = "Nussbaum7";
-String OWNER_PASS ="Nussbaum7";
+String USER_PASS = "gh77";
+String OWNER_PASS ="gh77";
 //------------------------------
 String tBuf ="";
 
@@ -492,7 +494,8 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
 			String pname;
             // NAT the survay pname !!!
 			pname=surveyName[surveyName.length-1];
-		
+
+			
 			//String path = root+"/SurveyResults/"+day+"-"+month+"-"+year+"/"+pname+"/";
 			String path = root+"/SurveyResults/box/";
 			boolean exists = (new File(path).exists());
@@ -565,7 +568,11 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
 			//
 			document.open();
 			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			// Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.lmubanner);
+			// Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.wolfgang_logo2);
+
 			Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.lmubanner);
+
 			bitmap.compress(Bitmap.CompressFormat.JPEG /* FileType */,
 			                        100 /* Ratio */, stream);
 			Image jpg = Image.getInstance(stream.toByteArray());
@@ -616,6 +623,12 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
 							 } catch (NumberFormatException e) {
                               //do something! anything to handle the exception.
 							 }
+							 String needle ="Haendigkeit";
+							 
+							 if(containsIgnoreCase( pname, needle))		
+							 {
+								y=y*10;
+									}
                               sumScore+=y;
                              //----------------------------------------------------
 
@@ -703,7 +716,12 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ssumScore= tBuf+";"+sumScore;
+		//============================================
+
+		ssumScore= tBuf+sumScore;
+		
+		//============================================
+
 		try {
 			//if file doesnt exists, then create it
 			if(!xxlogFile.exists()){
@@ -715,7 +733,8 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
 			String [] record5 = ssumScore.split(";");
 			writer5.writeNext(record5);
 			writer5.close();
-			
+			sumScore=0;
+			//=====iii====//
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -735,6 +754,21 @@ else{
 
 }
 //-----------------------------/YYY/---------------------------------------------  
+
+
+
+
+
+public boolean containsIgnoreCase( String haystack, String needle ) {
+	  if(needle.equals(""))
+	    return true;
+	  if(haystack == null || needle == null || haystack .equals(""))
+	    return false; 
+
+	  Pattern p = Pattern.compile(needle,Pattern.CASE_INSENSITIVE+Pattern.LITERAL);
+	  Matcher m = p.matcher(haystack);
+	  return m.find();
+	}
 
 
 

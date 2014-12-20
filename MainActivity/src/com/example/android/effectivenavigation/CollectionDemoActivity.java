@@ -224,6 +224,7 @@ public class CollectionDemoActivity extends FragmentActivity {
          	   return rootView;
             }
             Question question=questions.get(current);
+
           
             return  question.display(getActivity(),rootView);
         }

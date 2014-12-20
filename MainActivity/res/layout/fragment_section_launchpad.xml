@@ -12,6 +12,11 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
+          <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="850dp"
+            android:layout_height="226dp"
+            android:src="@drawable/wolfgang_logo2" />
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mainlayout"

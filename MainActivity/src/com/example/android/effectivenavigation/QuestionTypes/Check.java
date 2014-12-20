@@ -52,7 +52,7 @@ public class Check extends InputElement implements OnCheckedChangeListener {
 			{
 			 checkBox.setChecked((Boolean.valueOf(val)));
 			}
-		 checkBox.setTextSize(40);
+		 checkBox.setTextSize(35);
 		return checkBox;
 		
 	}
