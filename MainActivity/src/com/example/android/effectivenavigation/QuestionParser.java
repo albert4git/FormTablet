@@ -449,8 +449,8 @@ int y=0;
 int sumScore=0;
 
 String iTimeString = null;
-String USER_PASS = "gh77";
-String OWNER_PASS ="gh77";
+String USER_PASS = "vk2015";
+String OWNER_PASS ="vk2015";
 //------------------------------
 String tBuf ="";
 
@@ -570,14 +570,16 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
 			ByteArrayOutputStream stream = new ByteArrayOutputStream();
 			// Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.lmubanner);
 			// Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.wolfgang_logo2);
+            //pdf-logo
+			// Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.lmubanner);
+			Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.kirsh1);
 
-			Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.lmubanner);
 
 			bitmap.compress(Bitmap.CompressFormat.JPEG /* FileType */,
 			                        100 /* Ratio */, stream);
 			Image jpg = Image.getInstance(stream.toByteArray());
 		
-			jpg.scalePercent(26f, 26f);
+			jpg.scalePercent(57f, 57f);
 			document.add(jpg);
 			String score = null;
 			int i;
@@ -603,7 +605,7 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
 							 xoutInpt+=x3Box;
 							 
 							/// Toast.makeText(saveToPdf.this, "This is: " + x1Box, x2Box).show();
-                     		/// Toast.makeText(saveToPdf.this, "Bitte geben Sie einen vollst?ndigen Namen", Toast.LENGTH_LONG).show();
+                     		/// Toast.makeText(saveToPdf.this, "Bitte geben Sie einen vollstaendigen Namen", Toast.LENGTH_LONG).show();
                      		
 							//display in short period of time
                      		//Toast.makeText(getApplicationContext(), "msg msg", Toast.LENGTH_SHORT).show();

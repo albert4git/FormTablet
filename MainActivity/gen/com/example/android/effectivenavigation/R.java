@@ -20,10 +20,15 @@ public final class R {
     }
     public static final class drawable {
         public static final int banner=0x7f020000;
-        public static final int ic_launcher=0x7f020001;
-        public static final int lmu_background=0x7f020002;
-        public static final int lmubanner=0x7f020003;
-        public static final int wolfgang_logo2=0x7f020004;
+        public static final int birgits=0x7f020001;
+        public static final int ic_launcher=0x7f020002;
+        public static final int kirsh1=0x7f020003;
+        public static final int kirsh4s900=0x7f020004;
+        public static final int kirsh4s900iso=0x7f020005;
+        public static final int lmu_background=0x7f020006;
+        public static final int lmubanner=0x7f020007;
+        public static final int neurologie=0x7f020008;
+        public static final int wolfgang_logo2=0x7f020009;
     }
     public static final class id {
         public static final int demo_collection_button=0x7f08000b;
@@ -38,6 +43,7 @@ public final class R {
         public static final int text1=0x7f080003;
         public static final int textView1=0x7f080007;
         public static final int textView2=0x7f080009;
+        public static final int textView22=0x7f08000c;
     }
     public static final class layout {
         public static final int activity_collection_demo=0x7f030000;

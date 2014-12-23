@@ -17,91 +17,145 @@
             android:layout_width="850dp"
             android:layout_height="226dp"
             android:src="@drawable/wolfgang_logo2" />
+            
+       <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_weight="0.2"
+        android:gravity="center_vertical"
+        android:background="#555555"
+        android:maxHeight="250dp"
+        android:minHeight="250dp" 
+        android:textAlignment="center" >
+        
+         android:background="@color/green"
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mainlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-        android:background="@color/green"
+    android:background="#bbBBbb"
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:background="#bbBBbb"
         android:layout_height="wrap_content" >
-
         <ImageView
             android:id="@+id/imageView1"
-            android:layout_width="308dp"
-            android:layout_height="146dp"
-            android:src="@drawable/banner" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1.03"
-            android:background="#444444"
-            android:orientation="vertical" >
-
-        </LinearLayout>
+            android:layout_width="1066dp"
+            android:layout_height="200dp"
+            android:src="@drawable/kirsh4s900" />
     </LinearLayout>
-
+<!-- 2 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.80"
         android:gravity="center_vertical"
         android:background="#444444"
+        android:maxHeight="200dp"
+        android:minHeight="150dp" 
         android:textAlignment="center" >
 
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Full Name"
+            android:textStyle="bold"           
+            android:text="Full Name:  "
             android:textSize="@dimen/mydimension" />
 
         <EditText
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
+            android:textStyle="bold"                       
+            android:maxLength="50"          
             android:inputType="textPersonName" />
-
     </LinearLayout>
-
+<!-- 3 -->   
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.80"
         android:gravity="center_vertical"
-                android:background="#444444"
+        android:background="#333333"
+        android:maxHeight="200dp"
+        android:minHeight="150dp" 
         android:textAlignment="center" >
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Diagnose"
+            android:textStyle="bold"
+            android:gravity="center"                      
+            android:text="Diagnose:    "
             android:textSize="@dimen/mydimension" />
 
         <EditText
             android:id="@+id/dign"
+            android:maxLength="50"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
+            android:textStyle="bold"    
             android:inputType="textPersonName" />
-
     </LinearLayout>
-    <Button
+    
+<!-- 4 
+     android:inputType="textNoSuggestions|textVisiblePassword"       
+-->
+    
+       <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="#444444"
+        android:maxHeight="200dp"
+        android:minHeight="150dp" 
+        android:textAlignment="center" >
+        
+      <Button
         android:id="@+id/demo_collection_button"
         android:layout_width="wrap_content"
         android:layout_height="146dp"
         android:layout_marginBottom="16dp"
+        android:textStyle="bold"    
+        android:background="#ccCCcc"
         android:text="@string/demo_collection"
+        android:minHeight="100dp"
+        android:minWidth="220dp"
+        android:layout_centerInParent="true"
+        android:textAllCaps="true"
+        android:textSize="20sp"
       />
+    </LinearLayout>  
+<!-- 5 
+        android:gravity="center"
+        android:src="@drawable/lmubanner"
+-->
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="#333333"
+        android:maxHeight="100dp"
+        android:minHeight="100dp" 
+        android:textAlignment="center" >
 
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="50"
+            android:textStyle="bold"
+            android:gravity="center"                      
+            android:text=" "
+            android:textSize="@dimen/mydimension" />
+
+    </LinearLayout>
+<!-- XXX -->
+    
 </LinearLayout>

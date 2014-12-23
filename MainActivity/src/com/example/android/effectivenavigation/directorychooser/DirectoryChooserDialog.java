@@ -70,20 +70,27 @@ public class DirectoryChooserDialog
     	// String iDisplay = "S6000L_A422_001_029_130923_WW_WiFi"; // Wolfgang
     	String iModel = "S6000L";// Lenovo
     	String iID = "JDQ39"; // Valeri1
-    	String iSER = "PNLZEAKRJVJVCYZT"; // Valeri1
+    	// String iSER = "PNLZEAKRJVJVCYZT"; // Valeri1
+    	String iSER = "KN65QOWW9TSC5DQG"; // Valeri2    	
+    	// iSER= hd_nbr;
 
+    	
 
         m_context = context;
         // File file = new File("res/raw/textfile.txt");
         // InputStream ins = getResources().openRawResource(R.raw.my_db_file);
         //========================================================================================
-        if (iYear < 2016  && buildSER.equals(iSER) && buildFinger.contains(iID) && buildFinger.contains(iModel) )    {   
-        	Toast.makeText(context,"Your Model is:" + buildModel +" Dev:"+ buildDev , Toast.LENGTH_LONG).show();
+        // if (iYear < 2016  )    {   
+       if (iYear < 2016  && buildSER.equals(iSER) && buildFinger.contains(iID) && buildFinger.contains(iModel) )    {   
+ 	
+        	// Toast.makeText(context,"Your Model is:" + buildModel +" Dev:"+ buildDev , Toast.LENGTH_LONG).show();
             m_sdcardDirectory = Environment.getExternalStorageDirectory().getAbsolutePath()+"/All_Surveys";
         } else  {
             // m_sdcardDirectory = Environment.getRootDirectory().getAbsolutePath()+"/lost+found";
             m_sdcardDirectory = Environment.getRootDirectory().getAbsolutePath()+"/media/Please-update-your-software-license.msg";
-    		Toast.makeText(context, "Please update your software license! ", Toast.LENGTH_LONG).show();
+    		//Toast.makeText(context, "Please update your software license! ", Toast.LENGTH_LONG).show();
+        	// Toast.makeText(context,"Your Model is: ID" + buildID +" SER:"+ buildSER , Toast.LENGTH_LONG).show();
+
     	 }//end else //
     	//========================================================================================
         //m_sdcardDirectory = "res/raw";

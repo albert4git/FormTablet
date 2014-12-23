@@ -68,7 +68,8 @@ public class Question
 		//Toast.makeText(context, " DISPLAY :", Toast.LENGTH_LONG).show();
     	///==================================================================
     	//public String getDeviceName() 
-		/*        	
+		/*  
+   	
     	String buildModel =android.os.Build.MODEL;
     	String buildDev =android.os.Build.DEVICE;
     	String buildCPU =android.os.Build.CPU_ABI;   
@@ -78,8 +79,8 @@ public class Question
     	String buildID =android.os.Build.ID;   
     	String buildSER =android.os.Build.SERIAL;                            	
 
-		Toast.makeText(context, " ID: "+ buildID + " SER: " + buildSER , Toast.LENGTH_LONG).show();
-
+		Toast.makeText(context, " ID: "+ buildID + "YYY SER: " + buildSER , Toast.LENGTH_LONG).show();
+        // SERIAL Nr
         //+++++++++++++++++++++++++++++++++++++++++
       	File rootA = Environment.getExternalStorageDirectory();  // getExternalStorageDirectory();
       	String pathA = rootA+"/SurveyResults/";
@@ -93,7 +94,7 @@ public class Question
       	} catch (IOException e) {
       	    //exception handling left as an exercise for the reader
       	}
-        */
+		 */   
     	///==================================================================
 		TableLayout.LayoutParams rowLp = new TableLayout.LayoutParams(
 		        ViewGroup.LayoutParams.MATCH_PARENT,
