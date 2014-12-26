@@ -53,7 +53,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import org.xmlpull.v1.XmlPullParserException;
-
+import android.content.Context;
 import com.example.android.effectivenavigation.QuestionTypes.*;
 import com.example.android.effectivenavigation.QuestionParser.*;
 
@@ -221,7 +221,14 @@ public class CollectionDemoActivity extends FragmentActivity {
             View rootView = inflater.inflate(R.layout.fragment_collection_object, container, false);
             Bundle args = getArguments();
             String content;
-            Log.w("okan", "current is:"+current);
+            Log.w("CDA okan", "current is:"+current);
+            Log.w("CDA okan:", "quest.size is:"+questions.size());
+
+    		// JESUS2
+    		//- Toast.makeText(getBaseContext(), "Problem with equation"+this.id, Toast.LENGTH_SHORT).show();
+            // Toast myToast = Toast.makeText(context, " Question: finValid:"+finalValidation, Toast.LENGTH_SHORT);
+            // myToast.setGravity(Gravity.TOP, 0, 0);
+            // myToast.show(); 
             
              int currentFragment =args.getInt(ARG_OBJECT)-1;
              	
@@ -238,7 +245,7 @@ public class CollectionDemoActivity extends FragmentActivity {
              if(previousQuestion.validate()==false)
             	current-=1;
                 currentFragment -=1;
-                Log.w("albert", "currentFragment:"+currentFragment);
+                Log.w("CDA albert", "currentFragment:"+currentFragment);
              
                 }
             Question question=questions.get(current);

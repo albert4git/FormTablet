@@ -16,13 +16,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+            android:background="#995555"
     android:orientation="vertical" >
 
     <TextView
         android:id="@+id/text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-       
+        android:background="#559955"
         android:gravity="center"
         android:textSize="@dimen/mydimension" />
 
@@ -30,6 +31,7 @@
     android:fillViewport='true' >
 	<LinearLayout android:textSize="@dimen/mydimension"
 	    android:id="@+id/inputs_layout"
+	    android:background="#555599"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
 	    android:layout_below="@android:id/text1"

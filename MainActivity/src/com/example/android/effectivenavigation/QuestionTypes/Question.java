@@ -1,5 +1,7 @@
 package com.example.android.effectivenavigation.QuestionTypes;
 import android.R.*;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -217,6 +219,13 @@ public class Question
 		{
 		 finalValidation =finalValidation & input.validate();	
 		}
+		// JESUS2
+		// Toast.makeText(getApplicationContext(), "Problem with equation"+this.id, Toast.LENGTH_SHORT).show();
+        // Toast myToast = Toast.makeText(context, " Question: finValid:"+finalValidation, Toast.LENGTH_SHORT);
+        // myToast.setGravity(Gravity.TOP, 0, 0);
+        // myToast.show(); 
+        Log.w("Question Validate():", "finalVal is:"+finalValidation);
+
 		return finalValidation;
 		
 	

@@ -1,5 +1,7 @@
 package com.example.android.effectivenavigation.QuestionTypes;
 import android.R.*;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.RadioButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -25,9 +28,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.android.effectivenavigation.R;
+
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
+
 public class Radio extends InputElement {
 
 	public String text;
@@ -44,22 +51,32 @@ public class Radio extends InputElement {
 
 	@Override
 	public View display(Activity context) {
-		 radio = new RadioButton(context);
+		radio = new RadioButton(context);
 		radio.setText(text);
         radio.setBackgroundColor(Color.rgb(77, 77, 77));
         //radio.setHeight(15);
         //radio.setWidth(15);
 		radio.setTag(this);
 		radio.setOnClickListener(this.question.RadioGroup);
+
+
 		if (val!=null)
 		{
 		 radio.setChecked((Boolean.valueOf(val)));
 		}
-		radio.setTextSize(35);
+		radio.setTextSize(25);
+		// JESUS1
+		// Toast.makeText(context, " DiSPLAY :"+text+" val:"+val , Toast.LENGTH_LONG).show();
+		// Toast.makeText(context, R.string.app_name, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(context, "This is a toast!", Toast.LENGTH_LONG).show();
+		// JESUS1
+        Toast myToast = Toast.makeText(context, " RadioView :"+text+" val:"+val+" this.isGrValid:"+this.isGroupValidated, Toast.LENGTH_SHORT);
+        myToast.setGravity(Gravity.RIGHT, 0, 0);
+        myToast.show();                
+        Log.w("Radio JESUS1:", "val is:"+val);
+
 		return radio;
 	}
-
-
 	
 
 	@Override
@@ -92,9 +109,11 @@ public class Radio extends InputElement {
 		outBuf+="X";
 		return outBuf;
 	}
+	
 	@Override
 	public boolean validate()
 	{
+	 //noToast
 	return this.isGroupValidated;
 	// System.out.println("error in popup");
 

@@ -1,5 +1,6 @@
 package com.example.android.effectivenavigation.QuestionTypes;
 import android.R.*;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -62,17 +63,34 @@ public class RadioButtonGroup implements OnClickListener
 		radioCont=(Radio) v.getTag();
 		List<Radio> group=groups.get(radioCont.group-1);
 	
-		
+        Log.w("RBG onClick:", "1. radioCont.val:"+radioCont.val);
+        int j=0;
 		for (Radio myradio : group) {
+	        Log.w("RBG onClick:", "2. myradio.isGroupValidated:"+myradio.isGroupValidated+j);
+	        Log.w("RBG onClick:", "3. myradio.radio.getId:"+myradio.radio.getId()+j);
+
 			myradio.isGroupValidated=true;
 			myradio.radio.setChecked(false);
 			myradio.val="false";
+			j++;
 		}
-		
+        Log.w("RBG onClick:", "4. radioCont.val:"+radioCont.val);
+
 		
 		radio.setChecked(true);
 		radioCont.val="true";
-	
+		//----------------------------XXX-------------------------------------------
+		Log.w("RBG onClick:", "5. radio.getId:"+radio.getId());
+		Log.w("RBG onClick:", "-------XXX--------");
+		Log.w("RBG onClick:", "6. radioCont.val:"+radioCont.val);
+		Log.w("RBG onClick:", "7. radioCont.id:"+radioCont.id);
+		Log.w("RBG onClick:", "8. radioCont.name:"+radioCont.name);
+		Log.w("RBG onClick:", "9. radioCont.text:"+radioCont.text);
+		Log.w("RBG onClick:", "10. radioCont.group:"+radioCont.group);
+		Log.w("RBG onClick:", "11. radioCont.coef:"+radioCont.coef);
+		Log.w("RBG onClick:", "12. radioCont.isGroupValidated:"+radioCont.isGroupValidated);
+
+
 		
 	}
 
