@@ -1,5 +1,7 @@
 package com.example.android.effectivenavigation.QuestionTypes;
 import android.R.*;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.RadioButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.app.Activity;
 import android.content.res.Resources;
 import java.io.BufferedInputStream;
@@ -51,6 +54,40 @@ public String text;
 	}
 	public String writeDataToPdf( ) {
 		return text;
+	}
+	
+	/*	*/
+	@Override
+	public int validate()
+	{
+		// Log.w("Radio boolean validate()77:", "this.isValidCount:"+this.isValidCount);
+		// return this.isValidCount;
+		  int tst=1;
+		  return tst;
+
+	}
+	@Override
+	public int validate(String albertRadioTest)
+	{	//ToDo	
+		int isValidNr =1 ;
+		Log.w(">>>999 Radio int validate(xxx):", "albertRadioTest: "+albertRadioTest);
+		// return this.isValidCount;
+		// return isValidCount; 
+		return isValidNr; 
+
+	}
+	@Override
+	public String validate(String albertRadioTest,String albertRadioName, Activity context )
+	{		
+		// this.isGroupValidated ??? ------------------------------------------------------------------------------------------------------------------------------
+		Toast myToast = Toast.makeText(context, "007 albertRadioTest:"+albertRadioTest, Toast.LENGTH_SHORT);
+		myToast.setGravity(Gravity.RIGHT, 0, 0);
+		myToast.show(); 
+		//=-----------------------------------------
+		String stringBox=albertRadioTest;
+		Log.w(">>>999 RadioVaid(it):", "albertRadioTest: "+albertRadioTest);
+		return stringBox; 
+
 	}
 }
 	

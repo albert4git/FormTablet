@@ -1,6 +1,7 @@
 package com.example.android.effectivenavigation.QuestionTypes;
 import android.R.*;
 import android.text.Editable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,16 +36,29 @@ public abstract class InputElement  {
 	String val;
 	Activity context;
 	Question question;
+	public int isValidCount;
 	public int row;
 	public String type;
 	public InputElement(Question question)
 	{
+		this.isValidCount = isValidCount;
 		this.question=question;
 
 	}
 	public abstract View display(Activity context);
 	public abstract String writeData();
 	public abstract String writeDataToPdf();
+	public abstract int validate();
+	public abstract int validate(String albertRadioTest);
+	public abstract String validate(String albertRadioTest,String albertRadioName, Activity context );
 	
-	
+	//++++++++++++++++++++++++++++++++++++++++++
+	/*  
+	public int validate()
+	{
+		Log.w("InputElement validate:", "-------???--------");
+	    return isValidCount;
+	} 
+	*/
+   
 }

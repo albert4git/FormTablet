@@ -1,6 +1,7 @@
 package com.example.android.effectivenavigation.QuestionTypes;
 import android.R.*;
 import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,18 +59,25 @@ public class Question
 	InputElement current;
 	public RadioButtonGroup RadioGroup;
 	public int coef;
-	public Question() {
+	// ------------- -------------------
+     
+	
+    public Question() {
 		evaluator= new Evaluator();
 	}
 	
+
+	
 	public View display(Activity context,View rootView)
 	{   
-		// DISPLAY GOGO
-		//Toast.makeText(context, " DISPLAY :", Toast.LENGTH_LONG).show();
+
     	///==================================================================
-    	//public String getDeviceName() 
-		/*  
-   	
+		//  DISPLAY GOGO
+		//  Toast.makeText(context, " DISPLAY :", Toast.LENGTH_LONG).show();
+    	//  public String getDeviceName() 
+    	///==================================================================
+
+		/*     	
     	String buildModel =android.os.Build.MODEL;
     	String buildDev =android.os.Build.DEVICE;
     	String buildCPU =android.os.Build.CPU_ABI;   
@@ -94,51 +102,35 @@ public class Question
       	} catch (IOException e) {
       	    //exception handling left as an exercise for the reader
       	}
-		 */   
+		*/   
     	///==================================================================
 		TableLayout.LayoutParams rowLp = new TableLayout.LayoutParams(
 		        ViewGroup.LayoutParams.MATCH_PARENT,
 		        ViewGroup.LayoutParams.MATCH_PARENT,0.5f
 		        );
 		InputElement currentInput;
+		
 		LinearLayout l;
-       //EXMPL  LinearLayout l=(LinearLayout) findViewById(R.id.mainlayout);
-
-		// ->> l=(LinearLayout) rootView.findViewById(R.id.inputs_layout);
+        //EXMPL  LinearLayout l=(LinearLayout) findViewById(R.id.mainlayout);
 		l=(LinearLayout) rootView.findViewById(R.id.inputs_layout);
-
         l.setBackgroundColor(Color.DKGRAY);
 		TextView questionText=(TextView) rootView.findViewById(R.id.text1);
 		questionText.setText(content);
 		questionText.setPadding(20, 20, 20, 20);  
-		// questionText.setBackgroundColor(Color.GRAY);
-		///TableLayout tbl=new TableLayout(context);
-		 TableLayout tbl=new TableLayout(context);
+		TableLayout tbl=new TableLayout(context);
 		//TableLayout tbl;
 		//   tbl = (TableLayout) rootView.findViewById(R.id.main_layout);
-		// -->> setContentView(R.layout.my_table);
-	    // Stone // setContentView(R.layout.main);
-		// tbl.setBackgroundColor(Color.rgb(99, 99, 99));
-			
-		
+					
 		FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
 		        ViewGroup.LayoutParams.MATCH_PARENT,
 		        ViewGroup.LayoutParams.MATCH_PARENT
 		        );
 		tbl.setLayoutParams(lp);
 		tbl.setShrinkAllColumns(true);
-		//   tbl.setBackgroundColor(Color.DKGRAY);		
-		// ->> l=(LinearLayout) rootView.findViewById(R.id.inputs_layout);
-
 		TableRow.LayoutParams cellLp = new TableRow.LayoutParams(
 		        0,
 		        ViewGroup.LayoutParams.WRAP_CONTENT,1.0f );
-		
-		//TableRow.LayoutParams cellLp = new TableRow.LayoutParams(
-	    //        TableRow.LayoutParams.FILL_PARENT,
-	    //        TableRow.LayoutParams.WRAP_CONTENT);
-		// ->> l=(LinearLayout) rootView.findViewById(R.id.inputs_layout);
-		// ->> l=(LinearLayout) rootView.findViewById(R.id.main_layout);
+       //=====================================================
 		l.addView(tbl);
 		int crow=0;
 		int ccol=0;
@@ -152,23 +144,16 @@ public class Question
 		for (int i = 0; i < inputs.size(); i++) 
 		{
 			current=inputs.get(i);
-
+            
 			if(current.row>crow)
 			{
 				tr=new TableRow(context);
 				if (i % 2 ==1){
-				// tr=(TableRow) rootView.findViewById(R.id.mainlayout);
-			    // TextView t = new TextView(rootView.getContext());
-				// tr.addView(t, new TableLayout.LayoutParams(0, TableLayout.LayoutParams.WRAP_CONTENT, 1f));
-				//--------
-				  tr.setBackgroundColor(Color.rgb(100, 100, 100));
-				 			 
+				  tr.setBackgroundColor(Color.rgb(100, 100, 100));	// ColorChange			 			 
 				} else {
-				  tr.setBackgroundColor(Color.DKGRAY);
+				  tr.setBackgroundColor(Color.DKGRAY);  // ColorChange
 			    }
-				// tr.setPadding(5, 5, 5, 5); 
-				//tr.setBackground(null);
-				//tr.setPaddingRelative(start, top, end, bottom)
+				// ---------------
 				tbl.addView(tr,lp);
 				crow++;
 				if(width<ccol)
@@ -176,17 +161,12 @@ public class Question
 				ccol=0;
 			}
 			ccol++;
-			View rad=current.display(context);     
-			
+			View rad=current.display(context);     			
 			tr.addView(rad,cellLp);
 			}
-		height=crow;
-		
-		
+		height=crow;				
 		return rootView;
-		
-		
-		
+						
 	}
 	
 	public String writeData(Context context)
@@ -196,8 +176,7 @@ public class Question
 		String outBuf="";
 		for (InputElement input : inputs) {
 			outBuf+=input.writeData();
-			outBuf+=" ";
-			
+			outBuf+=" ";			
 		}
 		if(equation!=null)
 		{
@@ -220,9 +199,7 @@ public class Question
 		String result = "";
 	    if(width==0)
 	    	return null;
-		PdfPTable datatable = new PdfPTable(width);
-	
-
+		PdfPTable datatable = new PdfPTable(width);	
 		datatable.getDefaultCell().setPadding(3);
 		datatable.getDefaultCell().setBorderWidth(2);
 		datatable.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -234,11 +211,45 @@ public class Question
 		return datatable;
 	}
 
-	 
 	
-	
-	
-	
+	/*	*/
+	public int validate()
+	{
+		int fV=0;
+		int finalValidation=0;
+		int finalValidation2=0;
+
+		for(InputElement input:inputs)
+		{
+		    fV = input.validate();
+		    finalValidation = finalValidation & input.validate();
+			finalValidation2 =finalValidation2 + input.validate();	
+			// Log.w(".441 Question validate():", "finalValidation: "+finalValidation);
+			Log.w(".442 Question validate():", "finalValidation2: "+finalValidation2);
+			//Log.w(".443 Question validate():", "fV: "+fV);
+
+		}
+		// 442
+		// Log.w("..444 Question validate():", "finalValidation: "+finalValidation);
+		Log.w("..442 Question validate():", "finalValidation2: "+finalValidation2);
+		// Log.w(".446 Question validate():", "fV: "+fV);
+
+		//return finalValidation2;			
+		return fV;			
+	}
+
+	// Override
+	/*	*/
+	public int validate(String albertRadioTest)
+	{	//ToDo	
+		int isValidNr =1 ;
+		Log.w(">>>999 Radio int validate(xxx):", "albertRadioTest: "+albertRadioTest);
+		// return this.isValidCount;
+		// return isValidCount; 
+		return isValidNr; 
+
+	}
+
 	
 }
 

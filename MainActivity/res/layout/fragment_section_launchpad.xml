@@ -17,18 +17,7 @@
             android:layout_width="850dp"
             android:layout_height="226dp"
             android:src="@drawable/wolfgang_logo2" />
-            
-       <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_weight="0.2"
-        android:gravity="center_vertical"
-        android:background="#555555"
-        android:maxHeight="250dp"
-        android:minHeight="250dp" 
-        android:textAlignment="center" >
-        
-         android:background="@color/green"
+
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mainlayout"

@@ -80,8 +80,9 @@ public class DirectoryChooserDialog
         // File file = new File("res/raw/textfile.txt");
         // InputStream ins = getResources().openRawResource(R.raw.my_db_file);
         //========================================================================================
-        // if (iYear < 2016  )    {   
-       if (iYear < 2016  && buildSER.equals(iSER) && buildFinger.contains(iID) && buildFinger.contains(iModel) )    {   
+     	//if (iYear < 2016  && buildSER.equals(iSER) && buildFinger.contains(iID) && buildFinger.contains(iModel) )    {   
+
+        if (iYear < 2016  )    {   
  	
         	// Toast.makeText(context,"Your Model is:" + buildModel +" Dev:"+ buildDev , Toast.LENGTH_LONG).show();
             m_sdcardDirectory = Environment.getExternalStorageDirectory().getAbsolutePath()+"/All_Surveys";
