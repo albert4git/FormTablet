@@ -39,6 +39,8 @@ public abstract class InputElement  {
 	public int isValidCount;
 	public int row;
 	public String type;
+	public String radioBoxCount;
+	//************************************************
 	public InputElement(Question question)
 	{
 		this.isValidCount = isValidCount;
@@ -52,13 +54,6 @@ public abstract class InputElement  {
 	public abstract int validate(String albertRadioTest);
 	public abstract String validate(String albertRadioTest,String albertRadioName, Activity context );
 	
-	//++++++++++++++++++++++++++++++++++++++++++
-	/*  
-	public int validate()
-	{
-		Log.w("InputElement validate:", "-------???--------");
-	    return isValidCount;
-	} 
-	*/
+
    
 }

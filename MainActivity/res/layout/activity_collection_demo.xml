@@ -1,23 +1,28 @@
 <!--
   Copyright 2012 The Android Open Source Project
 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+<com.example.android.effectivenavigation.customviewpager 
+xmlns:android="http://schemas.android.com/apk/res/android"
+</com.example.android.effectivenavigation.customviewpager>
+  
+<android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+</android.support.v4.view.ViewPager>
+    
         android:textColor="#eeEEee"
         android:textColor="@color/green"
         android:background="@color/blue"
-    -->
+-->
 
-<android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.android.effectivenavigation.CustomViewPager  
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/pager"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    
 
-    <android.support.v4.view.PagerTitleStrip android:id="@+id/pager_title_strip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:background="@color/blue"
+</com.example.android.effectivenavigation.CustomViewPager>
 
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp" />
-
-</android.support.v4.view.ViewPager>

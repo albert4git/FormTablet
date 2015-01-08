@@ -11,6 +11,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.example.android.effectivenavigation.MainActivity;
+import com.example.android.effectivenavigation.QuestionTypes.RadioButtonGroup;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -55,6 +56,10 @@ public class DirectoryChooserDialog
 
     public DirectoryChooserDialog(Context context, ChosenDirectoryListener chosenDirectoryListener)
     {
+        //**************************************************************************
+        RadioButtonGroup.statBoxFlag = 0;
+        RadioButtonGroup.statBoxSFlag = "BBB";
+        //**************************************************************************
      	///
        	Calendar now = Calendar.getInstance();
     	int iYear=now.get(Calendar.YEAR);	

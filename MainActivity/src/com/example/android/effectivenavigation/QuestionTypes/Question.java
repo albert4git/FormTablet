@@ -60,13 +60,11 @@ public class Question
 	public RadioButtonGroup RadioGroup;
 	public int coef;
 	// ------------- -------------------
-     
-	
+     	
     public Question() {
 		evaluator= new Evaluator();
 	}
 	
-
 	
 	public View display(Activity context,View rootView)
 	{   
@@ -113,7 +111,7 @@ public class Question
 		LinearLayout l;
         //EXMPL  LinearLayout l=(LinearLayout) findViewById(R.id.mainlayout);
 		l=(LinearLayout) rootView.findViewById(R.id.inputs_layout);
-        l.setBackgroundColor(Color.DKGRAY);
+        l.setBackgroundColor(Color.GREEN);
 		TextView questionText=(TextView) rootView.findViewById(R.id.text1);
 		questionText.setText(content);
 		questionText.setPadding(20, 20, 20, 20);  

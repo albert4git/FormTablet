@@ -69,21 +69,31 @@ public class CollectionDemoActivity extends FragmentActivity {
      * state in the process. This is important to conserve memory and is a best practice when
      * allowing navigation between objects in a potentially large collection.
      */
-    DemoCollectionPagerAdapter mDemoCollectionPagerAdapter;
+	// private static final int NUM_PAGES = 5;
+
+	DemoCollectionPagerAdapter mDemoCollectionPagerAdapter;
     public QuestionParser Qparser;
 
     /**
      * The {@link android.support.v4.view.ViewPager} that will display the object collection.
      */
-    ViewPager mViewPager;
+    // ******************************************
+    CustomViewPager mViewPager;
+    // ******************************************
     Mydata data;
     static List <Question> questions;
     static int current=0;
     static int oldFragment=0;
+	public static boolean albertIsCheckPage= false ; //TEST
+	public static String albertEquation= "" ; //TEST
+
     
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_collection_demo);
+        setContentView(R.layout.activity_collection_demo);        
+        // setContentView(R.layout.demo2);
+        // setContentView(R.layout.custom_v);
+        
         // final TableLayout table = (TableLayout) findViewById(R.id.tableLayout1);
         Intent intent=getIntent();
         data= (Mydata) intent.getSerializableExtra("Mydata");        
@@ -100,14 +110,41 @@ public class CollectionDemoActivity extends FragmentActivity {
         // button will take the user one step up in the application's hierarchy.
         // actionBar.setDisplayHomeAsUpEnabled(true);
         // Set up the ViewPager, attaching the adapter.
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager = (CustomViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mDemoCollectionPagerAdapter);
         OnPageChangeListener listener= new OnPageChangeListener(){ 
-            // ?? setPageView(R.layout.activity_collection_demo);
-
+        // ?? setPageView(R.layout.activity_collection_demo);
+        //2014 go here !!!
+        	
 			@Override
 			public void onPageSelected(int arg0) {
-				
+				// POST 1
+			    Log.w("@EEE.1 ++++++CDA", " onPageSelected ++++++ EEE.1");
+	            //**************************************************************************
+	            Log.w("@EEE CDA:", "RadioButtonGroup.statBoxName:"+RadioButtonGroup.statBoxName );
+	            Log.w("@EEE CDA:", "RadioButtonGroup.statBoxCoef:"+RadioButtonGroup.statBoxCoef );
+                // The holly3 BoxICV is a good switch !!!
+	            Log.w("@EEE1 CDA:", "RadioButtonGroup.statBoxStartWith:"+RadioButtonGroup.statBoxStartWith );
+	            Log.w("@EEE2 CDA:", "RadioButtonGroup.statBoxG:"+RadioButtonGroup.statBoxG );
+	            Log.w("@EEE3 CDA:", "Radio.isValidCount:"+Radio.isValidCount );
+	            Log.w("@EEE4 CDA:", "RadioButtonGroup.statBoxIGV:"+RadioButtonGroup.statBoxIGV );
+	      // --- ---- ---- ---- ---- ---- --- --- --- --- --- -- -
+          //###  BoxIGV is a good switch !!! //
+	        Log.w("@NNN NNN NNN NNN NNN -RAMKA-", "NNN NNN NNN NNN NNN NNN");	       
+            	if(    
+            			RadioButtonGroup.statBoxName.matches(".*c.*")
+    	            	&& RadioButtonGroup.statBoxG >0
+    	            	&& Radio.isValidCount > 0
+    	            	&& RadioButtonGroup.statBoxIGV 
+                   )
+                {  				       
+			       // current=4; // TEST 
+			       // mViewPager.setPagingEnabled(false);
+                }
+	        Log.w("@MMM MMM MMM MMM MMM  -RAMKA-", "MMM MMM MMM MMM MMM MMM ");
+		  //###
+	      // --- ---- ---- ---- ---- ---- --- --- --- --- --- -- -
+
 				  if(mViewPager.getCurrentItem()==questions.size())
 		            {
 					// DIGN ? //
@@ -121,13 +158,15 @@ public class CollectionDemoActivity extends FragmentActivity {
 			@Override
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
 				// TODO Auto-generated method stub
-				
+			    Log.w("EEE2 PARICE " , " onPageScrolled ++++++ EEE2");
+	
 			}
 			
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
 				// TODO Auto-generated method stub
-				
+			    Log.w("EEE3 PARICE ", " onPageScrollStateChanged ++++++ EEE3");
+
 			}
 		};
         mViewPager.setOnPageChangeListener(listener);
@@ -135,6 +174,8 @@ public class CollectionDemoActivity extends FragmentActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+	    Log.w("EEE3 PARICE", " onOptionsItemSelected ++++++ EEE3");
+
         switch (item.getItemId()) {
             case android.R.id.home:
                 // This is called when the Home (Up) button is pressed in the action bar.
@@ -175,14 +216,15 @@ public class CollectionDemoActivity extends FragmentActivity {
         public Fragment getItem(int i) {
  	
             Fragment fragment = new DemoObjectFragment();
-
             // Parabelum !!! %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-              Log.w("--CDA-P1 FRAGMENT.getItem", "fragment.getId() #:"+fragment.getId());
-              Log.w("--CDA-P1 FRAGMENT.getTag", "fragment.getId() #:"+fragment.getTag());
+            Log.w("--CDA-P1 FRAGMENT.getItem", "fragment.getId() #:"+fragment.getId());
+            Log.w("--CDA-P1 FRAGMENT.getTag", "fragment.getId() #:"+fragment.getTag());
             //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
          
             Bundle args = new Bundle();
+            // args.putInt(DemoObjectFragment.ARG_OBJECT, i + 1); // Our object is just an integer :-P
             args.putInt(DemoObjectFragment.ARG_OBJECT, i + 1); // Our object is just an integer :-P
+
             fragment.setArguments(args);
             // Parabelum !!! %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             Log.w("--CDA-P2 FRAGMENT.getItem", "fragment.getId() #:"+fragment.getId());
@@ -194,7 +236,7 @@ public class CollectionDemoActivity extends FragmentActivity {
         @Override
         public int getCount() {
             // For this contrived example, we have a 100-object collection.
-            return questions.size()+1;
+            return questions.size() + 1;
         }
 
         @Override
@@ -210,62 +252,80 @@ public class CollectionDemoActivity extends FragmentActivity {
      * Mondragon
      */
     public static class DemoObjectFragment extends Fragment {
+    	
         //check the static current ???
         public static final String ARG_OBJECT = "question";
         int testVal; // Yes
-      
+        String kartonA; // Yes
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
+            Log.w("...", "...");
+            Log.w("---=&&&&& START CDA FRAGMENT", " START &&&&&&&&&=---");
+
             View rootView = inflater.inflate(R.layout.fragment_collection_object, container, false);
             Bundle args = getArguments();
-            String content;
             int current=args.getInt(ARG_OBJECT)-1;
-            int currentFragment =args.getInt(ARG_OBJECT)-1;
-            // Modragon !!! %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            Log.w("661 CDA Fragment:", "quest.size is:"+questions.size());
-            Log.w("662 CDA FRAGMENT", "Current %:"+current);
-            Log.w("663 CDA FRAGMENT", "CurrentFragment %:"+currentFragment);
-            //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            
-
-            
-            if (current==questions.size())
+            // Modragon !!! **********************************************************
+            // Log.w("661  CDA Fragment:", "quest.size is:"+questions.size());
+            Log.w("662  CDA FRAGMENT", "Current: #"+current);
+                        
+            if (current==questions.size()) // Vielen dank !
             {
          	   TextView questionText=(TextView) rootView.findViewById(R.id.text1);
-        			questionText.setText(" Vielen dank !");
-        			
-         	   return rootView;
+        	   questionText.setText(" Vielen dank !");       			
+         	   return rootView; // 225 line
             }
-            
-            if (current < -1)
-            {
-                // Napoleon !!! %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                Question questionPre=questions.get(current -1);
-                testVal= questionPre.validate(); // Yes
-                Log.w("!!!! CDA FRAGMENT.Pre", "!!!!!");
-                Log.w("!881 CDA FRAGMENT.Pre", "testVal%:"+testVal);
-                Log.w("882 CDA FRAGMENT.Pre", "questionPre.content %:"+questionPre.content);
-                Log.w("883 CDA FRAGMENT.Pre", "questionPre.equation %:"+questionPre.equation);
-                //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            }
+                   		
 
-            // THE Current Question !!
-            // Napoleon !!! %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            Log.w("---!-!-!!A CDA FRAGMENT.Post", "!!-!-!-!---");
-            Question question=questions.get(current);
-            testVal= question.validate(); // Yes
-            Log.w("---!-!-!!B CDA FRAGMENT.Post", "!!-!-!-!---");
-            Log.w("!888 CDA FRAGMENT.Post", "testVal%:"+testVal);
-            Log.w("887 CDA FRAGMENT.Post", "question.equation %:"+question.equation);
-            Log.w("886 CDA FRAGMENT.Post", "question.content %:"+question.content);
-            //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            //**************************************************************************
             Log.w("@889 CDA.RRR:", "RadioButtonGroup.statBoxName:"+RadioButtonGroup.statBoxName );
-            Log.w("@889 CDA.RRR:", "RadioButtonGroup.statBoxTest:"+RadioButtonGroup.statBoxText );
             Log.w("@889 CDA.RRR:", "RadioButtonGroup.statBoxG:"+RadioButtonGroup.statBoxG );
             Log.w("@889 CDA.RRR:", "RadioButtonGroup.statBoxCoef:"+RadioButtonGroup.statBoxCoef );
+            Log.w("@889 CDA.RRR7:", "RadioButtonGroup.statBoxIGV:"+RadioButtonGroup.statBoxIGV );
+            Log.w("@890 CDA.SSS:", "Radio.isValidCount:"+Radio.isValidCount );
+            //**************************************************************************
+            // MSK // statBoxStartWith ||
+            // (".*[\\~\\!\\@\\#\\$\\%\\^\\&\\*\\(\\)\\_\\+].*") ||
+            // (".*[\\c\\l].*")   
+            //**************************************************************************
+            RadioButtonGroup.statBoxStartWith = RadioButtonGroup.statBoxName.matches(".*c.*");  // true
+            RadioButtonGroup.statBoxStartHasA = RadioButtonGroup.statBoxName.matches(".*aaa.*");  // true
+            // RadioButtonGroup.statBoxStartHasB = question.equation.matches(kartonA); // TODOiT
+            RadioButtonGroup.statBoxFlag = 0;
+            RadioButtonGroup.statBoxSFlag = "AAA";
+            Log.w("@891 CDA.XXX:", "RadioButtonGroup.statBoxStartWith:"+RadioButtonGroup.statBoxStartWith );
+            //**************************************************************************
+            kartonA = "CURRENT: #"+current;   
+ 
+            if(!RadioButtonGroup.statBoxIGV 
+            	&& RadioButtonGroup.statBoxStartWith 
+            	&& RadioButtonGroup.statBoxG >0 
+            	&& Radio.isValidCount > 0) 
+            {  // THE Current Question !!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            	Log.w("---=******** Pre CDA FRAGMENT", "*******=---");
+            	RadioButtonGroup.statBoxFlag = 1;
+            	RadioButtonGroup.statBoxSFlag = "-=POST=-";
+            	Log.w("@892-XXX Pre CDA:", "statBoxFlag:"+RadioButtonGroup.statBoxFlag );
+            	Log.w("@893-XXX Pre CDA:", "statBoxSFlag:"+RadioButtonGroup.statBoxSFlag );
+            	// current=4; // Step Back!!
+                kartonA = "CURRENT: #"+current;   
+            } 
+            	Log.w("---=******** Post CDA FRAGMENT.Pre", "*******=---");
+            	Question question=questions.get(current); // Das WiCHTIGSTE!!!
+            	// Question questionB=questions.set(current, question); //doom 
 
-            return  question.display(getActivity(),rootView);
+            	Log.w("@887-YYY FRAGMENT", "question.equation %:"+kartonA+" // "+question.equation);
+            	Log.w("@886-YYY FRAGMENT", "question.content %:"+kartonA+question.content);
+           
+            //**************************************************************************
+            Radio.isValidCount = 0;  
+            albertEquation= question.equation;
+            Log.w("'''...'''....'''....'''... STOP CDA FRAGMENT", " STOP '''...'''....'''....'''...");
+            return  question.display(getActivity(),rootView); // line 225 //rootView is the Layout
+
+
         }
 
 
