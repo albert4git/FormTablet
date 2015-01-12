@@ -87,56 +87,24 @@ public class RadioButtonGroup implements OnClickListener
 		radio= (RadioButton) v;
 		radioCont=(Radio) v.getTag();
 		List<Radio> group=groups.get(radioCont.group-1);
- Log.w("-OOO OOO OOO  RAMKA", "START OOO OOO OOO");
+Log.w("-PPP PPP  PPP RAMKA", "FIN PPP PPP PPP PPP");
  Log.w("-301 RBG-onClick:", "1. radioCont.val:"+radioCont.val);
    // --- ---- ---- ---- ---- ---- --- --- --- --- --- -- -
-  CollectionDemoActivity.albertIsCheckPage = true; 
-  // %-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-
-  CustomViewPager.enabled = true; // SUPER ODER ???-%-%-%
-  // %-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-
-
-  Log.w("-302 RBG-onClick", " albertIsCheckPage: "+CollectionDemoActivity.albertIsCheckPage);
-  Log.w("-303 RBG-onClick", " enabled ?: "+CustomViewPager.enabled);
-   // mViewPager.setPagingEnabled(true);
-   //### !!! The holly3 BoxIGV is a good switch !!! //
-        if( 
-        	RadioButtonGroup.statBoxG >0
-        	&& Radio.isValidCount > 0
-        	&& RadioButtonGroup.statBoxIGV 
-           ) 
-        {      
-        	
-            Log.w("-304 RBG-onClick", " albertIsCheckPage: "+CollectionDemoActivity.albertIsCheckPage);
-            Log.w("-305 RBG-onClick", " enabled 1: "+CustomViewPager.enabled);
-            // FLAG FLAG FLAG FLAG FLAG FLAG set YES TRUE
-            CollectionDemoActivity.albertIsCheckPage = true;            
-            CustomViewPager.enabled = true; // GENUG To Stop // SUPER ODER ??? wird wicht ausgeführt !
-            Log.w("-306 RBG-onClick", " albertIsCheckPage: "+CollectionDemoActivity.albertIsCheckPage);
-            Log.w("-307 RBG-onClick", " enabled 2: "+CustomViewPager.enabled);
-
-        }
-   //### !!! The holly3 BoxIGV is a good switch !!! //
-        if( 
-        	RadioButtonGroup.statBoxG >0
-        	&& Radio.isValidCount > 0
-        	&& !RadioButtonGroup.statBoxIGV 
-           ) 
-        {           
-           Log.w("@NO-RBG-onClick holly3 ", " onClick(View v) ");
-           // --- mViewPager.setPagingEnabled(false);
-        }	
-  // --- ---- ---- ---- ---- ---- --- --- --- --- --- -- -
-        int j=0;
-		for (Radio myradio : group) {
-	        
-	        Log.w("-308 RBG-onClick:", "2A. myradio.radio.getId:"+myradio.radio.getId()+" j: "+j);
-	        
+  //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+  CustomViewPager.enabled = true; // SUPER ODER ???$$$$$$
+  //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+  Log.w("-303-$$$ RBG-onClick", "$$$ enabled ?: "+CustomViewPager.enabled);
+  
+ 
+        
+       // --- ---- ---- ---- ---- ---- --- --- --- --- --- -- -
+        int j=0;  // WoZu das ganze ???
+		for (Radio myradio : group) {	        
+	        Log.w("-308 RBG-onClick:", "2A. myradio.radio.getId:"+myradio.radio.getId()+" j: "+j);	        
 		    myradio.isGroupValidated=true;   // WoZu kann ich das nuzen ?
-		    CollectionDemoActivity.albertIsCheckPage = true;
 			myradio.radio.setChecked(false); // Wichtig for Sigle Radio Select !!
 			myradio.val="false";             // WoZu
-	        Log.w("-309 RBG-onClick", "2B. myradio.isGroupValidated:"+myradio.isGroupValidated+" j: "+j);
-			
+	        Log.w("-309 RBG-onClick", "2B. myradio.isGroupValidated:"+myradio.isGroupValidated+" j: "+j);			
 			j++;
 		}// END_for
 		
@@ -144,18 +112,37 @@ public class RadioButtonGroup implements OnClickListener
 		//----------------------------XXX------------------------------------------		
 		radio.setChecked(true); //WoZu
 		radioCont.val="true";  // WoZu
+
+		// CollectionDemoActivity.albertEquationNow ;
+		// CollectionDemoActivity.albertNameNow ; 
+		// CollectionDemoActivity.albertContentNow ; 
+
+		// CollectionDemoActivity.albertEquationNext ;    	
+		// CollectionDemoActivity.albertNameNext ;    	
+		// CollectionDemoActivity.albertContentNext ; 
+
+Log.w("*351-Nxt RBG onClick:", "CollectionDemoActivity.albertNameNext: "+CollectionDemoActivity.albertNameNext);		
+Log.w("*350-Nxt RBG onClick:", "CollectionDemoActivity.albertEquationNext: "+CollectionDemoActivity.albertEquationNext);
+Log.w("*352-Nxt RBG onClick:", "CollectionDemoActivity.albertContentNext: "+CollectionDemoActivity.albertContentNext);
+Log.w("*351-Nxt RBG onClick:", "CollectionDemoActivity.albertIdNext: "+CollectionDemoActivity.albertIdNext);
+Log.w("*35- ********** ", " ***************** ");
+Log.w("*351-Now  RBG onClick:", "CollectionDemoActivity.albertNameNow: "+CollectionDemoActivity.albertNameNow);
+Log.w("*350-Now RBG onClick:", "CollectionDemoActivity.albertEquationNow: "+CollectionDemoActivity.albertEquationNow);
+Log.w("*352-Now  RBG onClick:", "CollectionDemoActivity.albertContentNow: "+CollectionDemoActivity.albertContentNow);
+
+
 		
+        Log.w("-318 RBG onClick:", "radioCont.isGroupValidated: "+radioCont.isGroupValidated);
+        Log.w("-320 RBG onClick:", "statBoxName: "+RadioButtonGroup.statBoxName);
 		Log.w("-310 RBG onClick:", "radioCont.val: "+radioCont.val);
 		Log.w("-311 RBG onClick:", "radioCont.id: "+radioCont.id);
 		Log.w("-312 RBG onClick:", "radioCont.name: "+radioCont.name);
 		Log.w("-313 RBG onClick:", "radioCont.text: "+radioCont.text);
 		Log.w("-314 RBG onClick:", "radioCont.group: "+radioCont.group);
 		Log.w("-315 RBG onClick:", "radioCont.coef: "+radioCont.coef);
-		Log.w("-316 RBG onClick:", "radioCont.row: "+radioCont.row);
+		// Log.w("-316 RBG onClick:", "radioCont.row: "+radioCont.row);
 		// Log.w("-317 RBG onClick:", "radioCont.question: "+radioCont.question);
-		Log.w("-318 RBG onClick:", "radioCont.isGroupValidated: "+radioCont.isGroupValidated);
-		Log.w("-319 RBG onClick:", "-?- radio.getId: "+radio.getId());
-		Log.w("-320 RBG onClick:", "statBoxName: "+RadioButtonGroup.statBoxName);
+		// Log.w("-319 RBG onClick:", "-?- radio.getId: "+radio.getId());
 
 		//----------------------------XXX-------------------------------------------
 		// validate(String albertRadioTest,String albertRadioName, Activity context );
@@ -164,10 +151,9 @@ public class RadioButtonGroup implements OnClickListener
 		RadioButtonGroup.statBoxText = radioCont.text ; // Kut ?
 		RadioButtonGroup.statBoxG = radioCont.group ;   // Kut ?
 		RadioButtonGroup.statBoxCoef = radioCont.coef ; // Kut ?
-		RadioButtonGroup.statBoxIGV = radioCont.isGroupValidated;
+		RadioButtonGroup.statBoxIGV = radioCont.isGroupValidated; // Kut ?
 		
-		   // --- ---- ---- ---- ---- ---- --- --- --- --- --- -- -
-		   // mViewPager.setPagingEnabled(true);
+
 		   //### !!! The holly3 BoxIGV is a good switch !!! //
 		        if( 
 		        	RadioButtonGroup.statBoxG >0
@@ -175,8 +161,11 @@ public class RadioButtonGroup implements OnClickListener
 		        	&& RadioButtonGroup.statBoxIGV 
 		           ) 
 		        {            
-		        Log.w("-320 RBG onClick: ", " @3YES-RADIO the holly3 TEST ");
-		        // --- mViewPager.setPagingEnabled(false);
+		        Log.w("-320-Yes RBG onClick: ", " @3YES-RADIO the holly3 TEST ");
+	            // Log.w("-305 RBG-onClick", " enabled 1: "+CustomViewPager.enabled);
+	            // FLAG FLAG FLAG FLAG FLAG FLAG set YES TRUE
+	            // CustomViewPager.enabled = true; // GENUG To Stop // SUPER ODER ??? wird wicht ausgeführt !
+	            // Log.w("-307 RBG-onClick", " enabled 2: "+CustomViewPager.enabled);
 		        }
 		   //### !!! The holly3 BoxIGV is a good switch !!! //
 		        if( 
@@ -185,11 +174,10 @@ public class RadioButtonGroup implements OnClickListener
 		        	&& !RadioButtonGroup.statBoxIGV 
 		           ) 
 		        {           
-		        Log.w("-320 RBG onClick:", "  @NO-RADIO holly3 TEST ");
-		          // --- mViewPager.setPagingEnabled(false);
+		        Log.w("-320-No RBG onClick:", "  @NO-RADIO holly3 TEST ");
 		        }	
-		  // --- ---- ---- ---- ---- ---- --- --- --- --- --- -- -
-Log.w("-PPP PPP  PPP RAMKA", "FIN PPP PPP PPP PPP");
+Log.w("-RRR RRR  RRR RAMKA", "FIN RRR RRR RRR RRR");
+
 
 	}
 

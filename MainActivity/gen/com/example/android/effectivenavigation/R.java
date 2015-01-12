@@ -34,11 +34,11 @@ public final class R {
         public static final int dign=0x7f08000a;
         public static final int imageView1=0x7f080004;
         public static final int inputs_layout=0x7f080005;
-        public static final int main_layout=0x7f080001;
+        public static final int main_layout=0x7f080002;
         public static final int mainlayout=0x7f080006;
         public static final int name=0x7f080008;
         public static final int pager=0x7f080000;
-        public static final int pager_title_strip=0x7f080002;
+        public static final int pager_title_strip=0x7f080001;
         public static final int text1=0x7f080003;
         public static final int textView1=0x7f080007;
         public static final int textView2=0x7f080009;

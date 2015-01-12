@@ -84,8 +84,22 @@ public class CollectionDemoActivity extends FragmentActivity {
     static List <Question> questions;
     static int current=0;
     static int oldFragment=0;
-	public static boolean albertIsCheckPage= false ; //TEST
-	public static String albertEquation= "" ; //TEST
+	public static boolean albertIsCheckPage= false ; //to remoove
+	//-------------------------------------------------------------   	
+	public static String albertEquationNow= "bbb" ; //TEST
+	public static String albertEquationNext= "bbb" ; //TEST
+	
+	public static String albertNameNow= "bbb" ; //TEST
+	public static String albertNameNext= "bbb" ; //TEST
+	
+	public static String albertContentNow= "bbb" ; //TEST
+	public static String albertContentNext= "bbb" ; //TEST
+
+	public static int albertIdNow= 0 ; //TEST
+	public static int albertIdNext= 0 ; //TEST
+
+	public static int currentNow= 0 ; //TEST
+
 
     
     public void onCreate(Bundle savedInstanceState) {
@@ -158,7 +172,7 @@ public class CollectionDemoActivity extends FragmentActivity {
 			@Override
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
 				// TODO Auto-generated method stub
-			    Log.w("EEE2 PARICE " , " onPageScrolled ++++++ EEE2");
+			    // Log.w("EEE-ii Pizza " , " onPageScrolled ++++++ EEE-ii");
 	
 			}
 			
@@ -166,11 +180,16 @@ public class CollectionDemoActivity extends FragmentActivity {
 			public void onPageScrollStateChanged(int arg0) {
 				// TODO Auto-generated method stub
 			    Log.w("EEE3 PARICE ", " onPageScrollStateChanged ++++++ EEE3");
+		        Log.w("@bEEE7 Radio.D: ", "RadioButtonGroup.statBoxName: "+RadioButtonGroup.statBoxName );
+		        Log.w("@bEEE9 Radio.D: ", "RadioButtonGroup.statBoxG: "+RadioButtonGroup.statBoxG );
+		        Log.w("@bEEE20 Radio.D: ", "RadioButtonGroup.statBoxCoef: "+RadioButtonGroup.statBoxCoef );
+		        Log.w("@bEEE21 Radio.D: ", "RadioButtonGroup.statBoxIGV: "+RadioButtonGroup.statBoxIGV );
 
 			}
 		};
         mViewPager.setOnPageChangeListener(listener);
-    }
+    } // End CollectionDemoActivity
+    
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -236,15 +255,29 @@ public class CollectionDemoActivity extends FragmentActivity {
         @Override
         public int getCount() {
             // For this contrived example, we have a 100-object collection.
+            Log.w("size", "$$$-size: getPageTitle :"+questions.size());
+
             return questions.size() + 1;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
+            Log.w("Frage", "$$$-Frage: getPageTitle $:"+position);
 
+            CharSequence title = null;
+            if (position == 0) {
+                title = "a";
+            } else if (position == 1) {
+                title = "b";
+            } else if (position == 2) {
+                title = "c";
+            }
+            // return title;
             return "Frage " + (position + 1);
+            
+           
         }
-      	// DISPLAY GOGO
+      	// DISPLAY GOGO getPageTitle
     }
 
     
@@ -312,16 +345,44 @@ public class CollectionDemoActivity extends FragmentActivity {
             	// current=4; // Step Back!!
                 kartonA = "CURRENT: #"+current;   
             } 
-            	Log.w("---=******** Post CDA FRAGMENT.Pre", "*******=---");
-            	Question question=questions.get(current); // Das WiCHTIGSTE!!!
-            	// Question questionB=questions.set(current, question); //doom 
-
-            	Log.w("@887-YYY FRAGMENT", "question.equation %:"+kartonA+" // "+question.equation);
-            	Log.w("@886-YYY FRAGMENT", "question.content %:"+kartonA+question.content);
-           
+            	
+            if(current >1) 
+            {  
+            currentNow = current -1;
+           	//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+           	Question questionNow=questions.get(current-1);    //       $$$
+           	//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+            Log.w("---=******** CDA FRAGMENT. Now-Frage ?", "*******=---");  
+           	Log.w("@884-Now FRAGMENT", "CURRENT %: "+current);
+           	Log.w("@885-Now FRAGMENT", "questionNow.equation %:"+questionNow.equation);
+           	Log.w("@886-Now FRAGMENT: nowFrage", "questionNow.content %: "+questionNow.content);           	
+           	Log.w("@885-Now FRAGMENT", "questionNow.name %:"+questionNow.name);
+           	Log.w("@885-Now FRAGMENT", "questionNow.id %:"+questionNow.id);
+           	
+           	CollectionDemoActivity.albertEquationNow= questionNow.equation ; //TEST
+        	CollectionDemoActivity.albertNameNow= questionNow.name ; //TEST
+        	CollectionDemoActivity.albertContentNow= questionNow.content ; //TEST
+        	CollectionDemoActivity.albertIdNow= currentNow ; //TEST
+             }
             //**************************************************************************
+            Log.w("---=******** CDA FRAGMENT. Next-Frage", "*******=---");
+            //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+            Question question=questions.get(current);    // WiCHTiG!!  $$$
+            //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+            // Question questionB=questions.set(current, question); //doom 
+            //*************************************************************************************
+            Log.w("@884-YYY FRAGMENT", "CURRENT %: "+current);
+            Log.w("@885-YYY FRAGMENT", "question.equation %:"+question.equation);
+            Log.w("@886-YYY FRAGMENT: zukunftsFrage ", "question.content %: "+question.content);
+            //*************************************************************************************
+            	
+            	CollectionDemoActivity.albertEquationNext= question.equation ; //TEST            	
+            	CollectionDemoActivity.albertNameNext= question.name ; //TEST            	
+            	CollectionDemoActivity.albertContentNext= question.content ; //TEST
+            	CollectionDemoActivity.albertIdNext= current ; //TEST
+ 	
+            	
             Radio.isValidCount = 0;  
-            albertEquation= question.equation;
             Log.w("'''...'''....'''....'''... STOP CDA FRAGMENT", " STOP '''...'''....'''....'''...");
             return  question.display(getActivity(),rootView); // line 225 //rootView is the Layout
 

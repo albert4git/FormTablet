@@ -11,18 +11,28 @@ xmlns:android="http://schemas.android.com/apk/res/android"
   
 <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
 </android.support.v4.view.ViewPager>
+          android:textColor="#33AA33"
     
         android:textColor="#eeEEee"
-        android:textColor="@color/green"
         android:background="@color/blue"
 -->
 
 <com.example.android.effectivenavigation.CustomViewPager  
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/pager"
+      android:background="#333333"
+                   android:textColor="@color/green"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     
+        <android.support.v4.view.PagerTitleStrip android:id="@+id/pager_title_strip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:background="@color/blue"
+
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp" />
 
 </com.example.android.effectivenavigation.CustomViewPager>
 

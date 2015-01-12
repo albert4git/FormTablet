@@ -81,99 +81,100 @@ public class Radio extends InputElement {
 		    		+" //id: "+question.id
 		      		,Toast.LENGTH_LONG);
 		      		myToast2.setGravity(Gravity.TOP, 0, 0);
-		      		myToast2.show(); 
+		      		// myToast2.show(); 
 		    
 		} // WoZu ???
 		// ********************************************************
 		// 111
 		radio.setTextSize(35);
      
-
-    //-START--LOGIC--LOGIC--LOGIC--LOGIC--LOGIC--LOGIC--LOGIC--LOGIC--LOGIC---Logic--------
+    Log.w("@111 YYY YYY YYY  ---RAMKA---", "111 --- YYY YYY YYY YYY  ");       
+    //-START--LOGIC--LOGIC--LOGIC--LOGIC--LOGIC--LOGIC--LOGIC--LOGIC--LOGIC---Logic--
     RadioButtonGroup.statBoxFlag = 0; // The FLAG
     RadioButtonGroup.statBoxIGV = false;
     RadioButtonGroup.statBoxSFlag = "aaa"; 
     RadioButtonGroup.statBoxStartWith = false; 
-	//RadioButtonGroup.statBoxFlag = 0;   
-    // TOAST 1
-    //
+    // TOAST 1 -- TOAST 1 -- TOAST 1 -- TOAST 1 -- TOAST 1 -- TOAST 1 -- TOAST 1 --
     Toast myToast2 = Toast.makeText(context, 
-      		"##1 "+RadioButtonGroup.statBoxName
-      		+" //question.name: "+question.name
-    		+" //val: "+val    		
-    		+" //statBoxSFlag: "+RadioButtonGroup.statBoxSFlag
-    		+" //isValidCount: "+isValidCount
-      		,Toast.LENGTH_LONG);
-      		myToast2.setGravity(Gravity.LEFT, 0, 0);
-      		myToast2.show(); 
+       "##1 "+RadioButtonGroup.statBoxName
+        +" //question.name: "+question.name
+        +" //val: "+val    		
+        +" //statBoxSFlag: "+RadioButtonGroup.statBoxSFlag
+        +" //isValidCount: "+isValidCount
+      	,Toast.LENGTH_LONG);
+      	myToast2.setGravity(Gravity.LEFT, 0, 0);
+      	// myToast2.show(); 
       		
-      // TOAST 2
+      // TOAST 2 -- TOAST 2 -- TOAST 2 -- TOAST 2 -- TOAST 2 -- TOAST 2 -- TOAST 2 --
       Toast myToast = Toast.makeText(context, 
-		"###2 Name: "+RadioButtonGroup.statBoxName
-		+" /isValidCount: "+Radio.isValidCount
-		+" /statBoxIGV: "+RadioButtonGroup.statBoxIGV
-		+" /statBoxCoef: "+RadioButtonGroup.statBoxCoef
-		+" /albertEquation: "+CollectionDemoActivity.albertEquation
-		+" /question.content: "+question.content
-		
-		+" /RadioButtonGroup.statBoxG: "+RadioButtonGroup.statBoxG
-		+" /RadioButtonGroup.statBoxText: "+RadioButtonGroup.statBoxText		
+		"###2: "
+		+" //albertNameNow: "+CollectionDemoActivity.albertNameNow
+		+" //albertEquationNow: "+CollectionDemoActivity.albertEquationNow
+		+" //albertContentNow: "+CollectionDemoActivity.albertContentNow	
+		+" /albertIdNow: "+CollectionDemoActivity.albertIdNow
+		+" /albertIdNext: "+CollectionDemoActivity.albertIdNext
 		,Toast.LENGTH_SHORT);
 		myToast.setGravity(Gravity.RIGHT, 0, 0);
-	    // myToast.show(); 
+	    //myToast.show(); 
+	    
+		// +" /albertIdNext: "+CollectionDemoActivity.albertIdNext
+		// +" /statBoxIGV: "+RadioButtonGroup.statBoxIGV	
 		
-	  Log.w("@111 YYY YYY YYY  ---RAMKA---", "111 --- YYY YYY YYY YYY  ");       
     	if(    
-    			question.name.matches(".*q.*")
+    			CollectionDemoActivity.albertNameNow.matches(".*q.*")
            )
         {  				       
-	       // current=4;  SUPER ODER  SUPER ODER   SUPER ODER   SUPER ODER 
-    	      CustomViewPager.enabled = false; 
-    	   //  SUPER ODER  SUPER ODER  SUPER ODER  SUPER ODER  SUPER ODER 
+	       //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    	      CustomViewPager.enabled = false;     //$$$$$
+   	       //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
         }// end_if
-      	
+    	if(    
+    			CollectionDemoActivity.albertNameNow.matches(".*t.*")
+           )
+        {  				       
+	       //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    	      CustomViewPager.enabled = true;     //$$$$$
+   	       //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        }// end_if
     //
 	//
 	///////////////////////////////////////////////////////////////////////////////////////
-       // CollectionDemoActivity.albertIsCheckPage = false;        
        // CustomViewPager.enabled = false; // GENUG To Stop // SUPER ODER ???	
-       //
        //-STOP--LOGIC--LOGIC--LOGIC--LOGIC--LOGIC--LOGIC--LOGIC--LOGIC--LOGIC---Logic--------
-
+    	Log.w("@351-Nxt RBG onClick:", "CollectionDemoActivity.albertNameNext: "+CollectionDemoActivity.albertNameNext);
+    	Log.w("@350-Nxt RBG onClick:", "CollectionDemoActivity.albertEquationNext: "+CollectionDemoActivity.albertEquationNext);
+    	Log.w("@352-Nxt RBG onClick:", "CollectionDemoActivity.albertContentNext: "+CollectionDemoActivity.albertContentNext);
+    	Log.w("@351-Nxt RBG onClick:", "CollectionDemoActivity.albertIdNext: "+CollectionDemoActivity.albertIdNext);
+    	Log.w("@35- ********** ", " ***************** ");
+    	Log.w("@351-Now  RBG onClick:", "CollectionDemoActivity.albertNameNow: "+CollectionDemoActivity.albertNameNow);
+    	Log.w("@350-Now RBG onClick:", "CollectionDemoActivity.albertEquationNow: "+CollectionDemoActivity.albertEquationNow);
+    	Log.w("@352-Now  RBG onClick:", "CollectionDemoActivity.albertContentNow: "+CollectionDemoActivity.albertContentNow);
+        //**************************************************************************
         Log.w("@111 Radio.d: ", "isValidCount: "+isValidCount);
-        Log.w("@112 Radio.d: ", "this.isValidCount: "+this.isValidCount);
-        Log.w("@113 Radio.d: ", "super.isValidCount: "+super.isValidCount);
         Log.w("@114 Radio.D: ", "question.name: "+question.name);
         Log.w("@115 Radio.D: ", "question.equation: "+question.equation);
-        Log.w("@116 Radio.D: ", "question.content: "+question.content);
+        Log.w("@116 Radio.D: ZukunftsQuestion ?", "question.content: "+question.content);
         //**************************************************************************
         Log.w("@117 Radio.D: ", "RadioButtonGroup.statBoxName: "+RadioButtonGroup.statBoxName );
-        Log.w("@118 Radio.D: ", "RadioButtonGroup.statBoxText: "+RadioButtonGroup.statBoxText );
+        // Log.w("@118 Radio.D: ", "RadioButtonGroup.statBoxText: "+RadioButtonGroup.statBoxText );
         Log.w("@119 Radio.D: ", "RadioButtonGroup.statBoxG: "+RadioButtonGroup.statBoxG );
         Log.w("@120 Radio.D: ", "RadioButtonGroup.statBoxCoef: "+RadioButtonGroup.statBoxCoef );
         Log.w("@121 Radio.D: ", "RadioButtonGroup.statBoxIGV: "+RadioButtonGroup.statBoxIGV );
         //**************************************************************************
         Log.w("@122 Radio.D: ", "val: "+val);
         Log.w("@123 Radio.D: ", "radioBoxCount: "+radioBoxCount);
-        Log.w("@123 Radio.D: ", "this.radioBoxCount: "+this.radioBoxCount);
-        Log.w("@123 Radio.D: ", "super.radioBoxCount: "+super.radioBoxCount);
-
         Log.w("@124 Radio.D: ", "statBoxStartWith: "+RadioButtonGroup.statBoxStartWith );
-
         Log.w("@125 Radio.D: ", "albertIsCheckPage: "+CollectionDemoActivity.albertIsCheckPage);
-        Log.w("@126 Radio.D: ", "statBoxFlag: "+RadioButtonGroup.statBoxFlag );
-
-        //Log.w("115 Radio.display()4:", "radio.Id :"+radio.getId());
-        //Log.w("116 Radio.display()5:", "!! radio.length:"+radio.length());
-        //Log.w("##1 Radio.ViEW.D: ", "##1.statBoxName:"+RadioButtonGroup.statBoxName );
-        //// Log.w("##3 Radio.ViEW.D: ", "##3.statBoxSFlag:"+RadioButtonGroup.statBoxSFlag );
-        //Log.w("##4 Radio.ViEW.D: ", "##4.statBoxIGV:"+RadioButtonGroup.statBoxIGV );
+        
+        //Log.w("@126 Radio.D: ", "statBoxFlag: "+RadioButtonGroup.statBoxFlag );
+        //Log.w("##3 Radio.ViEW.D: ", "##3.statBoxSFlag:"+RadioButtonGroup.statBoxSFlag );
         //Log.w("##5 Radio.ViEW.D: ", "##5.statBoxStartWith:"+RadioButtonGroup.statBoxStartWith );
-        // ==========================================
+        //**************************************************************************
+        
         Log.w("@111 ZZZ ZZZ ZZZ  ---RAMKA---", "111 --- ZZZ ZZZ ZZZ ZZZ ");
         radioBoxCount ++;                   
 		return radio;
-	}// EndRadio
+	}// End-Radio
 	
 
 	@Override
