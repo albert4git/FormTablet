@@ -147,9 +147,8 @@ public class MainActivity extends Activity{
                                     public void onChosenDir(String chosenDir) 
                                     {
                                         m_chosenDir = chosenDir;
-                                        Toast.makeText(
-                                        		MainActivity.this, "This is chosen directory: " + 
-                                          chosenDir, Toast.LENGTH_LONG).show();
+                                      
+                                        // Toast.makeText(MainActivity.this, "This is chosen directory: " + chosenDir, Toast.LENGTH_LONG).show();
                                         
                                      	Intent intent = new Intent(MainActivity.this, CollectionDemoActivity.class);
                                      Mydata data1=new Mydata();

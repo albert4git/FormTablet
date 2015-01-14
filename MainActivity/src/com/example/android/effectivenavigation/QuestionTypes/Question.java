@@ -111,7 +111,7 @@ public class Question
 		LinearLayout l;
         //EXMPL  LinearLayout l=(LinearLayout) findViewById(R.id.mainlayout);
 		l=(LinearLayout) rootView.findViewById(R.id.inputs_layout);
-        l.setBackgroundColor(Color.DKGRAY); // GREEN
+        l.setBackgroundColor(Color.GRAY); // GREEN
 		TextView questionText=(TextView) rootView.findViewById(R.id.text1);
 		questionText.setText(content);
 		questionText.setPadding(20, 20, 20, 20);  

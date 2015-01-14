@@ -32,6 +32,8 @@ import java.util.List;
 import com.example.android.effectivenavigation.CollectionDemoActivity;
 import com.example.android.effectivenavigation.CustomViewPager;
 import com.example.android.effectivenavigation.R;
+import com.lowagie.text.pdf.RadioCheckField;
+
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
@@ -115,22 +117,21 @@ public class Radio extends InputElement {
 		myToast.setGravity(Gravity.RIGHT, 0, 0);
 	    //myToast.show(); 	    
 			
-	    	if( CollectionDemoActivity.albertNameNow.matches(".*q.*"))
+	    	if( CollectionDemoActivity.albertNameNow.matches("q.*"))
 	        {  				       
-		       //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 	    	      CustomViewPager.enabled = false;     //$$$$$
 	      	      Log.w("@1001 Radio.D inputElement: ", "@1001 FALSE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
-	   	       //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 	        }// end_if
 	    	//++++++++ 
-	    	if(	CollectionDemoActivity.albertNameNow.matches(".*t.*"))
+	    	if(	CollectionDemoActivity.albertNameNow.matches("t.*"))
 	        {  				       
-		       //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 	    	    CustomViewPager.enabled = true;     //$$$$$
 	    	    Log.w("@1001 Radio.D inputElement: ", "@1001 TRUE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
-	   	       //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 	        }//////// end_if ///////
-	    RadioButtonGroup.statBoxBuffer+="-"+CollectionDemoActivity.albertNameNow;
+	    // >>> POINT >>>
+	    	//RadioButtonGroup.statBoxBuffer+="-"+RadioButtonGroup.statBoxName;
+	    	RadioButtonGroup.statBoxBuffer="-"+CollectionDemoActivity.albertEquationNow ;
+
 	    	
         //-STOP--LOGIC--LOGIC--LOGIC--LOGIC--LOGIC--LOGIC--LOGIC--LOGIC--LOGIC---Logic--------
     	Log.w("@351-Nxt Radio.d :", "@1001 CollectionDemoActivity.albertNameNext: "+CollectionDemoActivity.albertNameNext);
@@ -141,7 +142,7 @@ public class Radio extends InputElement {
     	Log.w("@351-Now-Buffer:", "@1001 statBoxBuffer: "+RadioButtonGroup.statBoxBuffer);
 
     	Log.w("@351-Now  Radio.d :", "@1001 CollectionDemoActivity.albertNameNow: "+CollectionDemoActivity.albertNameNow);
-    	//8 Log.w("@350-Now Radio.d onClick:", "CollectionDemoActivity.albertEquationNow: "+CollectionDemoActivity.albertEquationNow);
+    	Log.w("@350-Now Radio.d onClick:", "CollectionDemoActivity.albertEquationNow: "+CollectionDemoActivity.albertEquationNow);
     	Log.w("@352-Now  Radio.d :", "CollectionDemoActivity.albertContentNow: "+CollectionDemoActivity.albertContentNow);
     	Log.w("@351-Nxt Radio.d :", "1002 CollectionDemoActivity.albertIdNow: "+CollectionDemoActivity.albertIdNow);
     	Log.w("@333 ###: ", "### CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
@@ -150,9 +151,11 @@ public class Radio extends InputElement {
         Log.w("@120 Radio.D: ", "RadioButtonGroup.statBoxCoef: "+RadioButtonGroup.statBoxCoef );
         Log.w("@121 Radio.D: ", "RadioButtonGroup.statBoxIGV: "+RadioButtonGroup.statBoxIGV );
     	// Log.w("@35- **************** ", " ***************************** ");
-        // Log.w("@114 Radio.D: ", "question.name: "+question.name);
-        // Log.w("@115 Radio.D: ", "question.equation: "+question.equation);
-        // Log.w("@116 Radio.D: ZukunftsQuestion ?", "question.content: "+question.content);
+         Log.w("@114 Radio.D: ", "question.name: "+question.name);
+         Log.w("@115 Radio.D: ", "question.equation: "+question.equation);
+         Log.w("@116 Radio.D: ", "question.content: "+question.content);
+         Log.w("@114 Radio.D: ", "1001 question.name: "+RadioButtonGroup.statBoxName);
+
         // Log.w("@118 Radio.D: ", "RadioButtonGroup.statBoxText: "+RadioButtonGroup.statBoxText );
         //**************************************************************************
         // Log.w("@122 Radio.D: ", "val: "+val);
@@ -165,7 +168,8 @@ public class Radio extends InputElement {
         radioBoxCount ++;                   
 		return radio;
 	}// End-Radio
-	
+//=====================================================================================================================	
+//=======================================================================================================================	
 
 	@Override
 	public String writeData() {

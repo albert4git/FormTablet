@@ -326,9 +326,8 @@ private AlertDialog.Builder createDirectoryChooserDialog(String title, List<Stri
                     }
                     else
                     {
-                        Toast.makeText(
-                        m_context, "Failed to create '" + newDirName + 
-                          "' folder", Toast.LENGTH_SHORT).show();
+                    	// Chosen Dir ??
+                        // Toast.makeText(m_context, "Failed to create '" + newDirName +    "' folder", Toast.LENGTH_SHORT).show();
                     }
                 }
             }).setNegativeButton("Cancel", null).show(); 

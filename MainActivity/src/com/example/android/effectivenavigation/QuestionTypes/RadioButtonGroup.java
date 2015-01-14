@@ -89,14 +89,7 @@ public class RadioButtonGroup implements OnClickListener
 		radioCont=(Radio) v.getTag();
 		List<Radio> group=groups.get(radioCont.group-1);
 Log.w("-PPP PPP  PPP RAMKA", "FIN PPP PPP PPP PPP");
-Log.w("-301 RBG-onClick:", "1. radioCont.val:"+radioCont.val);
-   // --- ---- ---- ---- ---- ---- --- --- --- --- --- -- -
-  //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-  CustomViewPager.enabled = true; // SUPER ODER ???$$$$$$
-  //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-  Log.w("-303-$$$ RBG-onClick", "1001 enabled ?: "+CustomViewPager.enabled);
-  
- 
+Log.w("-301 RBG-onClick:", "1. radioCont.val:"+radioCont.val); 
         
        // --- ---- ---- ---- ---- ---- --- --- --- --- --- -- -
         int j=0;  // WoZu das ganze ???
@@ -153,31 +146,36 @@ Log.w("*352-Now  RBG onClick:", "CollectionDemoActivity.albertContentNow: "+Coll
 		RadioButtonGroup.statBoxG = radioCont.group ;   // Kut ?
 		RadioButtonGroup.statBoxCoef = radioCont.coef ; // Kut ?
 		RadioButtonGroup.statBoxIGV = radioCont.isGroupValidated; // Kut ?
-		
+		//POIONT
+		RadioButtonGroup.statBoxBuffer=RadioButtonGroup.statBoxBuffer.replaceAll(radioCont.name, "D");
+    	Log.w("@351-Now-Buffer: RBG ", "RBG @1001 statBoxBuffer: "+RadioButtonGroup.statBoxBuffer);
 
-		   //### !!! The holly3 BoxIGV is a good switch !!! //
-		        if( 
-		        	RadioButtonGroup.statBoxG >0
-		        	&& Radio.isValidCount > 0
-		        	&& RadioButtonGroup.statBoxIGV 
-		           ) 
-		        {            
-		        Log.w("-320-Yes RBG onClick: ", " @3YES-RADIO the holly3 TEST ");
-	            // Log.w("-305 RBG-onClick", " enabled 1: "+CustomViewPager.enabled);
-	            // FLAG FLAG FLAG FLAG FLAG FLAG set YES TRUE
-	            // CustomViewPager.enabled = true; // GENUG To Stop // SUPER ODER ??? wird wicht ausgefŸhrt !
-	            // Log.w("-307 RBG-onClick", " enabled 2: "+CustomViewPager.enabled);
-		        }
-		   //### !!! The holly3 BoxIGV is a good switch !!! //
-		        if( 
-		        	RadioButtonGroup.statBoxG >0
-		        	&& Radio.isValidCount > 0
-		        	&& !RadioButtonGroup.statBoxIGV 
-		           ) 
-		        {           
-		        Log.w("-320-No RBG onClick:", "  @NO-RADIO holly3 TEST ");
-		        }	
-Log.w("-RRR RRR  RRR RAMKA", "FIN RRR RRR RRR RRR");
+    	 if( CollectionDemoActivity.albertNameNow.matches(".*mq.*") 
+    	    && !RadioButtonGroup.statBoxBuffer.matches(".*l.*")) 
+		 {           
+		     Log.w("@351-Now-Buffer: RBG ", "-POINT- @1001 statBoxBuffer: "+RadioButtonGroup.statBoxBuffer);
+		     // --- ---- ---- ---- ---- ---- --- --- --- --- --- -- -
+		     CustomViewPager.enabled = true; //$$$$$$
+		     Log.w("-303-$$$ RBG-onClick", "1001 enabled ?: "+CustomViewPager.enabled);
+		 }	
+         if( CollectionDemoActivity.albertNameNow.matches("q.*"))
+         {  				       
+     	      CustomViewPager.enabled = true; //$$$$$
+       	      Log.w("@1001 Radio.D inputElement: ", "@1001 FALSE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
+         }// end_if
+     	//++++++++ 
+     	if(	CollectionDemoActivity.albertNameNow.matches("t.*"))
+         {  				       
+     	    CustomViewPager.enabled = true; //$$$$$
+     	    Log.w("@1001 Radio.D inputElement: ", "@1001 TRUE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
+         }//////// end_if ///////
+     	//++++++++ 
+    	//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    	//CustomViewPager.enabled = true; // SUPER ODER ???$$$$$$
+    	//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    	Log.w("-303-$$$ RBG-onClick", "1001 enabled ?: "+CustomViewPager.enabled);
+    	 
+    	Log.w("-RRR RRR  RRR RAMKA", "FIN RRR RRR RRR RRR");
 
 
 	}

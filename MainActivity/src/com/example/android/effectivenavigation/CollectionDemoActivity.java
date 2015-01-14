@@ -29,8 +29,10 @@ import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -54,13 +56,63 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.example.android.effectivenavigation.SimpleGestureFilter.SimpleGestureListener;
 import com.example.android.effectivenavigation.QuestionTypes.*;
 import com.example.android.effectivenavigation.QuestionParser.*;
 
 
 
-public class CollectionDemoActivity extends FragmentActivity {
-	// DISPLAY GOGO
+public class CollectionDemoActivity extends FragmentActivity implements SimpleGestureListener{
+// DISPLAY GOGO
+//--------------------------------------------------------------------------//
+//
+private SimpleGestureFilter detector;    
+      
+@Override
+public boolean dispatchTouchEvent(MotionEvent me){
+    // Call onTouchEvent of SimpleGestureFilter class
+     this.detector.onTouchEvent(me);
+    return super.dispatchTouchEvent(me);
+}
+
+@Override
+ public void onSwipe(int direction) {
+  String str = "";
+  		  
+		if(!CustomViewPager.enabled){
+			 switch (direction) {	  
+			  case SimpleGestureFilter.SWIPE_RIGHT : str = "Swipe Right";
+			  Log.w("Swipe Right", "1000D Swipe Right");
+			        break;
+			  case SimpleGestureFilter.SWIPE_LEFT :  str = "Swipe Left";
+			         // Toast.makeText(this, "  Bitte machen Sie eine Auswahl !!  ", Toast.LENGTH_SHORT).show();
+			               Toast myToast = Toast.makeText(getBaseContext(), 
+			        		 "  Bitte machen Sie eine/vollstŠndige Auswahl ! "			        		    
+			        		 ,Toast.LENGTH_SHORT);
+			        		myToast.setGravity(Gravity.TOP, 0, 0);
+			        	    myToast.show();
+					  Log.w("Swipe Left", "1000D Swipe Left");
+			        break;
+			  case SimpleGestureFilter.SWIPE_DOWN :  str = "Swipe Down";
+			  Log.w("Swipe Down", "1000D Swipe Down");
+			        break;
+			  case SimpleGestureFilter.SWIPE_UP :    str = "Swipe Up";
+			  Log.w("Swipe UP", "1000D Swipe UP");
+			        break;
+			  
+			  }
+			
+		}	 
+   
+ }
+  
+ @Override
+ public void onDoubleTap() {
+    Toast.makeText(this, "Double Tap", Toast.LENGTH_SHORT).show();
+ }
+ //
+ //---------------------------------------------------------------------------//
+ 
 	//Toast.makeText(context, " DiiiSPLAY :", Toast.LENGTH_LONG).show();
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide fragments representing
@@ -107,7 +159,8 @@ public class CollectionDemoActivity extends FragmentActivity {
         setContentView(R.layout.activity_collection_demo);        
         // setContentView(R.layout.demo2);
         // setContentView(R.layout.custom_v);
-        
+        // Detect touched area
+        detector = new SimpleGestureFilter(this,this); // FFF
         // final TableLayout table = (TableLayout) findViewById(R.id.tableLayout1);
         Intent intent=getIntent();
         data= (Mydata) intent.getSerializableExtra("Mydata");        
@@ -298,7 +351,7 @@ public class CollectionDemoActivity extends FragmentActivity {
 
             View rootView = inflater.inflate(R.layout.fragment_collection_object, container, false);
             Bundle args = getArguments();
-            int current=args.getInt(ARG_OBJECT)-1;
+            int current=args.getInt(ARG_OBJECT)-1; //&&&&&
             // Modragon !!! **********************************************************
             // Log.w("661  CDA Fragment:", "quest.size is:"+questions.size());
             Log.w("662  CDA FRAGMENT", "Current: #"+current);
@@ -343,33 +396,30 @@ public class CollectionDemoActivity extends FragmentActivity {
             	// current=4; // Step Back!!
             } 
             	
-            if(current >1) 
+            if(current >0) 
             {  
-            currentNow = current -1;
-           	//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-           	Question questionNow=questions.get(current-1);    //       $$$
-           	//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-            Log.w("---=******** CDA FRAGMENT. Now-Frage ?", "*******=---");  
-           	Log.w("@884-Now FRAGMENT", "CURRENT %: "+current);
-           	Log.w("@885-Now FRAGMENT", "questionNow.equation %:"+questionNow.equation);
-           	Log.w("@886-Now FRAGMENT: nowFrage", "questionNow.content %: "+questionNow.content);           	
-           	Log.w("@885-Now FRAGMENT", "questionNow.name %:"+questionNow.name);
-           	Log.w("@885-Now FRAGMENT", "questionNow.id %:"+questionNow.id);
-	            if( CollectionDemoActivity.albertNameNow.matches(".*q.*"))
-	            {  				       
-	    	       //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-	        	      CustomViewPager.enabled = false;     //$$$$$
-	          	      Log.w("@1001 Radio.D inputElement: ", "@1001 FALSE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
-	       	       //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-	            }// end_if
-	        	//++++++++ 
-	        	if(	CollectionDemoActivity.albertNameNow.matches(".*t.*"))
-	            {  				       
-	    	       //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-	        	    CustomViewPager.enabled = true;     //$$$$$
-	        	    Log.w("@1001 Radio.D inputElement: ", "@1001 TRUE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
-	       	       //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-	            }//////// end_if ///////
+            	currentNow = current -1;
+            	Question questionNow=questions.get(current-1);    //&&&&&
+            	Log.w("---=******** CDA FRAGMENT. Now-Frage ?", "*******=---");  
+            	Log.w("@884-Now FRAGMENT", "CURRENT %: "+current);
+            	Log.w("@885-Now FRAGMENT", "questionNow.equation %:"+questionNow.equation);
+            	Log.w("@886-Now FRAGMENT: nowFrage", "questionNow.content %: "+questionNow.content);           	
+            	Log.w("@885-Now FRAGMENT", "questionNow.name %:"+questionNow.name);
+            	Log.w("@885-Now FRAGMENT", "questionNow.id %:"+questionNow.id);
+            	    // Bachground reCheck ;)
+		            if( CollectionDemoActivity.albertNameNow.matches(".*q.*"))
+		            {  				       
+		        	      CustomViewPager.enabled = false; //$$$$$
+		          	      Log.w("@1001 Radio.D inputElement: ", "@1001 FALSE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
+		            }// end_if
+		        	//++++++++ 
+		        	if(	CollectionDemoActivity.albertNameNow.matches("t.*"))
+		            {  				       
+		        	    CustomViewPager.enabled = true; //$$$$$
+		        	    Log.w("@1001 Radio.D inputElement: ", "@1001 TRUE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
+		            }//////// end_if ///////
+		        	//++++++++ 
+
 	           	CollectionDemoActivity.albertEquationNow= questionNow.equation ; //TEST
 	        	CollectionDemoActivity.albertNameNow= questionNow.name ; //TEST
 	        	CollectionDemoActivity.albertContentNow= questionNow.content ; //TEST
@@ -377,22 +427,18 @@ public class CollectionDemoActivity extends FragmentActivity {
              }
             //**************************************************************************
             Log.w("---=******** CDA FRAGMENT. Next-Frage", "*******=---");
-            //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-            Question question=questions.get(current);    // WiCHTiG!!  $$$
-            //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+            Question question=questions.get(current);    // WiCHTiG!! &&&&&
             // Question questionB=questions.set(current, question); //doom 
             //*************************************************************************************
             Log.w("@884-YYY FRAGMENT", "CURRENT %: "+current);
             Log.w("@885-YYY FRAGMENT", "question.equation %:"+question.equation);
             Log.w("@886-YYY FRAGMENT: zukunftsFrage ", "question.content %: "+question.content);
             //*************************************************************************************
-            // statBoxName to albertNameNow ?
+            // statBoxName to albertNameNow ? initial
 	            if (current == 1 && RadioButtonGroup.statBoxName.matches("aaa")){
 	                Log.w("@884-YYY FRAGMENT", "aaa CURRENT %: "+current);
-	 	            //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-		            CustomViewPager.enabled = false;        //$$$$$
+		            CustomViewPager.enabled = false;  //$$$$$
 		    	    Log.w("@1001 CDA inputElement: ", "@1001 FALSE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
-		            //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ 
 	            }
             	CollectionDemoActivity.albertEquationNext= question.equation ; //TEST            	
             	CollectionDemoActivity.albertNameNext= question.name ; //TEST            	
