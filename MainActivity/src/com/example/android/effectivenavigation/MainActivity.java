@@ -120,12 +120,12 @@ public class MainActivity extends Activity{
                   
                             private String m_chosenDir = "";
                             private boolean m_newFolderEnabled = true;
-                           
+        
                             @Override
                             public void onClick(View v) 
                             {   // RED button on click ??
                             	
-                          	
+
                             	///
                             	v.setBackgroundColor(Color.GRAY);
                             	System.out.println(subjectName.getText().toString());

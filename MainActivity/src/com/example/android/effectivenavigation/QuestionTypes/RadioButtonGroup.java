@@ -49,6 +49,7 @@ public class RadioButtonGroup implements OnClickListener
 	public static boolean statBoxStartWith = false ; //TEST
 	public static boolean statBoxStartHasA = false ; //TEST
 	public static boolean statBoxStartHasB = false ; //TEST
+	public static String statBoxBuffer = "xx"; //TEST
 
 
 	
@@ -88,12 +89,12 @@ public class RadioButtonGroup implements OnClickListener
 		radioCont=(Radio) v.getTag();
 		List<Radio> group=groups.get(radioCont.group-1);
 Log.w("-PPP PPP  PPP RAMKA", "FIN PPP PPP PPP PPP");
- Log.w("-301 RBG-onClick:", "1. radioCont.val:"+radioCont.val);
+Log.w("-301 RBG-onClick:", "1. radioCont.val:"+radioCont.val);
    // --- ---- ---- ---- ---- ---- --- --- --- --- --- -- -
   //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
   CustomViewPager.enabled = true; // SUPER ODER ???$$$$$$
   //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-  Log.w("-303-$$$ RBG-onClick", "$$$ enabled ?: "+CustomViewPager.enabled);
+  Log.w("-303-$$$ RBG-onClick", "1001 enabled ?: "+CustomViewPager.enabled);
   
  
         

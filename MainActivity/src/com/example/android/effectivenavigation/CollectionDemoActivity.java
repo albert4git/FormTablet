@@ -86,14 +86,14 @@ public class CollectionDemoActivity extends FragmentActivity {
     static int oldFragment=0;
 	public static boolean albertIsCheckPage= false ; //to remoove
 	//-------------------------------------------------------------   	
-	public static String albertEquationNow= "bbb" ; //TEST
-	public static String albertEquationNext= "bbb" ; //TEST
+	public static String albertEquationNow= "bb" ; //TEST
+	public static String albertEquationNext= "bb" ; //TEST
 	
-	public static String albertNameNow= "bbb" ; //TEST
-	public static String albertNameNext= "bbb" ; //TEST
+	public static String albertNameNow= "bb" ; //TEST
+	public static String albertNameNext= "bb" ; //TEST
 	
-	public static String albertContentNow= "bbb" ; //TEST
-	public static String albertContentNext= "bbb" ; //TEST
+	public static String albertContentNow= "bb" ; //TEST
+	public static String albertContentNext= "bb" ; //TEST
 
 	public static int albertIdNow= 0 ; //TEST
 	public static int albertIdNext= 0 ; //TEST
@@ -255,14 +255,14 @@ public class CollectionDemoActivity extends FragmentActivity {
         @Override
         public int getCount() {
             // For this contrived example, we have a 100-object collection.
-            Log.w("size", "$$$-size: getPageTitle :"+questions.size());
+            // Log.w("size", "$$$-size: getPageTitle :"+questions.size());
 
             return questions.size() + 1;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            Log.w("Frage", "$$$-Frage: getPageTitle $:"+position);
+            // Log.w("Frage", "$$$-Frage: getPageTitle $:"+position);
 
             CharSequence title = null;
             if (position == 0) {
@@ -273,8 +273,7 @@ public class CollectionDemoActivity extends FragmentActivity {
                 title = "c";
             }
             // return title;
-            return "Frage " + (position + 1);
-            
+            return "Frage " + (position + 1);           
            
         }
       	// DISPLAY GOGO getPageTitle
@@ -330,7 +329,6 @@ public class CollectionDemoActivity extends FragmentActivity {
             RadioButtonGroup.statBoxSFlag = "AAA";
             Log.w("@891 CDA.XXX:", "RadioButtonGroup.statBoxStartWith:"+RadioButtonGroup.statBoxStartWith );
             //**************************************************************************
-            kartonA = "CURRENT: #"+current;   
  
             if(!RadioButtonGroup.statBoxIGV 
             	&& RadioButtonGroup.statBoxStartWith 
@@ -343,7 +341,6 @@ public class CollectionDemoActivity extends FragmentActivity {
             	Log.w("@892-XXX Pre CDA:", "statBoxFlag:"+RadioButtonGroup.statBoxFlag );
             	Log.w("@893-XXX Pre CDA:", "statBoxSFlag:"+RadioButtonGroup.statBoxSFlag );
             	// current=4; // Step Back!!
-                kartonA = "CURRENT: #"+current;   
             } 
             	
             if(current >1) 
@@ -358,11 +355,25 @@ public class CollectionDemoActivity extends FragmentActivity {
            	Log.w("@886-Now FRAGMENT: nowFrage", "questionNow.content %: "+questionNow.content);           	
            	Log.w("@885-Now FRAGMENT", "questionNow.name %:"+questionNow.name);
            	Log.w("@885-Now FRAGMENT", "questionNow.id %:"+questionNow.id);
-           	
-           	CollectionDemoActivity.albertEquationNow= questionNow.equation ; //TEST
-        	CollectionDemoActivity.albertNameNow= questionNow.name ; //TEST
-        	CollectionDemoActivity.albertContentNow= questionNow.content ; //TEST
-        	CollectionDemoActivity.albertIdNow= currentNow ; //TEST
+	            if( CollectionDemoActivity.albertNameNow.matches(".*q.*"))
+	            {  				       
+	    	       //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+	        	      CustomViewPager.enabled = false;     //$$$$$
+	          	      Log.w("@1001 Radio.D inputElement: ", "@1001 FALSE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
+	       	       //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+	            }// end_if
+	        	//++++++++ 
+	        	if(	CollectionDemoActivity.albertNameNow.matches(".*t.*"))
+	            {  				       
+	    	       //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+	        	    CustomViewPager.enabled = true;     //$$$$$
+	        	    Log.w("@1001 Radio.D inputElement: ", "@1001 TRUE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
+	       	       //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+	            }//////// end_if ///////
+	           	CollectionDemoActivity.albertEquationNow= questionNow.equation ; //TEST
+	        	CollectionDemoActivity.albertNameNow= questionNow.name ; //TEST
+	        	CollectionDemoActivity.albertContentNow= questionNow.content ; //TEST
+	        	CollectionDemoActivity.albertIdNow= currentNow ; //TEST
              }
             //**************************************************************************
             Log.w("---=******** CDA FRAGMENT. Next-Frage", "*******=---");
@@ -375,7 +386,14 @@ public class CollectionDemoActivity extends FragmentActivity {
             Log.w("@885-YYY FRAGMENT", "question.equation %:"+question.equation);
             Log.w("@886-YYY FRAGMENT: zukunftsFrage ", "question.content %: "+question.content);
             //*************************************************************************************
-            	
+            // statBoxName to albertNameNow ?
+	            if (current == 1 && RadioButtonGroup.statBoxName.matches("aaa")){
+	                Log.w("@884-YYY FRAGMENT", "aaa CURRENT %: "+current);
+	 	            //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+		            CustomViewPager.enabled = false;        //$$$$$
+		    	    Log.w("@1001 CDA inputElement: ", "@1001 FALSE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
+		            //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ 
+	            }
             	CollectionDemoActivity.albertEquationNext= question.equation ; //TEST            	
             	CollectionDemoActivity.albertNameNext= question.name ; //TEST            	
             	CollectionDemoActivity.albertContentNext= question.content ; //TEST
