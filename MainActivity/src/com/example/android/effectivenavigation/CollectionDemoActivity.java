@@ -406,17 +406,18 @@ public boolean dispatchTouchEvent(MotionEvent me){
             	Log.w("@886-Now FRAGMENT: nowFrage", "questionNow.content %: "+questionNow.content);           	
             	Log.w("@885-Now FRAGMENT", "questionNow.name %:"+questionNow.name);
             	Log.w("@885-Now FRAGMENT", "questionNow.id %:"+questionNow.id);
-            	    // Bachground reCheck ;)
+            	  // Bachground reCheck ;)
+        	      Log.w("DemoObjectFragment CDA: ", "@1001 PRE-Check CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
 		            if( CollectionDemoActivity.albertNameNow.matches(".*q.*"))
 		            {  				       
-		        	      CustomViewPager.enabled = false; //$$$$$
-		          	      Log.w("@1001 Radio.D inputElement: ", "@1001 FALSE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
+		        	    CustomViewPager.enabled = false; //$$$$$
+		          	    Log.w("DemoObjectFragment CDA: ", "@1001 FALSE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
 		            }// end_if
 		        	//++++++++ 
 		        	if(	CollectionDemoActivity.albertNameNow.matches("t.*"))
 		            {  				       
 		        	    CustomViewPager.enabled = true; //$$$$$
-		        	    Log.w("@1001 Radio.D inputElement: ", "@1001 TRUE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
+		        	    Log.w("DemoObjectFragment CDA: ", "@1001 TRUE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
 		            }//////// end_if ///////
 		        	//++++++++ 
 

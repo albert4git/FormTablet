@@ -150,30 +150,30 @@ Log.w("*352-Now  RBG onClick:", "CollectionDemoActivity.albertContentNow: "+Coll
 		RadioButtonGroup.statBoxBuffer=RadioButtonGroup.statBoxBuffer.replaceAll(radioCont.name, "D");
     	Log.w("@351-Now-Buffer: RBG ", "RBG @1001 statBoxBuffer: "+RadioButtonGroup.statBoxBuffer);
 
-    	 if( CollectionDemoActivity.albertNameNow.matches(".*mq.*") 
-    	    && !RadioButtonGroup.statBoxBuffer.matches(".*l.*")) 
-		 {           
-		     Log.w("@351-Now-Buffer: RBG ", "-POINT- @1001 statBoxBuffer: "+RadioButtonGroup.statBoxBuffer);
-		     // --- ---- ---- ---- ---- ---- --- --- --- --- --- -- -
-		     CustomViewPager.enabled = true; //$$$$$$
-		     Log.w("-303-$$$ RBG-onClick", "1001 enabled ?: "+CustomViewPager.enabled);
-		 }	
-         if( CollectionDemoActivity.albertNameNow.matches("q.*"))
-         {  				       
-     	      CustomViewPager.enabled = true; //$$$$$
-       	      Log.w("@1001 Radio.D inputElement: ", "@1001 FALSE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
-         }// end_if
-     	//++++++++ 
-     	if(	CollectionDemoActivity.albertNameNow.matches("t.*"))
-         {  				       
-     	    CustomViewPager.enabled = true; //$$$$$
-     	    Log.w("@1001 Radio.D inputElement: ", "@1001 TRUE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
-         }//////// end_if ///////
-     	//++++++++ 
     	//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-    	//CustomViewPager.enabled = true; // SUPER ODER ???$$$$$$
+	    	 if( 
+	    	     CollectionDemoActivity.albertNameNow.matches(".*mq.*") 
+	    	     && !RadioButtonGroup.statBoxBuffer.matches(".*l.*") 
+	    	   ) 
+			 {           
+			     Log.w("$$$-Now-Buffer: RBG-onClick ", "-POINT- @1001 @351 albertNameNow: "+CollectionDemoActivity.albertNameNow);
+			     Log.w("$$$-Now-Buffer: RBG-onClick ", "-POINT- @1001 @351 statBoxBuffer: "+RadioButtonGroup.statBoxBuffer);
+			     CustomViewPager.enabled = true; //$$$$$
+			     Log.w("$$$ RBG-onClick", "@1001 @351 enabled ?: "+CustomViewPager.enabled);
+			 }	
+	         if( CollectionDemoActivity.albertNameNow.matches("q.*"))
+	         {  				       
+	     	      CustomViewPager.enabled = true; //$$$$$
+	       	      Log.w("$$$ RBG-onClick", "@1001 @351 FALSE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
+	         }// end_if
+	     	 if(	CollectionDemoActivity.albertNameNow.matches("t.*"))
+	         {  				       
+	     	    CustomViewPager.enabled = true; //$$$$$
+	     	    Log.w("$$$ RBG-onClick", "@1001 @351 TRUE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
+	         }// end_if
+	     	//++++++++ 
     	//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-    	Log.w("-303-$$$ RBG-onClick", "1001 enabled ?: "+CustomViewPager.enabled);
+    	Log.w("$$$ RBG-onClick", "1001 @351 enabled ?: "+CustomViewPager.enabled);
     	 
     	Log.w("-RRR RRR  RRR RAMKA", "FIN RRR RRR RRR RRR");
 
