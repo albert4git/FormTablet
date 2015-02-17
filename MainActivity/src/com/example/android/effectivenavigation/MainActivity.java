@@ -23,6 +23,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.w3c.dom.Text;
+
 import net.sourceforge.jeval.EvaluationException;
 import net.sourceforge.jeval.Evaluator;
 
@@ -70,16 +72,19 @@ public class MainActivity extends Activity{
 	private static final int REQUEST_CODE = 6384; // onActivityResult request code
 	private EditText subjectName;
 	private EditText subjectDign;
+	private static String suNamen;
+	private static String suDign;
 
 
 
     public void onCreate(Bundle savedInstanceState) {
+    	
         //super.onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
         //Creation theory !!!
         //setContentView(R.layout.activity_collection_demo);
 
-          setContentView(R.layout.fragment_section_launchpad);
+         setContentView(R.layout.fragment_section_launchpad);
 		
       // setContentView(R.layout.my_table);
         // final TableLayout table = (TableLayout) findViewById(R.id.tableLayout1);
@@ -93,7 +98,7 @@ public class MainActivity extends Activity{
         
        
         LinearLayout l=(LinearLayout) findViewById(R.id.mainlayout);
-        l.setBackgroundColor(Color.DKGRAY);
+        l.setBackgroundColor(Color.BLUE); // DKGRAY
         TextView label= new TextView(this);
 
        
@@ -113,7 +118,8 @@ public class MainActivity extends Activity{
     	
         subjectName = (EditText) findViewById(R.id.name);
         subjectDign = (EditText) findViewById(R.id.dign);
-   
+        suNamen = "#"+subjectName.getText();
+        
         Button btn=(Button) findViewById(R.id.demo_collection_button);
                  
                btn.setOnClickListener(new View.OnClickListener() {
@@ -127,7 +133,7 @@ public class MainActivity extends Activity{
                             	
 
                             	///
-                            	v.setBackgroundColor(Color.GRAY);
+                            	v.setBackgroundColor(Color.GREEN); // GRAY
                             	System.out.println(subjectName.getText().toString());
                             	Calendar now = Calendar.getInstance();
                             	int iYear=now.get(Calendar.YEAR);	

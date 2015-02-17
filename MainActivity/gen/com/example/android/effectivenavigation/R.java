@@ -19,39 +19,56 @@ public final class R {
         public static final int mydimension=0x7f050000;
     }
     public static final class drawable {
-        public static final int banner=0x7f020000;
-        public static final int birgits=0x7f020001;
-        public static final int ic_launcher=0x7f020002;
-        public static final int kirsh1=0x7f020003;
-        public static final int kirsh4s900=0x7f020004;
-        public static final int lmu_background=0x7f020005;
-        public static final int lmubanner=0x7f020006;
-        public static final int neurologie=0x7f020007;
-        public static final int wolfgang_logo2=0x7f020008;
+        public static final int b_cub=0x7f020000;
+        public static final int b_cub55=0x7f020001;
+        public static final int banner=0x7f020002;
+        public static final int birgits=0x7f020003;
+        public static final int custom_btn_black_pearl=0x7f020004;
+        public static final int custom_btn_orange=0x7f020005;
+        public static final int g_cub45=0x7f020006;
+        public static final int ic_launcher=0x7f020007;
+        public static final int kirsh1=0x7f020008;
+        public static final int kirsh4s900=0x7f020009;
+        public static final int lb2=0x7f02000a;
+        public static final int lmu_background=0x7f02000b;
+        public static final int lmubanner=0x7f02000c;
+        public static final int myimage=0x7f02000d;
+        public static final int neurologie=0x7f02000e;
+        public static final int row_border=0x7f02000f;
+        public static final int swp1=0x7f020010;
+        public static final int swp2=0x7f020011;
+        public static final int swp3=0x7f020012;
+        public static final int swp4=0x7f020013;
+        public static final int wolfgang_logo2=0x7f020014;
     }
     public static final class id {
-        public static final int demo_collection_button=0x7f08000b;
-        public static final int dign=0x7f08000a;
-        public static final int imageView1=0x7f080004;
-        public static final int inputs_layout=0x7f080005;
-        public static final int main_layout=0x7f080002;
-        public static final int mainlayout=0x7f080006;
-        public static final int name=0x7f080008;
-        public static final int pager=0x7f080000;
-        public static final int pager_title_strip=0x7f080001;
-        public static final int text1=0x7f080003;
-        public static final int textView1=0x7f080007;
-        public static final int textView2=0x7f080009;
-        public static final int textView22=0x7f08000c;
+        public static final int custom_toast_layout=0x7f090010;
+        public static final int demo_collection_button=0x7f09000e;
+        public static final int dign=0x7f09000d;
+        public static final int imageView1=0x7f090006;
+        public static final int imageView3=0x7f090009;
+        public static final int imageview=0x7f090003;
+        public static final int inputs_layout=0x7f090007;
+        public static final int main_layout=0x7f090002;
+        public static final int mainlayout=0x7f090008;
+        public static final int name=0x7f09000b;
+        public static final int pager=0x7f090000;
+        public static final int pager_title_strip=0x7f090001;
+        public static final int tblMain=0x7f090004;
+        public static final int text1=0x7f090005;
+        public static final int textToShow=0x7f090011;
+        public static final int textView1=0x7f09000a;
+        public static final int textView2=0x7f09000c;
+        public static final int textView22=0x7f09000f;
     }
     public static final class layout {
         public static final int activity_collection_demo=0x7f030000;
         public static final int activity_main=0x7f030001;
-        public static final int custom_v=0x7f030002;
-        public static final int demo2=0x7f030003;
-        public static final int fragment_collection_object=0x7f030004;
-        public static final int fragment_section_dummy=0x7f030005;
-        public static final int fragment_section_launchpad=0x7f030006;
+        public static final int demo2=0x7f030002;
+        public static final int fragment_collection_object=0x7f030003;
+        public static final int fragment_section_dummy=0x7f030004;
+        public static final int fragment_section_launchpad=0x7f030005;
+        public static final int my_custom_toast=0x7f030006;
     }
     public static final class raw {
         public static final int bdi=0x7f040000;
@@ -63,5 +80,9 @@ public final class R {
         public static final int chooser_title=0x7f060003;
         public static final int demo_collection=0x7f060002;
         public static final int dummy_section_text=0x7f060001;
+    }
+    public static final class style {
+        public static final int btnStyleBlackpearl=0x7f080000;
+        public static final int btnStyleOrange=0x7f080001;
     }
 }

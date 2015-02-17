@@ -287,7 +287,9 @@ private AlertDialog.Builder createDirectoryChooserDialog(String title, List<Stri
     // Current directory TextView allows long directory path to be wrapped to multiple lines.
     LinearLayout titleLayout = new LinearLayout(m_context);
     titleLayout.setOrientation(LinearLayout.VERTICAL);
-    //titleLayout.setBackgroundColor(Color.RED);
+    // titleLayout.setBackgroundColor(Color.BLACK);
+       titleLayout.setBackgroundColor(Color.RED); // Nur select window head 
+
 
 
     m_titleView = new TextView(m_context);

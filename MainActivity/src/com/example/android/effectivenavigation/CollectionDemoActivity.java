@@ -79,19 +79,47 @@ public boolean dispatchTouchEvent(MotionEvent me){
  public void onSwipe(int direction) {
   String str = "";
   		  
-		if(!CustomViewPager.enabled){
+		
 			 switch (direction) {	  
 			  case SimpleGestureFilter.SWIPE_RIGHT : str = "Swipe Right";
-			  Log.w("Swipe Right", "1000D Swipe Right");
+			  Log.w("Swipe Right", "1000D Swipe Right");					  				               
+						///************************************************  
+			  if(CustomViewPager.enabled){
+	        	    // CustomViewPager.enabled = false; //$$$$$
+	        	   
+					Log.w("Swipe Left", "1000D Swipe Left");
+					///************************************************  
+				    LayoutInflater inflater = getLayoutInflater();
+	                View layout = inflater.inflate(R.layout.my_custom_toast,
+	                                               (ViewGroup) findViewById(R.id.custom_toast_layout));	     
+	                TextView text = (TextView) layout.findViewById(R.id.textToShow);
+	                text.setText(" Falshe Richtung ! ");
+	                Toast toast = new Toast(getApplicationContext());
+	                toast.setGravity(Gravity.BOTTOM, 0, 0);
+	                toast.setDuration(Toast.LENGTH_SHORT);
+	                toast.setView(layout);
+	                toast.show();				  					 					  					  
+					///************************************************  
+			      }// if_enaled 		 					  					  
+						///************************************************  
+			           if(CustomViewPager.enabled){  }// if_enaled 
 			        break;
 			  case SimpleGestureFilter.SWIPE_LEFT :  str = "Swipe Left";
-			         // Toast.makeText(this, "  Bitte machen Sie eine Auswahl !!  ", Toast.LENGTH_SHORT).show();
-			               Toast myToast = Toast.makeText(getBaseContext(), 
-			        		 "  Bitte machen Sie eine/vollstŠndige Auswahl ! "			        		    
-			        		 ,Toast.LENGTH_SHORT);
-			        		myToast.setGravity(Gravity.TOP, 0, 0);
-			        	    myToast.show();
-					  Log.w("Swipe Left", "1000D Swipe Left");
+			    if(!CustomViewPager.enabled){
+					Log.w("Swipe Left", "1000D Swipe Left");
+					///************************************************  
+				    LayoutInflater inflater = getLayoutInflater();
+	                View layout = inflater.inflate(R.layout.my_custom_toast,
+	                                               (ViewGroup) findViewById(R.id.custom_toast_layout));	     
+	                TextView text = (TextView) layout.findViewById(R.id.textToShow);
+	                text.setText(" Bitte treffen Sie eine/vollstŠndige Auswahl ! ");
+	                Toast toast = new Toast(getApplicationContext());
+	                toast.setGravity(Gravity.BOTTOM, 0, 0);
+	                toast.setDuration(Toast.LENGTH_SHORT);
+	                toast.setView(layout);
+	                toast.show();				  					 					  					  
+					///************************************************  
+			      }// if_enaled 
 			        break;
 			  case SimpleGestureFilter.SWIPE_DOWN :  str = "Swipe Down";
 			  Log.w("Swipe Down", "1000D Swipe Down");
@@ -101,14 +129,13 @@ public boolean dispatchTouchEvent(MotionEvent me){
 			        break;
 			  
 			  }
-			
-		}	 
+	        //Toast.makeText(this, " !!  "+str, Toast.LENGTH_SHORT).show();			 
    
  }
   
  @Override
  public void onDoubleTap() {
-    Toast.makeText(this, "Double Tap", Toast.LENGTH_SHORT).show();
+   // Toast.makeText(this, "Double Tap", Toast.LENGTH_SHORT).show();
  }
  //
  //---------------------------------------------------------------------------//
@@ -140,16 +167,20 @@ public boolean dispatchTouchEvent(MotionEvent me){
 	//-------------------------------------------------------------   	
 	public static String albertEquationNow= "bb" ; //TEST
 	public static String albertEquationNext= "bb" ; //TEST
-	
+	public static String albertEquationPre= "bb" ; //TEST
+
 	public static String albertNameNow= "bb" ; //TEST
 	public static String albertNameNext= "bb" ; //TEST
-	
+	public static String albertNamePre= "bb" ; //TEST
+
 	public static String albertContentNow= "bb" ; //TEST
 	public static String albertContentNext= "bb" ; //TEST
+	public static String albertContentPre= "bb" ; //TEST
 
 	public static int albertIdNow= 0 ; //TEST
 	public static int albertIdNext= 0 ; //TEST
-
+	public static int albertIdPre= 0 ; //TEST
+    //!?
 	public static int currentNow= 0 ; //TEST
 
 
@@ -182,6 +213,8 @@ public boolean dispatchTouchEvent(MotionEvent me){
         OnPageChangeListener listener= new OnPageChangeListener(){ 
         // ?? setPageView(R.layout.activity_collection_demo);
         //2014 go here !!!
+       
+        	
         	
 			@Override
 			public void onPageSelected(int arg0) {
@@ -225,7 +258,7 @@ public boolean dispatchTouchEvent(MotionEvent me){
 			@Override
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
 				// TODO Auto-generated method stub
-			    // Log.w("EEE-ii Pizza " , " onPageScrolled ++++++ EEE-ii");
+			    // Log.w("EEE-ii  " , " onPageScrolled ++++++ EEE-ii");
 	
 			}
 			
@@ -277,7 +310,7 @@ public boolean dispatchTouchEvent(MotionEvent me){
      * representing an object in the collection.
      */
   
-  	// DISPLAY GOGO
+  	// DISPLAY GO
     public static class DemoCollectionPagerAdapter extends FragmentStatePagerAdapter {
 
         public DemoCollectionPagerAdapter(FragmentManager fm) {
@@ -334,7 +367,7 @@ public boolean dispatchTouchEvent(MotionEvent me){
 
     
     /**
-     * Mondragon
+     * DemoObjectFragment extends Fragment
      */
     public static class DemoObjectFragment extends Fragment {
     	
@@ -346,106 +379,110 @@ public boolean dispatchTouchEvent(MotionEvent me){
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
-            Log.w("...", "...");
-            Log.w("---=&&&&& START CDA FRAGMENT", " START &&&&&&&&&=---");
-
+            Log.w("1...", "...");
             View rootView = inflater.inflate(R.layout.fragment_collection_object, container, false);
             Bundle args = getArguments();
             int current=args.getInt(ARG_OBJECT)-1; //&&&&&
-            // Modragon !!! **********************************************************
-            // Log.w("661  CDA Fragment:", "quest.size is:"+questions.size());
-            Log.w("662  CDA FRAGMENT", "Current: #"+current);
-                        
+            // Log.w("2CDA Fragment:", "quest.size is:"+questions.size());                        
             if (current==questions.size()) // Vielen dank !
             {
          	   TextView questionText=(TextView) rootView.findViewById(R.id.text1);
-        	   questionText.setText(" Vielen dank !");       			
+        	   questionText.setText(" Vielen dank !" );     
+        	   
          	   return rootView; // 225 line
             }
-                   		
-
+                   	
+            
             //**************************************************************************
-            Log.w("@889 CDA.RRR:", "RadioButtonGroup.statBoxName:"+RadioButtonGroup.statBoxName );
-            Log.w("@889 CDA.RRR:", "RadioButtonGroup.statBoxG:"+RadioButtonGroup.statBoxG );
-            Log.w("@889 CDA.RRR:", "RadioButtonGroup.statBoxCoef:"+RadioButtonGroup.statBoxCoef );
-            Log.w("@889 CDA.RRR7:", "RadioButtonGroup.statBoxIGV:"+RadioButtonGroup.statBoxIGV );
-            Log.w("@890 CDA.SSS:", "Radio.isValidCount:"+Radio.isValidCount );
+            Log.w("01CDA FRAGMENT onCreateView:", "CDA10 888 RadioButtonGroup.statBoxName:"+RadioButtonGroup.statBoxName );
+            Log.w("02CDA FRAGMENT onCreateView:", "CDA10 888 RadioButtonGroup.statBoxG:"+RadioButtonGroup.statBoxG );
+            Log.w("03CDA FRAGMENT onCreateView:", "CDA10 888 RadioButtonGroup.statBoxCoef:"+RadioButtonGroup.statBoxCoef );
+            Log.w("04CDA FRAGMENT onCreateView:", "CDA10 888 RadioButtonGroup.statBoxIGV:"+RadioButtonGroup.statBoxIGV );
+            Log.w("05CDA FRAGMENT onCreateView:", "CDA10 888 Radio.isValidCount:"+Radio.isValidCount );
             //**************************************************************************
-            // MSK // statBoxStartWith ||
             // (".*[\\~\\!\\@\\#\\$\\%\\^\\&\\*\\(\\)\\_\\+].*") ||
-            // (".*[\\c\\l].*")   
-            //**************************************************************************
-            RadioButtonGroup.statBoxStartWith = RadioButtonGroup.statBoxName.matches(".*c.*");  // true
-            RadioButtonGroup.statBoxStartHasA = RadioButtonGroup.statBoxName.matches(".*aaa.*");  // true
-            // RadioButtonGroup.statBoxStartHasB = question.equation.matches(kartonA); // TODOiT
-            RadioButtonGroup.statBoxFlag = 0;
-            RadioButtonGroup.statBoxSFlag = "AAA";
-            Log.w("@891 CDA.XXX:", "RadioButtonGroup.statBoxStartWith:"+RadioButtonGroup.statBoxStartWith );
-            //**************************************************************************
- 
-            if(!RadioButtonGroup.statBoxIGV 
-            	&& RadioButtonGroup.statBoxStartWith 
-            	&& RadioButtonGroup.statBoxG >0 
-            	&& Radio.isValidCount > 0) 
-            {  // THE Current Question !!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            	Log.w("---=******** Pre CDA FRAGMENT", "*******=---");
-            	RadioButtonGroup.statBoxFlag = 1;
-            	RadioButtonGroup.statBoxSFlag = "-=POST=-";
-            	Log.w("@892-XXX Pre CDA:", "statBoxFlag:"+RadioButtonGroup.statBoxFlag );
-            	Log.w("@893-XXX Pre CDA:", "statBoxSFlag:"+RadioButtonGroup.statBoxSFlag );
-            	// current=4; // Step Back!!
-            } 
-            	
-            if(current >0) 
-            {  
-            	currentNow = current -1;
-            	Question questionNow=questions.get(current-1);    //&&&&&
-            	Log.w("---=******** CDA FRAGMENT. Now-Frage ?", "*******=---");  
-            	Log.w("@884-Now FRAGMENT", "CURRENT %: "+current);
-            	Log.w("@885-Now FRAGMENT", "questionNow.equation %:"+questionNow.equation);
-            	Log.w("@886-Now FRAGMENT: nowFrage", "questionNow.content %: "+questionNow.content);           	
-            	Log.w("@885-Now FRAGMENT", "questionNow.name %:"+questionNow.name);
-            	Log.w("@885-Now FRAGMENT", "questionNow.id %:"+questionNow.id);
-            	  // Bachground reCheck ;)
-        	      Log.w("DemoObjectFragment CDA: ", "@1001 PRE-Check CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
-		            if( CollectionDemoActivity.albertNameNow.matches(".*q.*"))
-		            {  				       
-		        	    CustomViewPager.enabled = false; //$$$$$
-		          	    Log.w("DemoObjectFragment CDA: ", "@1001 FALSE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
-		            }// end_if
-		        	//++++++++ 
-		        	if(	CollectionDemoActivity.albertNameNow.matches("t.*"))
-		            {  				       
-		        	    CustomViewPager.enabled = true; //$$$$$
-		        	    Log.w("DemoObjectFragment CDA: ", "@1001 TRUE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
-		            }//////// end_if ///////
-		        	//++++++++ 
+            //**************************************************************************    
+        	Log.w("06--------TRIO:", "CDA10- PRE --------------=---");  	
+	            if(current >1) //PRE 
+	            {  
+	            	 currentNow = current -2; // PRE
+	            	Question questionNow=questions.get(current-2); //&&&&&
+	            	//+++++++++
+	            	Log.w("06---=******** CDA FRAGMENT. PRE-Frage ?", "*******=---");  
+	            	Log.w("07CDA FRAGMENT onCreateView:", "CDA10 PRE: CURRENT-Now %: "+currentNow);
+	            	Log.w("08CDA FRAGMENT onCreateView:", "CDA10 PRE: questionNow.equation %:"+questionNow.equation);
+	            	Log.w("09CDA FRAGMENT onCreateView:", "CDA10 PRE: nowFrage: questionNow.content %: "+questionNow.content);           	
+	            	Log.w("10CDA FRAGMENT onCreateView:", "CDA10 PRE: questionNow.name %:"+questionNow.name);
+	            	// Log.w("11CDA FRAGMENT onCreateView:", "CDA10 PRE: questionNow.id %:"+questionNow.id);
+	            	//
+	        	    Log.w("12CDA FRAGMENT onCreateView: ", "CDA10 @333 PRE Background ReCheck ENABLED: "+CustomViewPager.enabled+"###");
+			            if( CollectionDemoActivity.albertNameNow.matches(".*q.*"))
+			            {  				       
+			          	   // Log.w("13CDA FRAGMENT onCreateView: ", "CDA10 @333 PRE FALSE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
+			            }// end_if
+			        	//++++++++ 
+			        	if(	CollectionDemoActivity.albertNameNow.matches("t.*"))
+			            {  				       
+			        	   // Log.w("14CDA FRAGMENT onCreateView: ", "CDA10 @333 PRE TRUE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
+			            }// end_if
+			        	//++++++++ 
+		           	CollectionDemoActivity.albertEquationPre= questionNow.equation ; //PRE 
+		        	CollectionDemoActivity.albertNamePre= questionNow.name ;         //PRE 
+		        	CollectionDemoActivity.albertContentPre= questionNow.content ;   //PRE 
+		        	CollectionDemoActivity.albertIdPre= currentNow ;                 //PRE 
+	             }//end_if
+            //**************************************************************************      
+	        	Log.w("15-------- NOW:", "CDA10- NOW --------------=---");  	
 
-	           	CollectionDemoActivity.albertEquationNow= questionNow.equation ; //TEST
-	        	CollectionDemoActivity.albertNameNow= questionNow.name ; //TEST
-	        	CollectionDemoActivity.albertContentNow= questionNow.content ; //TEST
-	        	CollectionDemoActivity.albertIdNow= currentNow ; //TEST
-             }
-            //**************************************************************************
-            Log.w("---=******** CDA FRAGMENT. Next-Frage", "*******=---");
-            Question question=questions.get(current);    // WiCHTiG!! &&&&&
-            // Question questionB=questions.set(current, question); //doom 
-            //*************************************************************************************
-            Log.w("@884-YYY FRAGMENT", "CURRENT %: "+current);
-            Log.w("@885-YYY FRAGMENT", "question.equation %:"+question.equation);
-            Log.w("@886-YYY FRAGMENT: zukunftsFrage ", "question.content %: "+question.content);
-            //*************************************************************************************
-            // statBoxName to albertNameNow ? initial
-	            if (current == 1 && RadioButtonGroup.statBoxName.matches("aaa")){
-	                Log.w("@884-YYY FRAGMENT", "aaa CURRENT %: "+current);
-		            CustomViewPager.enabled = false;  //$$$$$
-		    	    Log.w("@1001 CDA inputElement: ", "@1001 FALSE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
-	            }
-            	CollectionDemoActivity.albertEquationNext= question.equation ; //TEST            	
-            	CollectionDemoActivity.albertNameNext= question.name ; //TEST            	
-            	CollectionDemoActivity.albertContentNext= question.content ; //TEST
-            	CollectionDemoActivity.albertIdNext= current ; //TEST
- 	
+	            if(current >0) //NOW
+	            {  
+	            	currentNow = current -1; // NOW NOW NOW
+	            	Question questionNow=questions.get(current-1); //&&&&&
+	            	//+++++++++
+	            	Log.w("16CDA FRAGMENT onCreateView:", "CDA10 Now: CURRENT-Now %: "+currentNow);
+	            	Log.w("17CDA FRAGMENT onCreateView:", "CDA10 Now: questionNow.equation %:"+questionNow.equation);
+	            	Log.w("18CDA FRAGMENT onCreateView:", "CDA10 Now: nowFrage: questionNow.content %: "+questionNow.content);           	
+	            	Log.w("19CDA FRAGMENT onCreateView:", "CDA10 Now: questionNow.name %:"+questionNow.name);
+	            	//
+	        	    Log.w("20CDA FRAGMENT onCreateView: ", "CDA10 @333 Now:  PreCheck: ENABLED: "+CustomViewPager.enabled+"###");
+			            if( CollectionDemoActivity.albertNameNow.matches(".*q.*"))
+			            {  				       
+			        	    CustomViewPager.enabled = false; //$$$$$
+			        	    		        	    
+			          	    Log.w("21CDA FRAGMENT onCreateView: ", "CDA10 @333 Now FALSE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
+			            }// end_if
+			        	//++++++++ 
+			        	if(	CollectionDemoActivity.albertNameNow.matches("t.*"))
+			            {  				       
+			        	    CustomViewPager.enabled = true; //$$$$$
+			        	    Log.w("22CDA FRAGMENT onCreateView: ", "CDA10 @333 Now TRUE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
+			            }// end_if
+			        	//++++++++ 
+	
+		           	CollectionDemoActivity.albertEquationNow= questionNow.equation ; //NOW
+		        	CollectionDemoActivity.albertNameNow= questionNow.name ;         //NOW
+		        	CollectionDemoActivity.albertContentNow= questionNow.content ;   //NOW
+		        	CollectionDemoActivity.albertIdNow= currentNow ;                 //NOW
+	             }//end_if
+            //******************************************************************************** //NEXT
+		        	Log.w("23-------- Next:", "CDA10- Next --------------=---");  	
+		            Question question=questions.get(current);    // WiCHTiG!! &&&&&                //NEXT
+		            // Question questionB=questions.set(current, question); //doom  
+		            Log.w("24CDA FRAGMENT onCreateView:", "CDA10 Next CURRENT %: "+current); 
+		            Log.w("25CDA FRAGMENT onCreateView:", "CDA10 Next question.equation %:"+question.equation);
+		            Log.w("26CDA FRAGMENT onCreateView:", "CDA10 Next question.content %: "+question.content);
+		        	Log.w("27CDA FRAGMENT onCreateView:", "CDA10 Next questionNow.name %:"+question.name);
+		            //*************************************************************************************
+		            // statBoxName to albertNameNow ? initial
+			            if (current == 1 && RadioButtonGroup.statBoxName.matches("aaa")){
+				            CustomViewPager.enabled = false;  //$$$$$
+				    	    Log.w("29CDA FRAGMENT onCreateView:", "CDA10 333 current == 1 Name == aaa, FALSE ENABLED: "+CustomViewPager.enabled+"###");
+			            }
+		        	CollectionDemoActivity.albertEquationNext= question.equation ; //NEXT          	
+		        	CollectionDemoActivity.albertNameNext= question.name ;         //NEXT            	
+		        	CollectionDemoActivity.albertContentNext= question.content ;   //NEXT
+		        	CollectionDemoActivity.albertIdNext= current ;                 //NEXT
+
             	
             Radio.isValidCount = 0;  
             Log.w("'''...'''....'''....'''... STOP CDA FRAGMENT", " STOP '''...'''....'''....'''...");

@@ -7,35 +7,38 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/text1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"  
-        android:gravity="center"
-        android:textSize="@dimen/mydimension" />
+ <TextView
+     android:id="@+id/text1"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"  
+     android:gravity="center"
+     android:textSize="@dimen/mydimension" />
 
+    
 <ScrollView 
     android:layout_width="match_parent" 
-    android:layout_height="match_parent" 
-    
+    android:layout_height="match_parent"     
     android:layout_below="@+id/imageView1"
+    android:background="@drawable/lb2"
     android:fillViewport='true' >
     
-	<LinearLayout 
-	    android:textSize="@dimen/mydimension"
-	    android:id="@+id/inputs_layout"
-	    android:background="#111177"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:layout_below="@android:id/text1"
-	    android:gravity="center"
-	    android:orientation="horizontal" >
+   
+    
+<LinearLayout 
+    android:textSize="@dimen/mydimension"
+    android:id="@+id/inputs_layout"
+    android:background="#117711"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@android:id/text1"
+    android:gravity="center"
+    android:orientation="horizontal" >
 
-	</LinearLayout>
+</LinearLayout>
+
+
 </ScrollView>   
 
-     
-    
 
 
 </LinearLayout>

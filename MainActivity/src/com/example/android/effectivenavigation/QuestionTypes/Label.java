@@ -1,5 +1,6 @@
 package com.example.android.effectivenavigation.QuestionTypes;
 import android.R.*;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -17,6 +19,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -26,6 +34,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.android.effectivenavigation.R;
+
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
@@ -40,9 +51,19 @@ public String text;
 	public View display(Activity context) {
 		TextView label = new TextView(context);
 		label.setText(text);
-	    label.setTextSize(35);
-        label.setPadding(5, 5, 5, 5);
+	    label.setTextSize(25);
+        label.setPadding(1, 0, 0, 1);
+        label.setGravity(Gravity.CENTER );
 
+        // label.setBackgroundResource(R.drawable.b_cub); //SUPER oder
+        label.setBackgroundResource(R.drawable.g_cub45); //SUPER oder
+        //label.setBackgroundColor(Color.rgb(80, 80, 80)); //color 
+        // label.setBackgroundColor(Color.rgb(125, 209,110));
+        // label.setBackgroundColor(Color.BLUE);
+        // label.setBackgroundColor(Color.BLUE);
+        //?label.setHeight(46);
+                  
+           
 		return label;
 	}
 

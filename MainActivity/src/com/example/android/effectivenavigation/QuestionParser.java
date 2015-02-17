@@ -41,12 +41,20 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
+import android.util.Log;
 import android.util.Xml;
+import android.widget.ImageView;
 import android.widget.Toast;
 import au.com.bytecode.opencsv.CSVWriter;
 //=====================================================
+import java.lang.Math;//in the top of my file
 // DATE CHANGER FILE ! ToDo here
+
+
+
 public class QuestionParser {
+	
+
     // We don't use namespaces
     private static final String ns = null;
 	private String type,root;
@@ -148,17 +156,14 @@ private Question readQuestion(XmlPullParser parser) throws XmlPullParserExceptio
     	 question.equation= parser.getAttributeValue(null, "equation");
     	 question.id = Integer.parseInt(parser.getAttributeValue(null, "id"));
     	 question.name = parser.getAttributeValue(null, "name");
-
-    	
     	 
 	} catch (Exception e) {
 		// TODO: handle exception
 	}
    
-                     		//Toast.makeText(getApplicationContext(), "msg msg", Toast.LENGTH_SHORT).show();
-                     		// The TOSTER
-                     		//display in long period of time
-                     		//Toast.makeText(getApplicationContext(), x1Box+" msg msg "+ x2Box, Toast.LENGTH_LONG).show();
+	//Toast.makeText(getApplicationContext(), "msg msg", Toast.LENGTH_SHORT).show();
+	// The TOSTER
+	//Toast.makeText(getApplicationContext(), x1Box+" msg msg "+ x2Box, Toast.LENGTH_LONG).show();
     while (parser.next() != XmlPullParser.END_TAG) {
         if (parser.getEventType() != XmlPullParser.START_TAG) {
             continue;
@@ -166,10 +171,29 @@ private Question readQuestion(XmlPullParser parser) throws XmlPullParserExceptio
         String name = parser.getName();
         if (name.equals("content")) {
         	question.content = readContent(parser);
+        	//------------------------------------------
+        	// Toast.makeText(getApplicationContext(), "1234.A: question.content"+question.content, Toast.LENGTH_SHORT).show();
+        	//------------------------------------------
+
         } else if (name.equals("input")) {
         	currentElement=readInput(parser, question);
         	if(currentElement!=null)
         	question.inputs.add(currentElement);
+      
+        } else if (name.equals("image")) {
+        	 // SET UP 1
+        	 String MidleName = readImage(parser);
+        	 RadioButtonGroup.q_IMG = MidleName;
+    		 RadioButtonGroup.q_IMG_Flag = 1;
+        	 question.content += " #cc# "+MidleName;
+        	 question.content2 = MidleName;
+
+    	     Log.w("img01:", "img01 RadioButtonGroup.q_IMG: "+RadioButtonGroup.q_IMG);
+    	     Log.w("img01:", "img01 RadioButtonGroup.q_IMG_Flag: "+RadioButtonGroup.q_IMG_Flag);
+
+        	//------------------------------------------
+        	// Toast.makeText(getApplicationContext(), "1234.B: question.content"+question.content, Toast.LENGTH_SHORT).show();
+        	//------------------------------------------	
       
         } 
         else {
@@ -179,13 +203,8 @@ private Question readQuestion(XmlPullParser parser) throws XmlPullParserExceptio
     
 
     return question;
-    
+} // End_readQuestion
 
-}
-
-// Processes title tags in the feed.
-
-// Processes link tags in the feed.
 
 
 // Processes summary tags in the feed.
@@ -204,6 +223,7 @@ private InputElement readInput(XmlPullParser parser,Question question) throws IO
 	}
 	else if(type.equals("textview"))
 	{
+		
 		return readTextView(parser,question);
 	}
 	
@@ -233,6 +253,8 @@ private String readText(XmlPullParser parser) throws IOException, XmlPullParserE
         result = parser.getText();
         parser.nextTag();
     }
+    Log.w("readText", "1111 readText, PPP ");
+
     return result;
 }
  
@@ -286,10 +308,69 @@ private String readText(XmlPullParser parser) throws IOException, XmlPullParserE
   
   private String readContent(XmlPullParser parser) throws IOException, XmlPullParserException {
 	    parser.require(XmlPullParser.START_TAG, ns, "content");
-	    String title = readText(parser);
+	    // XXX TTT 
+		RadioButtonGroup.q_IMG_Flag = 1;
+		RadioButtonGroup.q_IMG = parser.getText();
+		//String tutle = "yy# "+readText(parser);	     
+		Log.w("img0:", "img0 q_IMG: "+RadioButtonGroup.q_IMG);
+	    Log.w("img0:", "img0 q_IMG_Flag: "+RadioButtonGroup.q_IMG_Flag);
+        // 
+	    String title = "bb# "+readText(parser);
 	    parser.require(XmlPullParser.END_TAG, ns, "content");
+    	// question.img ??
+		
+	    
 	    return title;
 	}
+ 
+  //*******
+  public Bitmap getbitpam(File file){
+	    Bitmap imgthumBitmap=null;
+	     try    
+	     { 	    Log.w("DIR", "DIRJ B, directory: "+file);
+	         final int THUMBNAIL_SIZE = 64;
+	         FileInputStream fis = new FileInputStream(file);
+	         imgthumBitmap = BitmapFactory.decodeStream(fis);
+	         imgthumBitmap = Bitmap.createScaledBitmap(imgthumBitmap,
+	         THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
+	         ByteArrayOutputStream bytearroutstream = new ByteArrayOutputStream(); 
+	         imgthumBitmap.compress(Bitmap.CompressFormat.JPEG, 100,bytearroutstream);
+
+
+	     }
+	     catch(Exception ex) {
+
+	     }
+	     return imgthumBitmap;
+	}
+  //**
+  private String readImage(XmlPullParser parser) throws IOException,XmlPullParserException {
+		//MyLog.d(TAG, "readImage");
+		parser.require(XmlPullParser.START_TAG, ns, "image");
+		String image = readText(parser);
+		parser.require(XmlPullParser.END_TAG, ns, "image");				
+		return image;
+  }
+  //**
+  private String readName(XmlPullParser parser) throws IOException,XmlPullParserException {
+	//MyLog.d(TAG, "readName");
+	parser.require(XmlPullParser.START_TAG, ns, "name");
+	String name = readText(parser);
+	parser.require(XmlPullParser.END_TAG, ns, "name");
+	return name;
+	}
+  //**
+	private String readUrl(XmlPullParser parser) throws IOException, XmlPullParserException {
+	//MyLog.d(TAG, "readUrl");
+	parser.require(XmlPullParser.START_TAG, ns, "url");
+	String url = readText(parser);
+	parser.require(XmlPullParser.END_TAG, ns, "url");
+	return url;
+	}
+
+  //**
+  //*******
+ 
   private InputElement readEditText(XmlPullParser parser,Question question) throws IOException, XmlPullParserException {
 	   	TextBox	tb=new TextBox(question);
 	   	parser.require(XmlPullParser.START_TAG, ns, "input");
@@ -319,7 +400,7 @@ private String readText(XmlPullParser parser) throws IOException, XmlPullParserE
 	   	Label	lb=new Label(question);
 	   	parser.require(XmlPullParser.START_TAG, ns, "input");
 	    lb.row=Integer.parseInt(parser.getAttributeValue(null, "row"));
-	    lb.text =readText(parser);	
+	    lb.text =""+readText(parser);	
 	    parser.require(XmlPullParser.END_TAG, ns, "input");
 	    return (InputElement) lb;
 	}
@@ -338,7 +419,7 @@ private String readText(XmlPullParser parser) throws IOException, XmlPullParserE
 				// TODO: handle exception
 			}
 	 	r.group=Integer.parseInt(parser.getAttributeValue(null, "group"));
-	   	r.text=readText(parser);
+	   	r.text=""+readText(parser);
 	   	question.RadioGroup.addToGroup(r);
 	    parser.require(XmlPullParser.END_TAG, ns, "input");
 	    return (InputElement) r;

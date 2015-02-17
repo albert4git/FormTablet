@@ -2,9 +2,27 @@ package com.example.android.effectivenavigation;
 
 import android.app.Activity;
 import android.view.GestureDetector;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
- 
+import android.widget.TextView;
+import android.widget.Toast;
+
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TableLayout;
+import android.widget.TextView;
+
 public class SimpleGestureFilter extends SimpleOnGestureListener{
       
          public final static int SWIPE_UP    = 1;
@@ -17,9 +35,9 @@ public class SimpleGestureFilter extends SimpleOnGestureListener{
          public final static int MODE_DYNAMIC     = 2;
           
          private final static int ACTION_FAKE = -13; //just an unlikely number
-         private int swipe_Min_Distance = 10;
-         private int swipe_Max_Distance = 750;
-         private int swipe_Min_Velocity = 15;
+         private int swipe_Min_Distance = 9;
+         private int swipe_Max_Distance = 1250;
+         private int swipe_Min_Velocity = 10;
       
      private int mode             = MODE_DYNAMIC;
      private boolean running      = true;
@@ -114,12 +132,22 @@ public class SimpleGestureFilter extends SimpleOnGestureListener{
                 boolean result = false;
           
           if(velocityX > this.swipe_Min_Velocity && xDistance > this.swipe_Min_Distance){
-           if(e1.getX() > e2.getX()) // right to left
-            this.listener.onSwipe(SWIPE_LEFT);
+           if(e1.getX() > e2.getX()) // right to   
+            {this.listener.onSwipe(SWIPE_LEFT);
+   	         CustomViewPager.enabled = false; //$$$$$
+
+       	    // Toast.makeText(context, "##2 Left!",   Toast.LENGTH_SHORT).show(); //suspend
+   	         
+            result = true;
+
+            }
            else
-            this.listener.onSwipe(SWIPE_RIGHT);
+            {this.listener.onSwipe(SWIPE_RIGHT);
+       	     // Toast.makeText(context, "##2 Rechts!",   Toast.LENGTH_SHORT).show();
+             result = true ; // ?
+
+            }
           
-           result = true;
           }
           else if(velocityY > this.swipe_Min_Velocity && yDistance > this.swipe_Min_Distance){
            if(e1.getY() > e2.getY()) // bottom to up

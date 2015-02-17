@@ -36,8 +36,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".CollectionDemoActivity" android:configChanges="orientation|screenSize" android:label="@string/app_name"  />
-     
+        <activity android:name=".CollectionDemoActivity" android:configChanges="orientation|screenSize" android:label="@string/demo_collection"  />
+        
+        
+        
     
     </application>
 

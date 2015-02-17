@@ -17,6 +17,7 @@
             android:layout_width="850dp"
             android:layout_height="226dp"
             android:src="@drawable/wolfgang_logo2" />
+            android:src="@drawable/kirsh4s900" />
 
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -36,7 +37,14 @@
             android:id="@+id/imageView1"
             android:layout_width="1066dp"
             android:layout_height="200dp"
-            android:src="@drawable/kirsh4s900" />
+                    android:src="@drawable/wolfgang_logo2" />
+        
+        
+       <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       /> 
     </LinearLayout>
 <!-- 2 -->
     <LinearLayout
@@ -93,19 +101,28 @@
     </LinearLayout>
     
 <!-- 4 
-     android:inputType="textNoSuggestions|textVisiblePassword"       
--->
-    
-       <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:background="#444444"
-        android:maxHeight="200dp"
-        android:minHeight="150dp" 
-        android:textAlignment="center" >
-        
       <Button
+        android:id="@style/custom_btn_black_pearl"
+        android:layout_width="wrap_content"
+
+      />
+     android:inputType="textNoSuggestions|textVisiblePassword"   
+     
+        android:layout_height="146dp"
+        android:layout_marginBottom="16dp"
+        android:textStyle="bold"    
+        android:background="#ccCCcc"
+        android:text="@string/demo_collection"
+        android:minHeight="100dp"
+        android:minWidth="220dp"
+        android:layout_centerInParent="true"
+        android:textAllCaps="true"
+        android:textSize="20sp"
+        
+        style=”@style/custom_btn_black_pearl"
+        style=”@style/custom_btn_orange"
+                
+            <Button
         android:id="@+id/demo_collection_button"
         android:layout_width="wrap_content"
         android:layout_height="146dp"
@@ -118,7 +135,40 @@
         android:layout_centerInParent="true"
         android:textAllCaps="true"
         android:textSize="20sp"
-      />
+                android:style="@style/custom_btn_orange"
+        
+        />  
+        
+        android:theme=
+        style="@android:style/Theme.Translucent"
+        
+-->
+    
+       <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="#444444"
+        android:maxHeight="200dp"
+        android:minHeight="150dp" 
+        android:textAlignment="center" >
+
+     <Button
+        android:id="@+id/demo_collection_button"
+        android:layout_width="wrap_content"
+        android:layout_height="146dp"
+        android:layout_marginBottom="16dp"
+        android:textStyle="bold"    
+        android:background="#ccCCcc"
+        android:text="@string/demo_collection"
+        android:minHeight="100dp"
+        android:minWidth="220dp"
+        android:layout_centerInParent="true"
+        android:textAllCaps="true"
+        android:textSize="20sp"      
+        android:theme="@android:style/Theme.Translucent"
+        />
+           
     </LinearLayout>  
 <!-- 5 
         android:gravity="center"
