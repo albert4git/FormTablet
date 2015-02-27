@@ -48,7 +48,8 @@ public class SimpleGestureFilter extends SimpleOnGestureListener{
      private SimpleGestureListener listener;
       
      public SimpleGestureFilter(Activity context,SimpleGestureListener sgl) {
-      
+    	    Log.w("CVP setOnSwipeOutListener", "CVP HoerZu16  1001  DDD");
+
       this.context = context;
       this.detector = new GestureDetector(context, this);
       this.listener = sgl;
@@ -87,6 +88,8 @@ public class SimpleGestureFilter extends SimpleOnGestureListener{
      }
       
      public void setEnabled(boolean status){
+ 	    Log.w("CVP setOnSwipeOutListener", "CVP HoerZu17  1001  DDD");
+
       this.running = status;
      }
       
@@ -107,6 +110,8 @@ public class SimpleGestureFilter extends SimpleOnGestureListener{
      }
       
      public int getSwipeMinDistance(){
+  	    Log.w("CVP setOnSwipeOutListener", "CVP HoerZu18  1001  DDD");
+
       return this.swipe_Min_Distance;
      }
       
@@ -117,7 +122,8 @@ public class SimpleGestureFilter extends SimpleOnGestureListener{
      @Override
          public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
            float velocityY) {
-          
+   	    Log.w("CVP setOnSwipeOutListener", "CVP HoerZu25  1001  DDD");
+
           final float xDistance = Math.abs(e1.getX() - e2.getX());
           final float yDistance = Math.abs(e1.getY() - e2.getY());
           
@@ -135,15 +141,15 @@ public class SimpleGestureFilter extends SimpleOnGestureListener{
            if(e1.getX() > e2.getX()) // right to   
             {this.listener.onSwipe(SWIPE_LEFT);
    	         CustomViewPager.enabled = false; //$$$$$
-
-       	    // Toast.makeText(context, "##2 Left!",   Toast.LENGTH_SHORT).show(); //suspend
-   	         
-            result = true;
-
+   	  	     Log.w("CVP setOnSwipeOutListener", "CVP $$$$$HH1   1001  FALSE");
+   	  	     Log.w("CVP setOnSwipeOutListener", "CVP HoerZu24  1001  DDD");
+       	     // Toast.makeText(context, "##2 Left!",   Toast.LENGTH_SHORT).show(); //suspend   
+             result = true;
             }
            else
             {this.listener.onSwipe(SWIPE_RIGHT);
        	     // Toast.makeText(context, "##2 Rechts!",   Toast.LENGTH_SHORT).show();
+      	     Log.w("CVP setOnSwipeOutListener", "CVP HoerZu23  1001  DDD");
              result = true ; // ?
 
             }
@@ -163,24 +169,31 @@ public class SimpleGestureFilter extends SimpleOnGestureListener{
       
      @Override
      public boolean onSingleTapUp(MotionEvent e) {
+   	    Log.w("CVP setOnSwipeOutListener", "CVP HoerZu22  1001  DDD");
+
       this.tapIndicator = true;
       return false;
      }
       
      @Override
      public boolean onDoubleTap(MotionEvent arg) {
+   	    Log.w("CVP setOnSwipeOutListener", "CVP HoerZu21  1001  DDD");
+
       this.listener.onDoubleTap();;
       return true;
      }
       
      @Override
      public boolean onDoubleTapEvent(MotionEvent arg) {
+  	    Log.w("CVP setOnSwipeOutListener", "CVP HoerZu20  1001  DDD");
+
       return true;
      }
       
      @Override
      public boolean onSingleTapConfirmed(MotionEvent arg) {
-      
+  	    Log.w("CVP setOnSwipeOutListener", "CVP HoerZu19  1001  DDD");
+
       if(this.mode == MODE_DYNAMIC){        // we owe an ACTION_UP, so we fake an
          arg.setAction(ACTION_FAKE);      //action which will be converted to an ACTION_UP later.
          this.context.dispatchTouchEvent(arg);

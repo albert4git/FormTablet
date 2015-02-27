@@ -54,8 +54,10 @@ public class RadioButtonGroup implements OnClickListener
 	public static int           q_IMG_Flag = 1; //TEST
 
 	
+	
 	public RadioButtonGroup() {
         Log.w("@BBB BBB BBB BBB", "BBB BBB BBB BBB");
+        
 		Log.w("__399__ RBG constructor:", "RadioButtonGroup.statBoxName:"+RadioButtonGroup.statBoxName);
 	    groups=new ArrayList<ArrayList<Radio>>();
 	}
@@ -148,34 +150,45 @@ Log.w("-01 RBG-onClick:", "1. radioCont.val:"+radioCont.val);
 		Log.w(" RBG  #########", " RBG100 ################### ");
 
 		//----------------------------XXX-------------------------------------------
-		RadioButtonGroup.statBoxName = radioCont.name ; // Kut ?
-		RadioButtonGroup.statBoxText = radioCont.text ; // Kut ?
-		RadioButtonGroup.statBoxG = radioCont.group ;   // Kut ?
-		RadioButtonGroup.statBoxCoef = radioCont.coef ; // Kut ?
-		RadioButtonGroup.statBoxIGV = radioCont.isGroupValidated; // Kut ?
+		RadioButtonGroup.statBoxName = radioCont.name ; // Cut ?
+		RadioButtonGroup.statBoxText = radioCont.text ; // Cut ?
+		RadioButtonGroup.statBoxG = radioCont.group ;   // Cut ?
+		RadioButtonGroup.statBoxCoef = radioCont.coef ; // Cut ?
+		RadioButtonGroup.statBoxIGV = radioCont.isGroupValidated; // Cut ?
 		//--------------------------------------------------------------------------------
 		//---POINT---
 		RadioButtonGroup.statBoxBuffer=RadioButtonGroup.statBoxBuffer.replaceAll(radioCont.name, "KK");
     	Log.w("26RBG onClick", "RBG100 333 KK? statBoxBuffer: "+RadioButtonGroup.statBoxBuffer);
-    	try {    	   
+    	try { 
+	    	 Log.w("CVP ", "CVP $$$$$HH12   1001  DDD");
+
 	    	 if( 
 	    	     CollectionDemoActivity.albertNameNow.matches(".*mq.*") 
 	    	     && !RadioButtonGroup.statBoxBuffer.matches(".*l.*") 
 	    	   ) 
 			 {           
-			     Log.w("27POINT- RBG-onClick ", "*RBG100 @333 albertNameNow: "+CollectionDemoActivity.albertNameNow);
-			     Log.w("28POINT- RBG-onClick ", "*RBG100 @333 statBoxBuffer: "+RadioButtonGroup.statBoxBuffer);
 			     CustomViewPager.enabled = true; //$$$$$
+		    	 Log.w("CVP ", "CVP $$$$$HH11   1001  TRUE");
+				 Log.w("27POINT- RBG-onClick ", "*RBG100 @333 albertNameNow: "+CollectionDemoActivity.albertNameNow);
+				 Log.w("28POINT- RBG-onClick ", "*RBG100 @333 statBoxBuffer: "+RadioButtonGroup.statBoxBuffer);
 			     Log.w("29POINT- RBG-onClick", "RBG100 @333 enabled ?: "+CustomViewPager.enabled);
-			 }// end_if	
-	         if( CollectionDemoActivity.albertNameNow.matches("q.*"))
+			 }// end_if	|| ODER
+	    	 
+	         if( 
+	             CollectionDemoActivity.albertNameNow.matches("q.*")  
+	        	)
 	         {  				       
 	     	      CustomViewPager.enabled = true; //$$$$$
+		    	  Log.w("CVP ", "CVP $$$$$HH10 qqq  1001  TRUE");
 	       	      Log.w("30POINT- RBG-onClick", "*RBG100 @333 FALSE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
 	         }// end_if
+	         
+
+	         
 	     	 if(	CollectionDemoActivity.albertNameNow.matches("t.*"))
 	         {  				       
 	     	    CustomViewPager.enabled = true; //$$$$$
+	    	    Log.w("CVP ", "CVP $$$$$HH9   1001  TRUE");
 	     	    Log.w("31POINT- RBG-onClick", "*RBG100 @333 TRUE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
 	         }// end_if
 	     	 
@@ -184,6 +197,7 @@ Log.w("-01 RBG-onClick:", "1. radioCont.val:"+radioCont.val);
     	    //Log.wtf("DO THIS", " WHEN SAVE() FAILS");
 
     	}	 
+	    Log.w("CVP ", "CVP $$$$$HH91   1001  DDD");
     	Log.w("32POINT- RBG-onClick", "*RBG100 @333 enabled ?: "+CustomViewPager.enabled);    	 
     	Log.w("33RRR RRR  RRR RAMKA", "*FIN RRR RRR RRR RRR");
 

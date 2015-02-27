@@ -53,14 +53,16 @@ public String text;
 		label.setText(text);
 	    label.setTextSize(25);
         label.setPadding(1, 0, 0, 1);
-        label.setGravity(Gravity.CENTER );
+        label.setGravity(Gravity.LEFT );
+        label.setTextColor(Color.WHITE);
 
         // label.setBackgroundResource(R.drawable.b_cub); //SUPER oder
-        label.setBackgroundResource(R.drawable.g_cub45); //SUPER oder
+        // label.setBackgroundResource(R.drawable.g_cub45); //SUPER oder
         //label.setBackgroundColor(Color.rgb(80, 80, 80)); //color 
         // label.setBackgroundColor(Color.rgb(125, 209,110));
         // label.setBackgroundColor(Color.BLUE);
         // label.setBackgroundColor(Color.BLUE);
+        label.setBackgroundResource(R.drawable.border2); //SUPER oder
         //?label.setHeight(46);
                   
            

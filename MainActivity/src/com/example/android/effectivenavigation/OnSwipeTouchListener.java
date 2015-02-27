@@ -1,6 +1,7 @@
 package com.example.android.effectivenavigation;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.GestureDetector.SimpleOnGestureListener;
@@ -17,13 +18,19 @@ public class OnSwipeTouchListener implements OnTouchListener {
     private final GestureDetector gestureDetector;
 
     public OnSwipeTouchListener(Context context) {
+        Log.w("CVP setOnSwipeOutListener", "CVP HoerZu10 onSwipeOut 1001 CustomViewPager DDD");
+
         gestureDetector = new GestureDetector(context, new GestureListener());
     }
 
     public void onSwipeLeft() {
+        Log.w("CVP setOnSwipeOutListener", "CVP HoerZu11 onSwipeOut 1001 CustomViewPager DDD");
+
     }
 
     public void onSwipeRight() {
+        Log.w("CVP setOnSwipeOutListener", "CVP HoerZu12 onSwipeOut 1001 CustomViewPager DDD");
+
     }
 
     public boolean onTouch1(View v, MotionEvent event) {
@@ -42,6 +49,8 @@ public class OnSwipeTouchListener implements OnTouchListener {
 
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            Log.w("CVP setOnSwipeOutListener", "CVP HoerZu13 onSwipeOut 1001 CustomViewPager DDD");
+
             float distanceX = e2.getX() - e1.getX();
             float distanceY = e2.getY() - e1.getY();
             if (Math.abs(distanceX) > Math.abs(distanceY) && Math.abs(distanceX) > SWIPE_DISTANCE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
@@ -89,13 +98,16 @@ public class OnSwipeTouchListener implements OnTouchListener {
 		public boolean onScroll(MotionEvent e1, MotionEvent e2,
 				float distanceX, float distanceY) {
 			// TODO Auto-generated method stub
+		    Log.w("CVP setOnSwipeOutListener", "CVP HoerZu14 onSwipeOut 1001 CustomViewPager DDD");
+
 			return false;
 		}
 
 		@Override
 		public void onLongPress(MotionEvent e) {
 			// TODO Auto-generated method stub
-			
+		    Log.w("CVP setOnSwipeOutListener", "CVP HoerZu14 onSwipeOut 1001 CustomViewPager DDD");
+
 		}
     }
 

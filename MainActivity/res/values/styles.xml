@@ -6,7 +6,7 @@
        <item name="android:textStyle">bold</item>
        <item name="android:textColor">#FFFFFF</item>
        <item name="android:gravity">center</item>
-       <item name="android:shadowColor">#000000</item>
+       <item name="android:shadowColor">#000033</item>
        <item name="android:shadowDx">1</item>
        <item name="android:shadowDy">1</item>
        <item name="android:shadowRadius">0.6</item>
@@ -19,7 +19,7 @@
        <item name="android:textStyle">bold</item>
        <item name="android:textColor">#FFFFFF</item>
        <item name="android:gravity">center</item>
-       <item name="android:shadowColor">#000000</item>
+       <item name="android:shadowColor">#003300</item>
        <item name="android:shadowDx">1</item>
        <item name="android:shadowDy">1</item>
        <item name="android:shadowRadius">0.6</item>

@@ -45,6 +45,7 @@ import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -67,7 +68,6 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 public class MainActivity extends Activity{
 	private static final int REQUEST_CODE = 6384; // onActivityResult request code
 	private EditText subjectName;
@@ -75,8 +75,7 @@ public class MainActivity extends Activity{
 	private static String suNamen;
 	private static String suDign;
 
-
-
+	
     public void onCreate(Bundle savedInstanceState) {
     	
         //super.onCreate(savedInstanceState);
@@ -86,7 +85,7 @@ public class MainActivity extends Activity{
 
          setContentView(R.layout.fragment_section_launchpad);
 		
-      // setContentView(R.layout.my_table);
+        // setContentView(R.layout.my_table);
         // final TableLayout table = (TableLayout) findViewById(R.id.tableLayout1);
         // setContentView(R.layout.setBackgroundColor(Color.RED));
         // set the background to green     
@@ -95,10 +94,11 @@ public class MainActivity extends Activity{
         // parent.
         // actionBar.setHomeButtonEnabled(false);
         // Demonstration of a collection-browsing activity.
-        
        
         LinearLayout l=(LinearLayout) findViewById(R.id.mainlayout);
         l.setBackgroundColor(Color.BLUE); // DKGRAY
+        l.setBackgroundResource(R.drawable.border2); //SUPER oder
+
         TextView label= new TextView(this);
 
        
@@ -131,9 +131,11 @@ public class MainActivity extends Activity{
                             public void onClick(View v) 
                             {   // RED button on click ??
                             	
+                                Log.w("CVP setOnSwipeOutListener", "CVP HoerZu9 onSwipeOut 1001 CustomViewPager DDD");
 
                             	///
-                            	v.setBackgroundColor(Color.GREEN); // GRAY
+                            	v.setBackgroundColor(Color.GRAY); // GRAY GREEN
+                            	
                             	System.out.println(subjectName.getText().toString());
                             	Calendar now = Calendar.getInstance();
                             	int iYear=now.get(Calendar.YEAR);	

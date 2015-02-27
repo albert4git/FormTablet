@@ -2,8 +2,17 @@
 
 package com.example.android.effectivenavigation.directorychooser;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -11,16 +20,20 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.example.android.effectivenavigation.MainActivity;
+import com.example.android.effectivenavigation.R;
 import com.example.android.effectivenavigation.QuestionTypes.RadioButtonGroup;
+import com.lowagie.text.pdf.codec.Base64.InputStream;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnKeyListener;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Environment;
 import android.text.Editable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -32,6 +45,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import au.com.bytecode.opencsv.CSVWriter;
 
 public class DirectoryChooserDialog 
 {
@@ -44,6 +58,9 @@ public class DirectoryChooserDialog
     private List<String> m_subdirs = null;
     private ChosenDirectoryListener m_chosenDirectoryListener = null;
     private ArrayAdapter<String> m_listAdapter = null;
+    public static long longLastTime;
+    public static long longNowTime;
+    public static int timeLastFlag=0;
 
     //////////////////////////////////////////////////////
     // Callback interface for selected directory
@@ -78,9 +95,84 @@ public class DirectoryChooserDialog
     	// String iSER = "PNLZEAKRJVJVCYZT"; // Valeri1
     	String iSER = "KN65QOWW9TSC5DQG"; // Valeri2    	
     	// iSER= hd_nbr;
+    //+++++++++++++TicTac2Start+++++++++++++++++++++++++++
+		File rootL = Environment.getExternalStorageDirectory();  // getExternalStorageDirectory();
+		String pathL = rootL+"/SurveyResults/";
+		File xxlogFileL = new File(pathL+"log.csv");   
+    	long longFirstTime=1424925425721L;
+    	long longFinishTime = 1454367600000L;
+		   
+		   		   
+		   
+   //***********TicTac2-READ-LAST-Time****************************************************************
+			File file = new File(pathL+"log.csv");
+			//Read text from file
+			StringBuilder text = new StringBuilder();
+
+			try {
+			    BufferedReader br = new BufferedReader(new FileReader(file));
+			    String line;	    
+	            int fi=0;
+			    while ((line = br.readLine()) != null) {
+			        //text.append(line);
+			        //text.append('\n');
+			        line = line.replace("\"", "");		        
+					   Log.w("line ...", "TicTac line read line: "+line);
+					longLastTime = Long.parseLong(line);
+					   Log.w("line ...", "TicTac line read longLastTime: "+longLastTime);
+					   
+
+	            fi ++;
+			    }
+			    br.close();
+			}
+			catch (IOException e) {
+			    //You'll need to add proper error handling here
+			}
+			
+   //+++++++++++++++TicTac2+Check-NOW++++++++++++++++++++++++++++++++++++++++++++++++++
+    	   long time= System.currentTimeMillis() ;
+		   Date cDate = new Date(time);
+		   String nowTimeMs =""; 
+		   nowTimeMs+=Long.toString(time); // the LastTimeMs in Ms
+		   Log.w("line ...", " theline TicTac line LastTimeMs: "+nowTimeMs);
+
+			if ((longLastTime > longNowTime) && ( longNowTime < longFinishTime) ){
+				timeLastFlag=0;
+        		Toast.makeText(context, "Check-YES- longLastTime:"+longLastTime, Toast.LENGTH_LONG).show();
+				//Log.w("line ...", "Check-YES- TicTac line read line: longLastTime:"+longLastTime);
+
+				try {
+					if(!xxlogFileL.exists()){
+						xxlogFileL.createNewFile();
+					}
+		
+					CSVWriter writer15 = new CSVWriter(new FileWriter(xxlogFileL, true));
+					String [] record15 = nowTimeMs.split(";");
+					writer15.writeNext(record15);
+					writer15.close();
+					//=====iii====//
+					
+
+							
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}else{
+        		Toast.makeText(context, "Check-No- longLastTime:"+longLastTime, Toast.LENGTH_LONG).show();
+
+				timeLastFlag=1;
+			}
+
+	//***********WRITE****************************************************************	
+
+	
+   
+		//***********END-TIME****************************************************************
 
     	
-
         m_context = context;
         // File file = new File("res/raw/textfile.txt");
         // InputStream ins = getResources().openRawResource(R.raw.my_db_file);
@@ -288,7 +380,9 @@ private AlertDialog.Builder createDirectoryChooserDialog(String title, List<Stri
     LinearLayout titleLayout = new LinearLayout(m_context);
     titleLayout.setOrientation(LinearLayout.VERTICAL);
     // titleLayout.setBackgroundColor(Color.BLACK);
-       titleLayout.setBackgroundColor(Color.RED); // Nur select window head 
+       titleLayout.setBackgroundColor(Color.DKGRAY); // Nur select window head 
+       titleLayout.setBackgroundResource(R.drawable.border2); //SUPER oder
+
 
 
 
@@ -309,14 +403,18 @@ private AlertDialog.Builder createDirectoryChooserDialog(String title, List<Stri
         public void onClick(View v) 
         {
             final EditText input = new EditText(m_context);
+            Log.w("CVP setOnSwipeOutListener", "CVP HoerZu3 onSwipeOut 1001 CustomViewPager DDD");
 
             // Show new folder name input dialog
             new AlertDialog.Builder(m_context).
             setTitle("New folder name").
             setView(input).setPositiveButton("OK", new DialogInterface.OnClickListener() 
             {
+            	
                 public void onClick(DialogInterface dialog, int whichButton) 
-                {
+                {   
+                	Log.w("CVP setOnSwipeOutListener", "CVP HoerZu1 onSwipeOut 1001 CustomViewPager DDD");
+
                     Editable newDir = input.getText();
                     String newDirName = newDir.toString();
                     // Create new directory
@@ -350,6 +448,7 @@ private AlertDialog.Builder createDirectoryChooserDialog(String title, List<Stri
     dialogBuilder.setCustomTitle(titleLayout);
 
     m_listAdapter = createListAdapter(listItems);
+    Log.w("CVP setOnSwipeOutListener", "CVP HoerZu4 onSwipeOut 1001 CustomViewPager DDD");
 
     dialogBuilder.setSingleChoiceItems(m_listAdapter, -1, onClickListener);
     dialogBuilder.setCancelable(false);

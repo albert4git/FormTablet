@@ -22,6 +22,7 @@ import android.view.View.OnTouchListener;
 //*****
 public class CustomViewPager extends ViewPager
 { 
+
 	
 float mStartDragX;
 OnSwipeOutListener mListener;
@@ -34,20 +35,24 @@ boolean lockScroll = false;
 
 public CustomViewPager(Context context, AttributeSet attrs)
 {
+	
     super(context, attrs);
     this.context = context;
     enabled = true;
-    Log.w("01CVP Construktor CustomViewPager ???", "1001 333 CustomViewPager enabled = true DDD");
+    Log.w("CVP setOnSwipeOutListener", "CVP HoerZu8 onSwipeOut 1001 CustomViewPager DDD");
     // ^^^^^^^^???^^^^^^^^
     // Toast.makeText(context, "##4 Please fill in the details, then swipe !",   Toast.LENGTH_LONG).show();
 
 }
 
 //****************************************************************
-//ON TOUCH EVENT Drill-it
+//ON TOUCH EVENT Drill-it // MAi MAI mai
 @Override
 public boolean onTouchEvent(MotionEvent ev)
 {
+	//+++++++++++++++++++++++++++++++++++++++++	
+	
+	Log.w("CVP onSWIPE", "CVP TOUCH SWIPE");
 
 	 switch (ev.getAction()) {
 
@@ -66,10 +71,12 @@ public boolean onTouchEvent(MotionEvent ev)
 
  if (enabled) //view pager scrolling enable if true
  {
-     Log.w("03CVP onTouchEvent", "@1001 VW 333 onTouchEvent statBoxBuffer"+RadioButtonGroup.statBoxBuffer);
+	 
       //RadioButtonGroup.statBoxBuffer ="VW";
       RadioButtonGroup.statBoxBuffer =CollectionDemoActivity.albertEquationNow;
-     Log.w("04CVP onTouchEvent", "@1001 VW 333 onTouchEvent statBoxBuffer"+RadioButtonGroup.statBoxBuffer);
+	  Log.w("CVP ", "CVP $$$$$HH3.1   1001  DDD");
+	  Log.w("03CVP onTouchEvent", "@1001 VW 333 onTouchEvent statBoxBuffer"+RadioButtonGroup.statBoxBuffer);
+      Log.w("04CVP onTouchEvent", "@1001 VW 333 onTouchEvent statBoxBuffer"+RadioButtonGroup.statBoxBuffer);
    
      // return super.onTouchEvent(ev); // unneedet ???
  }
@@ -82,11 +89,15 @@ public boolean onTouchEvent(MotionEvent ev)
  if(lockScroll) {
      //Toast.makeText(context, "##A swipe <<<!",   Toast.LENGTH_SHORT).show();
      // return false; // >> Dirction Rechts !
+	 Log.w("CVP ", "CVP $$$$$HH3   1001  DDD");
+
      return super.onTouchEvent(ev);
 
  } else {
        //Toast.makeText(context, "##B swipe >>>!",   Toast.LENGTH_SHORT).show();
 	   // CustomViewPager.enabled = false; //$$$$$ // Direction 2 Left <<<
+ 	     Log.w("CVP ", "CVP $$$$$HH2   1001  DDD");
+
      return super.onTouchEvent(ev);
  }
 }
@@ -95,6 +106,8 @@ public boolean onTouchEvent(MotionEvent ev)
 
 @Override // new 
 public boolean onInterceptTouchEvent(MotionEvent event) {
+    Log.w("CVP ", "CVP $$$$$HH0.2   1001  DDD");
+
     if (enabled) {
         return super.onInterceptTouchEvent(event);
     } else {
@@ -117,19 +130,24 @@ public boolean onInterceptTouchEvent(MotionEvent event) {
 public void setPagingEnabled(boolean enabled) {
     // ^^^^^^^^???^^^^^^^^
     this.enabled = enabled;
+     Log.w("CVP ", "CVP $$$$$HH0   1001  DDD");
+
 } 
 //****************************************************************
 
 public void setOnSwipeOutListener(OnSwipeOutListener listener)
 {   // ^^^^^^^^???^^^^^^^^ pop am anfang
     //Toast.makeText(context, "##4 Please fill in the details, then swipe !", Toast.LENGTH_LONG).show();
-    Log.w("CVP setOnSwipeOutListener", " 1001 CustomViewPager DDD DDD DDD");
+    Log.w("CVP ", "CVP $$$$$HH0.1   1001  DDD");
+
+    Log.w("CVP setOnSwipeOutListener", "CVP HoerZu1 onSwipeOut 1001 CustomViewPager DDD");
     mListener = listener;
 }
 //****************************************************************
 
 public interface OnSwipeOutListener
 {
+	
     public void onSwipeOutAtStart();
     public void onSwipeOutAtEnd();
 }

@@ -1,6 +1,6 @@
 <!--
   Copyright 2012 The Android Open Source Project
-
+ROOT VIEW LAST PAGE
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
@@ -27,12 +27,13 @@
 <LinearLayout 
     android:textSize="@dimen/mydimension"
     android:id="@+id/inputs_layout"
-    android:background="#117711"
+    android:background="#777777"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_below="@android:id/text1"
     android:gravity="center"
     android:orientation="horizontal" >
+
 
 </LinearLayout>
 

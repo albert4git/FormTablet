@@ -65,11 +65,14 @@ public class Radio extends InputElement {
         //radio.setBackgroundColor(Color.rgb(77, 77, 77));
         //radio.setBackgroundColor(Color.rgb( 90, 90, 90)); 
         radio.setBackgroundResource(R.drawable.g_cub45); //SUPER oder
-        radio.setPadding(1, 0, 0, 1); 
-        radio.setTextColor(Color.rgb( 0, 10, 90));
-        radio.setHeight(48); 
-        radio.setGravity(Gravity.CENTER); 
-        radio.setGravity(Gravity.CENTER_VERTICAL); 
+        radio.setBackgroundResource(R.drawable.border5); //SUPER oder
+
+        
+        //radio.setPadding(1, 0, 0, 1); 
+        //radio.setTextColor(Color.rgb( 0, 10, 90));
+        //radio.setHeight(48); 
+        // radio.setGravity(Gravity.CENTER); 
+        //radio.setGravity(Gravity.CENTER_HORIZONTAL); 
 
 
 
@@ -82,6 +85,8 @@ public class Radio extends InputElement {
 		{
             Log.w("02RADIO ", "InputElement.dsplay.val ?:"+val);
 		    radio.setChecked((Boolean.valueOf(val)));
+            //toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+
 
 		    Toast myToast2 = Toast.makeText(context, 
 		      		"##-IF-1 : "
@@ -103,15 +108,17 @@ public class Radio extends InputElement {
     RadioButtonGroup.statBoxIGV = false;
     RadioButtonGroup.statBoxSFlag = "aaa"; 
 			
-	    	if( CollectionDemoActivity.albertNameNow.matches("q.*"))
+	    	if( CollectionDemoActivity.albertNameNow.matches("q.*") && CollectionDemoActivity.dofRelease == 0 )
 	        {  				       
 	    	      CustomViewPager.enabled = false;     //$$$$$
+			      Log.w("CVP ", "CVP $$$$$HH13   1001  FALSE ");
 	      	      Log.w("04Radio.D inputElement: ", "Radio.D1000 333 FALSE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
 	        }// end_if
 	    	//++++++++ 
-	    	if(	CollectionDemoActivity.albertNameNow.matches("t.*"))
+	    	if(	CollectionDemoActivity.albertNameNow.matches("t.*") && CollectionDemoActivity.dofRelease == 0)
 	        {  				       
 	    	    CustomViewPager.enabled = true;     //$$$$$
+		    	Log.w("CVP ", "CVP $$$$$HH14   1001  TRUE");
 	    	    Log.w("05Radio.D inputElement: ", "Radio.D1000 333 TRUE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
 	        }//////// end_if ///////
 	    // >>> POINT >>>
@@ -122,33 +129,32 @@ public class Radio extends InputElement {
         //-STOP--LOGIC--LOGIC--LOGIC--LOGIC--LOGIC--LOGIC--LOGIC--LOGIC--LOGIC---Logic--------
 	    Log.w("05Pre------ ", "Radio.D1000 --Pre------------- ");
     	Log.w("06Pre Radio.d:", "Radio.D1000 albertNamePre: "+CollectionDemoActivity.albertNamePre);
-        Log.w("07Pre Radio.d:", "Radio.D1000 albertEquationPre: "+CollectionDemoActivity.albertEquationPre);
-    	Log.w("08Pre Radio.d:", "Radio.D1000 albertContentPre: "+CollectionDemoActivity.albertContentPre);
+        // Log.w("07Pre Radio.d:", "Radio.D1000 albertEquationPre: "+CollectionDemoActivity.albertEquationPre);
+    	// Log.w("08Pre Radio.d:", "Radio.D1000 albertContentPre: "+CollectionDemoActivity.albertContentPre);
     	Log.w("09Pre Radio.d>", "Radio.D1000 albertIdPre: "+CollectionDemoActivity.albertIdPre+"<<<");
 	    Log.w("10Now------ ", "Radio.D1000 --Now------------- ");
     	Log.w("11Now Radio.d:", "Radio.D1000 albertNameNow: "+CollectionDemoActivity.albertNameNow);
-        Log.w("12Now Radio.d:", "Radio.D1000 albertEquationNow: "+CollectionDemoActivity.albertEquationNow);
-    	Log.w("13Now Radio.d:", "Radio.D1000 albertContentNow: "+CollectionDemoActivity.albertContentNow);
+    	 // Log.w("12Now Radio.d:", "Radio.D1000 albertEquationNow: "+CollectionDemoActivity.albertEquationNow);
+    	 // Log.w("13Now Radio.d:", "Radio.D1000 albertContentNow: "+CollectionDemoActivity.albertContentNow);
     	Log.w("14Now Radio.d>", "Radio.D1000 albertIdNow: "+CollectionDemoActivity.albertIdNow+"<<<");	
-        Log.w("15Nxt Radio.d:", "Radio.D1000 isValidCount: "+isValidCount);
-        Log.w("16>Now-Buffer:", "Radio.D1000 statBoxBuffer: "+RadioButtonGroup.statBoxBuffer);
+    	// Log.w("15Nxt Radio.d:", "Radio.D1000 isValidCount: "+isValidCount);
+    	// Log.w("16>Now-Buffer:", "Radio.D1000 statBoxBuffer: "+RadioButtonGroup.statBoxBuffer);
 	    Log.w("17Nxt------ ", "Radio.D1000 --Nxt------------- ");
     	Log.w("18Nxt Radio.d:", "Radio.D1000 albertNameNext: "+CollectionDemoActivity.albertNameNext);
-        Log.w("19Nxt Radio.d:", "Radio.D1000 albertEquationNext: "+CollectionDemoActivity.albertEquationNext);
-    	Log.w("20Nxt Radio.d:", "Radio.D1000 albertContentNext: "+CollectionDemoActivity.albertContentNext);
+    	 // Log.w("19Nxt Radio.d:", "Radio.D1000 albertEquationNext: "+CollectionDemoActivity.albertEquationNext);
+    	 // Log.w("20Nxt Radio.d:", "Radio.D1000 albertContentNext: "+CollectionDemoActivity.albertContentNext);
     	Log.w("21Nxt Radio.d>", "Radio.D1000 albertIdNext: "+CollectionDemoActivity.albertIdNext+"<<<");
-	    Log.w("22--Radio.d ", "Radio.D1000 ------------------ ");
-  	    	
-    	Log.w("23Radio.D: ", "Radio.D1000 ENABLED ? 333 : "+CustomViewPager.enabled+"###");
-        Log.w("24Radio.D: ", "Radio.D1000 RadioButtonGroup.statBoxName: "+RadioButtonGroup.statBoxName );
-        Log.w("25Radio.D: ", "Radio.D1000 RadioButtonGroup.statBoxG: "+RadioButtonGroup.statBoxG );
-        Log.w("26Radio.D: ", "Radio.D1000 RadioButtonGroup.statBoxCoef: "+RadioButtonGroup.statBoxCoef );
-        Log.w("27Radio.D: ", "Radio.D1000 RadioButtonGroup.statBoxIGV: "+RadioButtonGroup.statBoxIGV );
-	    Log.w("28--Radio.d ", "Radio.D1000 ------------------ ");
-        Log.w("29Radio.D: ", "Radio.D1000 question.name: "+question.name);
-        Log.w("30Radio.D: ", "Radio.D1000 question.equation: "+question.equation);
-        Log.w("31Radio.D: ", "Radio.D1000 question.content: "+question.content);
-        Log.w("32Radio.D: ", "Radio.D1000 question.name: "+RadioButtonGroup.statBoxName);
+    	// Log.w("22--Radio.d ", "Radio.D1000 ------------------ ");  	    	
+    	// Log.w("23Radio.D: ", "Radio.D1000 ENABLED ? 333 : "+CustomViewPager.enabled+"###");
+    	// Log.w("24Radio.D: ", "Radio.D1000 RadioButtonGroup.statBoxName: "+RadioButtonGroup.statBoxName );
+        // Log.w("25Radio.D: ", "Radio.D1000 RadioButtonGroup.statBoxG: "+RadioButtonGroup.statBoxG );
+        // Log.w("26Radio.D: ", "Radio.D1000 RadioButtonGroup.statBoxCoef: "+RadioButtonGroup.statBoxCoef );
+        // Log.w("27Radio.D: ", "Radio.D1000 RadioButtonGroup.statBoxIGV: "+RadioButtonGroup.statBoxIGV );
+    	// Log.w("28--Radio.d ", "Radio.D1000 ------------------ ");
+	    // Log.w("29Radio.D: ", "Radio.D1000 question.name: "+question.name);
+        // Log.w("30Radio.D: ", "Radio.D1000 question.equation: "+question.equation);
+        // Log.w("31Radio.D: ", "Radio.D1000 question.content: "+question.content);
+        // Log.w("32Radio.D: ", "Radio.D1000 question.name: "+RadioButtonGroup.statBoxName);
 
         //**************************************************************************
         // Log.w("@122 Radio.D: ", "val: "+val);

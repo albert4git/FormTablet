@@ -20,6 +20,7 @@ import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -40,7 +41,10 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
+import android.graphics.Color;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -50,6 +54,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
@@ -57,6 +62,7 @@ import android.widget.LinearLayout;
 import org.xmlpull.v1.XmlPullParserException;
 
 import com.example.android.effectivenavigation.SimpleGestureFilter.SimpleGestureListener;
+import com.example.android.effectivenavigation.directorychooser.DirectoryChooserDialog;
 import com.example.android.effectivenavigation.QuestionTypes.*;
 import com.example.android.effectivenavigation.QuestionParser.*;
 
@@ -72,22 +78,31 @@ private SimpleGestureFilter detector;
 public boolean dispatchTouchEvent(MotionEvent me){
     // Call onTouchEvent of SimpleGestureFilter class
      this.detector.onTouchEvent(me);
+		Log.w("TOUCH", "TOUCH dispatchTouchEvent");
+
     return super.dispatchTouchEvent(me);
 }
 
 @Override
  public void onSwipe(int direction) {
   String str = "";
-  		  
-		
+	Log.w("onSWIPE", "TOUCH SWIPE");
+    Log.w("CVP setOnSwipeOutListener", "CVP HoerZu5 onSwipeOut 1001 CustomViewPager DDD");
+
 			 switch (direction) {	  
 			  case SimpleGestureFilter.SWIPE_RIGHT : str = "Swipe Right";
-			  Log.w("Swipe Right", "1000D Swipe Right");					  				               
+			  Log.w("Swipe Right", "1000D Swipe Right");		
+				Log.w("Swipe Right", "BUR O, Swipe Right");
+	        	Log.w("BUR onSwipe:", "BUR Right O, CollectionDemoActivity.albertIdNow %:"+CollectionDemoActivity.albertIdNow); // CollectionDemoActivity.albertIdNow= currentNow ; 
+	        	Log.w("BUR onSwipe:", "BUR LRight O, CollectionDemoActivity.albertNameNow %:"+CollectionDemoActivity.albertNameNow); // CollectionDemoActivity.
 						///************************************************  
-			  if(CustomViewPager.enabled){
+			  if(!CustomViewPager.enabled){
 	        	    // CustomViewPager.enabled = false; //$$$$$
-	        	   
-					Log.w("Swipe Left", "1000D Swipe Left");
+			 	    Log.w("CVP ", "CVP $$$$$HH7   1001  DDD");
+
+					Log.w("Swipe Right", "BUR NO, Swipe Right");
+		        	Log.w("BUR onSwipe:", "BUR Right NO, CollectionDemoActivity.albertIdNow %:"+CollectionDemoActivity.albertIdNow); // CollectionDemoActivity.albertIdNow= currentNow ; 
+		        	Log.w("BUR onSwipe:", "BUR LRight NO, CollectionDemoActivity.albertNameNow %:"+CollectionDemoActivity.albertNameNow); // CollectionDemoActivity.albertIdNow= currentNow ; 
 					///************************************************  
 				    LayoutInflater inflater = getLayoutInflater();
 	                View layout = inflater.inflate(R.layout.my_custom_toast,
@@ -98,28 +113,49 @@ public boolean dispatchTouchEvent(MotionEvent me){
 	                toast.setGravity(Gravity.BOTTOM, 0, 0);
 	                toast.setDuration(Toast.LENGTH_SHORT);
 	                toast.setView(layout);
-	                toast.show();				  					 					  					  
+	                //toast.show();				  					 					  					  
 					///************************************************  
-			      }// if_enaled 		 					  					  
+			      }else {
+			  	        Log.w("CVP", "CVP $$$$$HH8   1001  DDD");
+			    	    Log.w("Swipe Right", "BUR YES, Swipe Right");
+			        	Log.w("BUR onSwipe:", "BUR Right YES, CollectionDemoActivity.albertIdNow %:"+CollectionDemoActivity.albertIdNow); // CollectionDemoActivity.albertIdNow= currentNow ; 
+			        	Log.w("BUR onSwipe:", "BUR LRight YES, CollectionDemoActivity.albertNameNow %:"+CollectionDemoActivity.albertNameNow); // CollectionDemoActivity.albertIdNow= currentNow ;  
+			      }
 						///************************************************  
-			           if(CustomViewPager.enabled){  }// if_enaled 
+			           if(CustomViewPager.enabled){  	     Log.w("CVP setOnSwipeOutListener", "CVP $$$$$8   1001  DDD");  }// if_enaled 
 			        break;
 			  case SimpleGestureFilter.SWIPE_LEFT :  str = "Swipe Left";
-			    if(!CustomViewPager.enabled){
-					Log.w("Swipe Left", "1000D Swipe Left");
+			    //!CustomViewPager.enabled , backTreck, timeLastFlag
+			 
+			  
+			    if( dofRelease ==0 ){
+					Log.w("Swipe Left", "BUR 1000D NO, Swipe Left");
+		        	Log.w("BUR onSwipe:", "BUR Left NO, CollectionDemoActivity.albertIdNow %:"+CollectionDemoActivity.albertIdNow); // CollectionDemoActivity.albertIdNow= currentNow ; 
+		        	Log.w("BUR onSwipe:", "BUR Left NO, CollectionDemoActivity.albertNameNow %:"+CollectionDemoActivity.albertNameNow); // CollectionDemoActivity.albertIdNow= currentNow ; 
+		        	Log.w("BUR onSwipe:", "BUR Left NO, CollectionDemoActivity.albertEquationNow %:"+CollectionDemoActivity.albertEquationNow); // CollectionDemoActivity.albertIdNow= currentNow ; 
+		        	Log.w("BUR onSwipe:", "BUR Left NO, CollectionDemoActivity.albertIdPre %:"+CollectionDemoActivity.albertIdPre); // CollectionDemoActivity.albertIdNow= currentNow ; 
+		        	Log.w("BUR onSwipe:", "BUR Left NO, CollectionDemoActivity.albertNamePre %:"+CollectionDemoActivity.albertNamePre); // CollectionDemoActivity.albertIdNow= currentNow ; 
+
 					///************************************************  
 				    LayoutInflater inflater = getLayoutInflater();
 	                View layout = inflater.inflate(R.layout.my_custom_toast,
-	                                               (ViewGroup) findViewById(R.id.custom_toast_layout));	     
+	                 (ViewGroup) findViewById(R.id.custom_toast_layout));	     
 	                TextView text = (TextView) layout.findViewById(R.id.textToShow);
-	                text.setText(" Bitte treffen Sie eine/vollstŠndige Auswahl ! ");
+	                // text.setText(" Bitte treffen Sie eine/vollstŠndige Auswahl ! F: "+CollectionDemoActivity.albertIdNow);
+	                text.setText(" Bitte treffen Sie eine/vollstŠndige Auswahl !  ");
+
 	                Toast toast = new Toast(getApplicationContext());
-	                toast.setGravity(Gravity.BOTTOM, 0, 0);
+	                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
 	                toast.setDuration(Toast.LENGTH_SHORT);
 	                toast.setView(layout);
 	                toast.show();				  					 					  					  
 					///************************************************  
-			      }// if_enaled 
+			      }else {
+			    	  
+			    	    Log.w("Swipe Left", "BUR YES, Swipe Left");
+			        	Log.w("BUR onSwipe:", "BUR Left YES, CollectionDemoActivity.albertIdNow %:"+CollectionDemoActivity.albertIdNow); // CollectionDemoActivity.albertIdNow= currentNow ; 
+			        	Log.w("BUR onSwipe:", "BUR Left YES, CollectionDemoActivity.albertNameNow %:"+CollectionDemoActivity.albertNameNow); // CollectionDemoActivity.albertIdNow= currentNow ;  
+			      }
 			        break;
 			  case SimpleGestureFilter.SWIPE_DOWN :  str = "Swipe Down";
 			  Log.w("Swipe Down", "1000D Swipe Down");
@@ -129,7 +165,8 @@ public boolean dispatchTouchEvent(MotionEvent me){
 			        break;
 			  
 			  }
-	        //Toast.makeText(this, " !!  "+str, Toast.LENGTH_SHORT).show();			 
+	        //Toast.makeText(this, " !!  "+str, Toast.LENGTH_SHORT).show();		
+			 
    
  }
   
@@ -182,12 +219,22 @@ public boolean dispatchTouchEvent(MotionEvent me){
 	public static int albertIdPre= 0 ; //TEST
     //!?
 	public static int currentNow= 0 ; //TEST
+	public static int dofID= 0 ; //TEST
+	public static int dofID2= 0 ; //TEST
+	public static int dofBuff= 0 ; //TEST
+	public static int dofBuff2= 0 ; //TEST
+	public static int dofCurrent= 0 ; //TEST
+	public static int dofRelease= 0 ; //TEST
+	public static int dofRelease2= 0 ; //TEST
+
 
 
     
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_collection_demo);        
+        setContentView(R.layout.activity_collection_demo);  
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); 
+
         // setContentView(R.layout.demo2);
         // setContentView(R.layout.custom_v);
         // Detect touched area
@@ -210,10 +257,18 @@ public boolean dispatchTouchEvent(MotionEvent me){
         // Set up the ViewPager, attaching the adapter.
         mViewPager = (CustomViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mDemoCollectionPagerAdapter);
+        mViewPager.getAdapter().notifyDataSetChanged();  //This notify that you need to recreate the views // pinocio
+        // mViewPager.setCurrentItem(2); //buratino
+    	Log.w("BUR onCreate:", "BUR DOFa N, CollectionDemoActivity.albertIdNow %:"+CollectionDemoActivity.albertIdNow); // CollectionDemoActivity.albertIdNow= currentNow ; 
+    	Log.w("BUR onCreate:", "BUR DOFa N, CollectionDemoActivity.albertNameNow %:"+CollectionDemoActivity.albertNameNow); // CollectionDemoActivity.albertIdNow= currentNow ; 
+    	Log.w("BUR onCreate:", "BUR DOFa N, CollectionDemoActivity.albertEquationNow %:"+CollectionDemoActivity.albertEquationNow); // CollectionDemoActivity.albertIdNow= currentNow ; 
+    	Log.w("BUR onCreate:", "BUR DOFa N, CollectionDemoActivity.albertIdPre %:"+CollectionDemoActivity.albertIdPre); // CollectionDemoActivity.albertIdNow= currentNow ; 
+    	Log.w("BUR onCreate:", "BUR DOFa N, CollectionDemoActivity.albertNamePre %:"+CollectionDemoActivity.albertNamePre); // CollectionDemoActivity.albertIdNow= currentNow ; 
+
+
         OnPageChangeListener listener= new OnPageChangeListener(){ 
         // ?? setPageView(R.layout.activity_collection_demo);
         //2014 go here !!!
-       
         	
         	
 			@Override
@@ -223,35 +278,159 @@ public boolean dispatchTouchEvent(MotionEvent me){
 	            //**************************************************************************
 	            Log.w("@EEE CDA:", "RadioButtonGroup.statBoxName:"+RadioButtonGroup.statBoxName );
 	            Log.w("@EEE CDA:", "RadioButtonGroup.statBoxCoef:"+RadioButtonGroup.statBoxCoef );
-                // The holly3 BoxICV is a good switch !!!
 	            Log.w("@EEE1 CDA:", "RadioButtonGroup.statBoxStartWith:"+RadioButtonGroup.statBoxStartWith );
 	            Log.w("@EEE2 CDA:", "RadioButtonGroup.statBoxG:"+RadioButtonGroup.statBoxG );
 	            Log.w("@EEE3 CDA:", "Radio.isValidCount:"+Radio.isValidCount );
 	            Log.w("@EEE4 CDA:", "RadioButtonGroup.statBoxIGV:"+RadioButtonGroup.statBoxIGV );
 	      // --- ---- ---- ---- ---- ---- --- --- --- --- --- -- -
-          //###  BoxIGV is a good switch !!! //
-	        Log.w("@NNN NNN NNN NNN NNN -RAMKA-", "NNN NNN NNN NNN NNN NNN");	       
-            	if(    
-            			RadioButtonGroup.statBoxName.matches(".*c.*")
-    	            	&& RadioButtonGroup.statBoxG >0
-    	            	&& Radio.isValidCount > 0
-    	            	&& RadioButtonGroup.statBoxIGV 
-                   )
-                {  				       
-			       // current=4; // TEST 
-			       // mViewPager.setPagingEnabled(false);
-                }
-	        Log.w("@MMM MMM MMM MMM MMM  -RAMKA-", "MMM MMM MMM MMM MMM MMM ");
-		  //###
-	      // --- ---- ---- ---- ---- ---- --- --- --- --- --- -- -
+          //###  BIG switch !!! //
+		      dofCurrent = mViewPager.getCurrentItem();
+	 	            Log.w("BUR onCreate:", "BUR DOFc IF2 BIG, 1# dofCurrent %:"+dofCurrent); // 
+
+		    	 if (dofID2 > dofCurrent) // eshio menshe ...
+		            {
+		    		///************************************************  
+		 	        Log.w("BUR onCreate:", "BUR DOFc IF2 BIG, 2# dofCurrent %:"+dofCurrent); // 
+			 	    Log.w("BUR onCreate:", "BUR DOFc IF BIG,  3# dofID %:"+dofID); // 
+		 	        Log.w("BUR onCreate:", "BUR DOFc IF2 BIG, 4# dofID2 %:"+dofID2); // 
+                     //TRIGER 
+		            	if(  dofID > 1 )
+		                {  				       
+					       // current=4; // TEST 
+		    			    Log.w("CVP setOnSwipeOutListener", "CVP HoerZu6.1 onSwipeOut 1001 CustomViewPager DDD");
+		    		        // mViewPager.setOnSwipeOutListener(listener);
+		    		        new Handler().post(new Runnable() {
+		    		        @Override
+		    		        public void run() {
+		    		        	//mViewPager.setCurrentItem(dofID); //SMERCH //buratino
+		    		        	mViewPager.setCurrentItem(dofID2); //SMERCH //buratino
+                                dofRelease2 =1;
+		    		    		// Toast.makeText(getBaseContext(), " mViewPager.setCurrentItem: dofID "+dofID, Toast.LENGTH_LONG).show();
+
+		    		            }
+		    		        });
+		
+		                }// end_if
+		            }
+			     // --- ---- ---- ---- ---- ---- --- --- --- --- --- -- -
+		    	 if (dofID > dofCurrent) // dofCurrent menche ..
+		            {
+		    		///************************************************  
+		 	        Log.w("BUR onCreate: ---", "BUR DOFc IF BIG, 5qqq HH dofCurrent :"+dofCurrent); // 
+			 	    Log.w("BUR onCreate:--- ", "BUR DOFc IF BIG, 6qqq HH dofID :"+dofID); // 
+		 	        Log.w("BUR onCreate: ---", "BUR DOFc IF BIG, 7qqq HH dofID2 :"+dofID2); // 
+		             dofID2 = dofID;
+                     dofRelease =2; // BackTreck
+   	     	         CustomViewPager.enabled = true; //$$$$$
+			 	    Log.w("BUR onCreate: ---", "BUR DOFc IF BIG, 71qqq HH dofRelease :"+dofRelease); // 
+
+						///************************************************  
+					    LayoutInflater inflater = getLayoutInflater();
+		                View layout = inflater.inflate(R.layout.my_custom_toast,
+		                                               (ViewGroup) findViewById(R.id.custom_toast_layout));	     
+		                TextView text = (TextView) layout.findViewById(R.id.textToShow);
+		                text.setText(" Sie kšnnen ihre Eingaben ŸberprŸfen korrigieren, und weiter blŠttern ! ");
+		                Toast toast = new Toast(getApplicationContext());
+		                toast.setGravity(Gravity.CENTER, 0, 0);
+		                toast.setDuration(Toast.LENGTH_LONG);
+		                toast.setView(layout);
+		                toast.show();				  					 					  					  
+						///************************************************
+
+
+		            } else {
+		            	 if (dofRelease != 0){ 
+	                     dofRelease --; // ?? 2 ?? ForTreck
+		            	 }
+
+		            }
+	             dofID = dofCurrent;
+
+		   // --- ---- ---- ---- ---- ---- --- --- --- --- --- -- -
+ 	 
+			Log.w("CVP setOnSwipeOutListener", "CVP HoerZu6 BIG 8# current"+current+"dofID"+dofID);
+	        Log.w("@NNN NNN NNN NNN NNN -RAMKA-", "NNN NNN NNN NNN NNN NNN");	
+	        //###############################################################################################
+		    //### 
+
+            	
+		    //###
+	        //###############################################################################################
+   	         Log.w("@MMM MMM MMM MMM MMM  -RAMKA-", "MMM MMM MMM MMM MMM MMM ");
+
+	        // --- ---- ---- ---- ---- ---- --- --- --- --- --- -- -
+	        Log.w("BUR onCreate:", "BUR DOFb N Zu6 , CollectionDemoActivity.dofID %:"+CollectionDemoActivity.dofID); // 
+	        Log.w("BUR onCreate:", "BUR DOFb N Zu6 , CollectionDemoActivity.dofID2 %:"+CollectionDemoActivity.dofID2); // 
+	        Log.w("BUR onCreate:", "BUR DOFb N Zu6-316 , CollectionDemoActivity.dofCurrent %:"+CollectionDemoActivity.dofCurrent); // 
+
+	        Log.w("BUR onCreate:", "BUR DOFb N Zu6 , CollectionDemoActivity.albertIdNow %:"+CollectionDemoActivity.albertIdNow); // 
+	    	Log.w("BUR onCreate:", "BUR DOFb N Zu6 , CollectionDemoActivity.albertNameNow %:"+CollectionDemoActivity.albertNameNow); // 
+	    	Log.w("BUR onCreate:", "BUR DOFb N Zu6 , CollectionDemoActivity.albertIdPre %:"+CollectionDemoActivity.albertIdPre); // 
+	    	Log.w("BUR onCreate:", "BUR DOFb N Zu6 , CollectionDemoActivity.albertNamePre %:"+CollectionDemoActivity.albertNamePre); // 
+	       
 
 				  if(mViewPager.getCurrentItem()==questions.size())
 		            {
+					  dofID = 0;
+					  dofID2 =0;
+					  dofCurrent =0;
+					  dofRelease = 0;
+					  dofRelease2 = 0;
+					  currentNow =0;
 					// DIGN ? //
 		            CollectionDemoActivity.this.Qparser.saveToPdf(data.name , data.dign ,mViewPager.getContext());
 		        	System.out.println("Qparser, mydata, data,  works ? Albert ");
-		    		// DISPLAY GOGO nach dem Save Datat ...
+
 		    		// Toast.makeText(getBaseContext(), " ViewPager DISPLAY :", Toast.LENGTH_LONG).show();
+		            } else {
+		            	///************************************************  
+		           	 if( DirectoryChooserDialog.timeLastFlag ==1 ){
+		           						    LayoutInflater inflater = getLayoutInflater();
+		                   View layout = inflater.inflate(R.layout.my_custom_toast,
+		                    (ViewGroup) findViewById(R.id.custom_toast_layout));	     
+		                   TextView text = (TextView) layout.findViewById(R.id.textToShow);
+		                   text.setText(
+		                		   "========================================" +
+		                		   "========================================" +
+		                		   "========================================" +
+		                		   "========================" +			                		  
+		                   		    "   PLEASE UPDATE YOUR LICENCE !       " +
+		                		   "========================================" +
+		                		   "========================================" +
+		                		   "========================================" +
+		                		   "========================================" +
+		                		   "========================================" +
+		                		   "========================================" +
+		                		   "================================================" +		                		  
+		                   		    "   PLEASE UPDATE YOUR LICENCE !       " +
+			                   		"========================================" +
+			                   		"========================================" +
+			                   		"========================================" +
+			                   		"========================================" +
+			                   		"========================================" +
+			                   		"========================================" +
+			                	    "===============================================" +				                		  
+		                   		    "   PLEASE UPDATE YOUR LICENCE !       " +
+			                   		"========================================" +
+			                   		"========================================" +
+			                   		"========================================" +
+			                   		"========================================" +
+			                   		"========================================" +
+			                   		"========================================" +
+			                	    "===============================================" +			                		  
+		                   		    "   PLEASE UPDATE YOUR LICENCE !       " +
+			                   		"========================================" +
+			                   		"========================================" +
+			                   		"========================================" +
+		                   		    "========================"      		
+		                		   );
+		                   Toast toast = new Toast(getApplicationContext());
+		                   toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+		                   toast.setDuration(Toast.LENGTH_LONG);
+		                   toast.setView(layout);
+		                   toast.show();				  					 					  					  
+		           	      }
+		           	///************************************************  
 		            }
 			}
 			
@@ -273,6 +452,8 @@ public boolean dispatchTouchEvent(MotionEvent me){
 
 			}
 		};
+	    Log.w("CVP setOnSwipeOutListener", "CVP HoerZu7 onSwipeOut 1001 CustomViewPager DDD");
+
         mViewPager.setOnPageChangeListener(listener);
     } // End CollectionDemoActivity
     
@@ -375,24 +556,53 @@ public boolean dispatchTouchEvent(MotionEvent me){
         public static final String ARG_OBJECT = "question";
         int testVal; // Yes
         String kartonA; // Yes
+        //public static int dofID ;
+
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             Log.w("1...", "...");
-            View rootView = inflater.inflate(R.layout.fragment_collection_object, container, false);
+          	 View rootView = inflater.inflate(R.layout.fragment_collection_object, container, false);
+
             Bundle args = getArguments();
             int current=args.getInt(ARG_OBJECT)-1; //&&&&&
-            // Log.w("2CDA Fragment:", "quest.size is:"+questions.size());                        
+            // Log.w("2CDA Fragment:", "quest.size is:"+questions.size()); 
+
+            // was-dofID2	
+            // LAST RADAR 
             if (current==questions.size()) // Vielen dank !
             {
+           	   rootView = inflater.inflate(R.layout.fragment_last, container, false);
          	   TextView questionText=(TextView) rootView.findViewById(R.id.text1);
-        	   questionText.setText(" Vielen dank !" );     
-        	   
+        	   questionText.setText(" Vielen dank ! Eingaben werden Gespeichert" );     
+			    Log.w("ENDE --- CDA ---", " ENDE CDA questions.size()");
+			   // tbl.setBackgroundResource(R.drawable.swp1); //TBL . Tbl . tbl ... oder ??? ---
+               
+			     Button btn=(Button) rootView.findViewById(R.id.buttonLL);
+			     // btn.setOnClickListener((OnClickListener) this);
+			     btn.setOnClickListener(new View.OnClickListener() {
+			            @Override
+			            public void onClick(View v) {
+			                    //your btn action
+  			                    System.exit(0);
+			                    }
+			        });
+			   //####### #### ### ## ## ## 
+			   //###
+			   //##
+			   //#
+
          	   return rootView; // 225 line
+            } else {
+
             }
-                   	
             
+        	Log.w("BUR onCreate:", "BUR  DOF, CollectionDemoActivity.albertIdNow %:"+CollectionDemoActivity.albertIdNow); // CollectionDemoActivity.albertIdNow= currentNow ; 
+        	Log.w("BUR onCreate:", "BUR  DOF, CollectionDemoActivity.albertNameNow %:"+CollectionDemoActivity.albertNameNow); // CollectionDemoActivity.albertIdNow= currentNow ; 
+        	Log.w("BUR onCreate:", "BUR  DOF, CollectionDemoActivity.albertEquationNow %:"+CollectionDemoActivity.albertEquationNow); // CollectionDemoActivity.albertIdNow= currentNow ; 
+        	Log.w("BUR onCreate:", "BUR  DOF, CollectionDemoActivity.albertIdPre %:"+CollectionDemoActivity.albertIdPre); // CollectionDemoActivity.albertIdNow= currentNow ; 
+        	Log.w("BUR onCreate:", "BUR  DOF, CollectionDemoActivity.albertNamePre %:"+CollectionDemoActivity.albertNamePre); // CollectionDemoActivity.albertIdNow= currentNow ; 
             //**************************************************************************
             Log.w("01CDA FRAGMENT onCreateView:", "CDA10 888 RadioButtonGroup.statBoxName:"+RadioButtonGroup.statBoxName );
             Log.w("02CDA FRAGMENT onCreateView:", "CDA10 888 RadioButtonGroup.statBoxG:"+RadioButtonGroup.statBoxG );
@@ -435,30 +645,34 @@ public boolean dispatchTouchEvent(MotionEvent me){
 	        	Log.w("15-------- NOW:", "CDA10- NOW --------------=---");  	
 
 	            if(current >0) //NOW
-	            {  
+	            {  	
+	            	//¤¤¤¤¤¤----¤¤¤¤¤¤----¤¤¤¤¤¤----¤¤¤¤¤¤----¤¤¤¤¤¤---- 
 	            	currentNow = current -1; // NOW NOW NOW
-	            	Question questionNow=questions.get(current-1); //&&&&&
+				    Question questionNow=questions.get(current-1); // ALLT
+                    //¤¤¤¤¤¤----¤¤¤¤¤¤----¤¤¤¤¤¤----¤¤¤¤¤¤----¤¤¤¤¤¤----
+				    
 	            	//+++++++++
 	            	Log.w("16CDA FRAGMENT onCreateView:", "CDA10 Now: CURRENT-Now %: "+currentNow);
 	            	Log.w("17CDA FRAGMENT onCreateView:", "CDA10 Now: questionNow.equation %:"+questionNow.equation);
 	            	Log.w("18CDA FRAGMENT onCreateView:", "CDA10 Now: nowFrage: questionNow.content %: "+questionNow.content);           	
 	            	Log.w("19CDA FRAGMENT onCreateView:", "CDA10 Now: questionNow.name %:"+questionNow.name);
-	            	//
 	        	    Log.w("20CDA FRAGMENT onCreateView: ", "CDA10 @333 Now:  PreCheck: ENABLED: "+CustomViewPager.enabled+"###");
-			            if( CollectionDemoActivity.albertNameNow.matches(".*q.*"))
+			            if( CollectionDemoActivity.albertNameNow.matches(".*q.*") && CollectionDemoActivity.dofRelease == 0)
 			            {  				       
 			        	    CustomViewPager.enabled = false; //$$$$$
-			        	    		        	    
-			          	    Log.w("21CDA FRAGMENT onCreateView: ", "CDA10 @333 Now FALSE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
+			        	     Log.w("CVP setOnSwipeOutListener", "CVP $$$$$HH6   1001  FALSE");		        	    
+			          	     Log.w("21CDA FRAGMENT onCreateView: ", "CDA10 @333 Now FALSE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
 			            }// end_if
 			        	//++++++++ 
-			        	if(	CollectionDemoActivity.albertNameNow.matches("t.*"))
+			        	if(	CollectionDemoActivity.albertNameNow.matches("t.*") && CollectionDemoActivity.dofRelease == 0)
 			            {  				       
 			        	    CustomViewPager.enabled = true; //$$$$$
+			        	     Log.w("CVP setOnSwipeOutListener", "CVP $$$$$HH5   1001  TRUE");
 			        	    Log.w("22CDA FRAGMENT onCreateView: ", "CDA10 @333 Now TRUE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
 			            }// end_if
 			        	//++++++++ 
-	
+
+		            
 		           	CollectionDemoActivity.albertEquationNow= questionNow.equation ; //NOW
 		        	CollectionDemoActivity.albertNameNow= questionNow.name ;         //NOW
 		        	CollectionDemoActivity.albertContentNow= questionNow.content ;   //NOW
@@ -471,20 +685,23 @@ public boolean dispatchTouchEvent(MotionEvent me){
 		            Log.w("24CDA FRAGMENT onCreateView:", "CDA10 Next CURRENT %: "+current); 
 		            Log.w("25CDA FRAGMENT onCreateView:", "CDA10 Next question.equation %:"+question.equation);
 		            Log.w("26CDA FRAGMENT onCreateView:", "CDA10 Next question.content %: "+question.content);
-		        	Log.w("27CDA FRAGMENT onCreateView:", "CDA10 Next questionNow.name %:"+question.name);
+		        	Log.w("27CDA FRAGMENT onCreateView:", "CDA10 Next questionNow.name %:"+question.name); // CollectionDemoActivity.albertIdNow= currentNow ; 
 		            //*************************************************************************************
 		            // statBoxName to albertNameNow ? initial
 			            if (current == 1 && RadioButtonGroup.statBoxName.matches("aaa")){
 				            CustomViewPager.enabled = false;  //$$$$$
-				    	    Log.w("29CDA FRAGMENT onCreateView:", "CDA10 333 current == 1 Name == aaa, FALSE ENABLED: "+CustomViewPager.enabled+"###");
+				    	     Log.w("CVP setOnSwipeOutListener", "CVP $$$$$HH4   1001  FALSE");
+				    	     Log.w("29CDA FRAGMENT onCreateView:", "CDA10 333 current == 1 Name == aaa, FALSE ENABLED: "+CustomViewPager.enabled+"###");
 			            }
 		        	CollectionDemoActivity.albertEquationNext= question.equation ; //NEXT          	
 		        	CollectionDemoActivity.albertNameNext= question.name ;         //NEXT            	
 		        	CollectionDemoActivity.albertContentNext= question.content ;   //NEXT
 		        	CollectionDemoActivity.albertIdNext= current ;                 //NEXT
 
-            	
+
+		        	
             Radio.isValidCount = 0;  
+    	    Log.w("CVP ", "CVP $$$$$HH4.1   1001  DDD");
             Log.w("'''...'''....'''....'''... STOP CDA FRAGMENT", " STOP '''...'''....'''....'''...");
             return  question.display(getActivity(),rootView); // line 225 //rootView is the Layout
 

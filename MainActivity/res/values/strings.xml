@@ -21,6 +21,10 @@
 
     <string name="demo_collection">  Fragebogen  </string>
     <string name="chooser_title"> FragebogenApp </string>
+    <string name="exit">Kill</string>
+    <string name="finish">Ende</string>
+    <string name="exitText">It will kill the activity, you can check it by checking the task manager after clicking Kill</string>
+    <string name="finishText">It will only Finish the activity</string>
         <color name="red">#770000</color>
         <color name="green">#007700</color>
         <color name="blue">#33CCFF</color>

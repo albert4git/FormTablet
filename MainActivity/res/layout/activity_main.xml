@@ -5,17 +5,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#777777"
-    android:orientation="vertical" >
+    android:orientation="vertical"     
+    >
 
 <LinearLayout
     android:id="@+id/main_layout"
-    android:background="#777777"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_below="@android:id/text1"
-    android:gravity="center"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+                  android:padding="9dp"
+    
+     >
     
 <ImageView
   android:id="@+id/imageview"
@@ -23,16 +24,14 @@
   android:layout_width="fill_parent"
   android:layout_height="fill_parent"
   android:scaleType="center"
-  android:background="@drawable/lb2"  
   />
  
-       <TableLayout
-            android:id="@+id/tblMain"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
-
-
-        </TableLayout>
+<TableLayout
+     android:id="@+id/tblMain"
+     android:layout_width="fill_parent"
+     android:layout_height="wrap_content"
+ >
+</TableLayout>
 
 </LinearLayout>
 

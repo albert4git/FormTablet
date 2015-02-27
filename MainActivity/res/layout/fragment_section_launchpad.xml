@@ -18,7 +18,10 @@
             android:layout_height="226dp"
             android:src="@drawable/wolfgang_logo2" />
             android:src="@drawable/kirsh4s900" />
-
+                        android:src="@drawable/hb_lmu2" />
+                        android:src="@drawable/logoGCBS" />
+            
+logoGCBS
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mainlayout"
@@ -31,13 +34,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:background="#bbBBbb"
+        android:background="#333333"
         android:layout_height="wrap_content" >
         <ImageView
             android:id="@+id/imageView1"
-            android:layout_width="1066dp"
-            android:layout_height="200dp"
-                    android:src="@drawable/wolfgang_logo2" />
+            android:layout_width="400dp"
+            android:layout_height="250dp"
+            android:src="@drawable/gcbs" />
         
         
        <ImageView
@@ -60,7 +63,8 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"           
+            android:textStyle="bold"   
+            android:fontFamily="sans-serif"        
             android:text="Full Name:  "
             android:textSize="@dimen/mydimension" />
 
@@ -87,7 +91,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:gravity="center"                      
+            android:gravity="center"   
+            android:fontFamily="sans-serif"                   
             android:text="Diagnose:    "
             android:textSize="@dimen/mydimension" />
 
@@ -97,6 +102,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"    
+            android:fontFamily="sans-serif"
             android:inputType="textPersonName" />
     </LinearLayout>
     

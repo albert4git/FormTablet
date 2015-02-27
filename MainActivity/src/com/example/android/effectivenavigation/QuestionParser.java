@@ -15,6 +15,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -43,6 +44,8 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
 import android.util.Xml;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 import au.com.bytecode.opencsv.CSVWriter;
@@ -156,6 +159,7 @@ private Question readQuestion(XmlPullParser parser) throws XmlPullParserExceptio
     	 question.equation= parser.getAttributeValue(null, "equation");
     	 question.id = Integer.parseInt(parser.getAttributeValue(null, "id"));
     	 question.name = parser.getAttributeValue(null, "name");
+
     	 
 	} catch (Exception e) {
 		// TODO: handle exception
@@ -171,6 +175,7 @@ private Question readQuestion(XmlPullParser parser) throws XmlPullParserExceptio
         String name = parser.getName();
         if (name.equals("content")) {
         	question.content = readContent(parser);
+
         	//------------------------------------------
         	// Toast.makeText(getApplicationContext(), "1234.A: question.content"+question.content, Toast.LENGTH_SHORT).show();
         	//------------------------------------------
@@ -297,6 +302,7 @@ private String readText(XmlPullParser parser) throws IOException, XmlPullParserE
 	        	 String name = parser.getName();
 	        if (name.equals("question")) {
 	            entries.add(readQuestion(parser));
+
 	            
 	        }
 	        else {
@@ -315,7 +321,9 @@ private String readText(XmlPullParser parser) throws IOException, XmlPullParserE
 		Log.w("img0:", "img0 q_IMG: "+RadioButtonGroup.q_IMG);
 	    Log.w("img0:", "img0 q_IMG_Flag: "+RadioButtonGroup.q_IMG_Flag);
         // 
-	    String title = "bb# "+readText(parser);
+	    //String title = "bb#"+readText(parser);
+	    String title = ""+readText(parser);
+
 	    parser.require(XmlPullParser.END_TAG, ns, "content");
     	// question.img ??
 		
@@ -497,10 +505,12 @@ public void saveToFile(String filename,Context context){
                 // IRA ?
 				outer.write(outBuf);
 				outer.close();
-				Toast.makeText(context, "Survey saved", Toast.LENGTH_SHORT).show();
+				Toast.makeText(context, "Survey saved", Toast.LENGTH_LONG).show();
+				
+				
 			} catch (IOException e) {
 				e.printStackTrace();
-				Toast.makeText(context, "Couldn't save", Toast.LENGTH_SHORT).show();
+				Toast.makeText(context, "Couldn't save", Toast.LENGTH_LONG).show();
 				
 			}
 		
@@ -532,6 +542,8 @@ int sumScore=0;
 String iTimeString = null;
 String USER_PASS = "vk2015";
 String OWNER_PASS ="vk2015";
+ USER_PASS = "";
+ OWNER_PASS ="";
 //------------------------------
 String tBuf ="";
 
@@ -826,7 +838,6 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
 		
 	}
 	//==============================================================================
-
 	
 }
 else{

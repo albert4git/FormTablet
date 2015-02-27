@@ -19,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
 import android.content.res.Resources;
+import android.graphics.Color;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -28,6 +30,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.android.effectivenavigation.R;
+
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.EditorInfo;
@@ -56,6 +61,10 @@ public class TextBox extends InputElement implements TextWatcher
 			}
 		 
 		 textbox.setTextSize(35);
+	        //textbox.setTextColor(Color.WHITE);
+	        //textbox.setBackgroundResource(R.drawable.border5); //SUPER oder
+
+
 		return textbox;
 	}
 

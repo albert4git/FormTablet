@@ -1,6 +1,8 @@
 package com.example.android.effectivenavigation.QuestionTypes;
 import android.R.*;
 import android.os.Environment;
+import android.provider.CalendarContract.Colors;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -29,15 +32,25 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.security.Timestamp;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import net.sourceforge.jeval.EvaluationException;
@@ -48,11 +61,15 @@ import android.widget.LinearLayout;
 
 import com.example.android.effectivenavigation.QuestionParser;
 import com.example.android.effectivenavigation.R;
+import com.example.android.effectivenavigation.directorychooser.DirectoryChooserDialog;
 import com.lowagie.text.Element;
 import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.codec.Base64.OutputStream;
 //
-
+import java.io.FileOutputStream;
+import java.io.IOException;
+import android.content.Context;
 
 public class Question
 {
@@ -76,7 +93,9 @@ public class Question
 		evaluator= new Evaluator();
 	}
 	
-	
+
+    
+	@SuppressWarnings("resource")
 	public View display(Activity context,View rootView)
 	{   
 
@@ -113,6 +132,8 @@ public class Question
       	}
 		*/   
     	///==================================================================
+
+		
 		TableLayout.LayoutParams rowLp = new TableLayout.LayoutParams(
 		        ViewGroup.LayoutParams.MATCH_PARENT,
 		        ViewGroup.LayoutParams.MATCH_PARENT,0.5f
@@ -123,7 +144,10 @@ public class Question
 		LinearLayout l;
         // l=(LinearLayout) rootView.findViewById(R.id.main_layout);
         l=(LinearLayout) rootView.findViewById(R.id.inputs_layout);        
-        l.setBackgroundColor(Color.BLACK); //GRAY GREEN // set view Background COLOR color Color 
+        l.setBackgroundColor(Color.DKGRAY); //GRAY GREEN // set view Background COLOR color Color 
+        
+        //l.setBackgroundResource(R.drawable.border2); //SUPER oder
+
         // l.setBackgroundResource(R.drawable.swp4); //SUPER oder
         // SUPER ODER ???
 		 // _path= _path + "/" + "All_Surveys/tpj/lb2.jpg";
@@ -137,7 +161,17 @@ public class Question
          //####################################################################################	 
          
 		TextView questionText=(TextView) rootView.findViewById(R.id.text1);
-		questionText.setText(content);
+		questionText.setText(content); 
+		questionText.setBackgroundResource(R.drawable.border1);
+		//questionText.setBackgroundResource(R.drawable.g_cub45); //SUPER oder
+		questionText.setTextColor(Color.WHITE);
+		//questionText.setTextColor(R.layout.raduga);
+		//questionText.setPadding(10, 5, 5, 10); 
+        //radio.setTextColor(Color.rgb( 0, 10, 90));
+        //radio.setHeight(48); 
+	    //***********TicTac1*********************	
+
+		
 		TableLayout tbl=new TableLayout(context);
         // tbl.setBackgroundResource(R.drawable.swp1); //TBL . Tbl . tbl ... oder ??? ---
         tbl.setGravity(Gravity.TOP);
@@ -162,7 +196,7 @@ public class Question
 	     if (   RadioButtonGroup.q_IMG_Flag > 0) { 
 
 		 } else {
-		       // l.setBackgroundResource(R.drawable.swp4); //SUPER oder	 
+		        tbl.setBackgroundResource(R.drawable.clum5); //SUPER oder	 
 		 }
  	    Log.w("img4:", "img 4 RadioButtonGroup.q_IMG: "+RadioButtonGroup.q_IMG);
 	    Log.w("img4:", "img 4 RadioButtonGroup.q_IMG_Flag: "+RadioButtonGroup.q_IMG_Flag);
@@ -210,12 +244,15 @@ public class Question
 			        tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, 1));
 			        //tr.setBackgroundColor(Color.rgb(51, 51, 51));
 			        tr.setBackgroundColor(Color.rgb( 140, 140, 140)); 
+			        tr.setBackgroundResource(R.drawable.border4); //SUPER oder
 
 			        // tr.setBackgroundResource(R.drawable.row_borders);
 				     tr.setPadding(5, 5, 5, 5);
 				} else {
 				    //tr.setBackgroundColor(Color.GRAY);  // DKGRAY ColorChange
 			        tr.setBackgroundColor(Color.rgb( 120, 120, 120)); 
+			        tr.setBackgroundResource(R.drawable.border3); //SUPER oder
+
 
 				    tr.setPadding(5, 5, 5, 5);
 			    }

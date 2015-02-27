@@ -24,7 +24,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
 <com.example.android.effectivenavigation.CustomViewPager  
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/pager"
-            android:textColor="@color/blue"
+    android:textColor="@color/blue"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     
