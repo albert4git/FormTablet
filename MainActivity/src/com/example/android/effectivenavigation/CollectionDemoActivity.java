@@ -259,6 +259,10 @@ public boolean dispatchTouchEvent(MotionEvent me){
         mViewPager.setAdapter(mDemoCollectionPagerAdapter);
         mViewPager.getAdapter().notifyDataSetChanged();  //This notify that you need to recreate the views // pinocio
         mViewPager.setCurrentItem(0); //buratino
+        dofID = 0;
+        dofID2 = 0;
+        dofCurrent =0;
+        
     	Log.w("BUR onCreate:", "BUR DOFa N, CollectionDemoActivity.albertIdNow %:"+CollectionDemoActivity.albertIdNow); // CollectionDemoActivity.albertIdNow= currentNow ; 
     	Log.w("BUR onCreate:", "BUR DOFa N, CollectionDemoActivity.albertNameNow %:"+CollectionDemoActivity.albertNameNow); // CollectionDemoActivity.albertIdNow= currentNow ; 
     	Log.w("BUR onCreate:", "BUR DOFa N, CollectionDemoActivity.albertEquationNow %:"+CollectionDemoActivity.albertEquationNow); // CollectionDemoActivity.albertIdNow= currentNow ; 
@@ -588,7 +592,7 @@ public boolean dispatchTouchEvent(MotionEvent me){
             {
            	   rootView = inflater.inflate(R.layout.fragment_last, container, false);
          	   TextView questionText=(TextView) rootView.findViewById(R.id.text1);
-        	   questionText.setText(" Vielen dank ! Eingaben werden Gespeichert" );     
+        	   questionText.setText(" vielen Dank für Ihre Angaben ! " );     
 			    Log.w("ENDE --- CDA ---", " ENDE CDA questions.size()");
 			   // tbl.setBackgroundResource(R.drawable.swp1); //TBL . Tbl . tbl ... oder ??? ---
                

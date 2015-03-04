@@ -178,7 +178,6 @@ private Question readQuestion(XmlPullParser parser) throws XmlPullParserExceptio
         String name = parser.getName();
         if (name.equals("content")) {
         	 question.content = readContent(parser);
-        	 question.qFlag =1;
         	 
         	 currentElement=readContent(parser, question); // Pic
         	 question.inputs.add(currentElement); 
@@ -346,7 +345,8 @@ private String readText(XmlPullParser parser) throws IOException, XmlPullParserE
  
 //Two Two Two Two  Two Two Two  Two Two Two  Two Two Two  Two Two Two 
  private InputElement readContent(XmlPullParser parser, Question question) throws IOException, XmlPullParserException {
-	   	
+	    question.qFlag =1;
+
 	   // return readTextView(parser,question);
 		return readTextViewContent(parser,question);
 

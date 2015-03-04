@@ -260,12 +260,12 @@ public class Question
 			        //tr.setBackgroundColor(Color.rgb( 140, 140, 140)); 
 			        tr.setBackgroundResource(R.drawable.border4); //SUPER oder
 			        // tr.setBackgroundResource(R.drawable.row_borders);
-				     tr.setPadding(15, 5, 5, 5);
+				     tr.setPadding(5, 5, 5, 5);
 				} else {
 				    //tr.setBackgroundColor(Color.GRAY);  // DKGRAY ColorChange
 			        tr.setBackgroundColor(Color.rgb( 120, 120, 120)); 
 			        tr.setBackgroundResource(R.drawable.border3); //SUPER oder
-				    tr.setPadding(15, 5, 5, 5);
+				    tr.setPadding(5, 5, 5, 5);
 			    }
 				// ---------------
 				tbl.addView(tr,lp); // keypoint !!!
