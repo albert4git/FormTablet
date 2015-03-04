@@ -2,6 +2,7 @@ package com.example.android.effectivenavigation.QuestionTypes;
 import android.R.*;
 import android.os.Environment;
 import android.provider.CalendarContract.Colors;
+import android.renderscript.Font;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Gravity;
@@ -63,7 +64,11 @@ import com.example.android.effectivenavigation.QuestionParser;
 import com.example.android.effectivenavigation.R;
 import com.example.android.effectivenavigation.directorychooser.DirectoryChooserDialog;
 import com.lowagie.text.Element;
+import com.lowagie.text.FontFactory;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
 import com.lowagie.text.Rectangle;
+import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.codec.Base64.OutputStream;
 //
@@ -77,6 +82,10 @@ public class Question
 	///
 	public String content;
 	public String content2;
+	public String contentB;
+	public int qFlag = 0;
+	public int qFlag2 = 0;
+
 
 	public List <InputElement> inputs;
 	int width,height;
@@ -85,8 +94,12 @@ public class Question
 	public String name=null;
 	public  int id;
 	InputElement current;
+	InputElement currentB;
+
 	public RadioButtonGroup RadioGroup;
 	public int coef;
+	public static String head2;
+
 	// ------------- -------------------
      	
     public Question() {
@@ -99,38 +112,11 @@ public class Question
 	public View display(Activity context,View rootView)
 	{   
 
+		
     	///==================================================================
 		//  DISPLAY GOGO
 		//  Toast.makeText(context, " DISPLAY :", Toast.LENGTH_LONG).show();
     	//  public String getDeviceName() 
-    	///==================================================================
-
-		/*     	
-    	String buildModel =android.os.Build.MODEL;
-    	String buildDev =android.os.Build.DEVICE;
-    	String buildCPU =android.os.Build.CPU_ABI;   
-    	String buildD =android.os.Build.DISPLAY;                            	
-      	// Toast.makeText(context, buildD , Toast.LENGTH_LONG).show();
-    	String Finger =android.os.Build.FINGERPRINT;    
-    	String buildID =android.os.Build.ID;   
-    	String buildSER =android.os.Build.SERIAL;                            	
-
-		Toast.makeText(context, " ID: "+ buildID + "YYY SER: " + buildSER , Toast.LENGTH_LONG).show();
-        // SERIAL Nr
-        //+++++++++++++++++++++++++++++++++++++++++
-      	File rootA = Environment.getExternalStorageDirectory();  // getExternalStorageDirectory();
-      	String pathA = rootA+"/SurveyResults/";
-      	File xxlogFile = new File(pathA+"history.csv");
-      	//
-      	try {
-      	    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(xxlogFile, true)));
-      	    out.println("ID: " + buildID );
-      	    out.println("ID: " + buildSER );
-      	    out.close();
-      	} catch (IOException e) {
-      	    //exception handling left as an exercise for the reader
-      	}
-		*/   
     	///==================================================================
 
 		
@@ -145,11 +131,10 @@ public class Question
         // l=(LinearLayout) rootView.findViewById(R.id.main_layout);
         l=(LinearLayout) rootView.findViewById(R.id.inputs_layout);        
         l.setBackgroundColor(Color.DKGRAY); //GRAY GREEN // set view Background COLOR color Color 
-        
-        //l.setBackgroundResource(R.drawable.border2); //SUPER oder
-
-        // l.setBackgroundResource(R.drawable.swp4); //SUPER oder
-        // SUPER ODER ???
+         //##############################################################################	 
+         // l.setBackgroundResource(R.drawable.border2); //SUPER oder
+         // l.setBackgroundResource(R.drawable.swp4); //SUPER oder
+         // SUPER ODER ???
 		 // _path= _path + "/" + "All_Surveys/tpj/lb2.jpg";
 		 // File imgFile = new  File("/sdcard/All_Surveys/tpj/lb2.jpg");
          // BitmapDrawable d = new BitmapDrawable(_path);
@@ -158,19 +143,28 @@ public class Question
 		 // Bitmap bmp = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 	     // Bitmap copyB = Bitmap.createScaledBitmap(bmp, 960, 640 , false);
          //##
-         //####################################################################################	 
-         
+         //################################################################################
+        /* pic7 
 		TextView questionText=(TextView) rootView.findViewById(R.id.text1);
 		questionText.setText(content); 
 		questionText.setBackgroundResource(R.drawable.border1);
+        contentB = content;
+		head2 = (String) questionText.getText();
+	    Log.w("head:", "head head2 content: "+head2 );
+	    
 		//questionText.setBackgroundResource(R.drawable.g_cub45); //SUPER oder
-		questionText.setTextColor(Color.WHITE);
+		//questionText.setTextColor(Color.WHITE);
+		questionText.setTextColor(Color.CYAN);
+
+		questionText.setPadding(30, 10, 30, 10); 
+		questionText.setGravity(Gravity.CENTER); 
+
+
 		//questionText.setTextColor(R.layout.raduga);
-		//questionText.setPadding(10, 5, 5, 10); 
         //radio.setTextColor(Color.rgb( 0, 10, 90));
         //radio.setHeight(48); 
 	    //***********TicTac1*********************	
-
+        */
 		
 		TableLayout tbl=new TableLayout(context);
         // tbl.setBackgroundResource(R.drawable.swp1); //TBL . Tbl . tbl ... oder ??? ---
@@ -231,30 +225,47 @@ public class Question
 		  //cellLp.setMarginEnd(2);
 		  //cellLp.setMarginStart(0);
 
-	    
+		  /*
+			 View questionTextB=(View) rootView.findViewById(R.id.text1);
+		     tr=new TableRow(context);
+		     tr.addView(questionTextB,cellLp); // keypoint !!!
+			 tbl.addView(tr,lp); // keypoint !!!
+		 	 // inputs.add(object) ;
+          */
+		  
+			TextView label2 = new TextView(context);
+			label2.setText(head2);
+		    label2.setTextSize(25);
+	        label2.setPadding(1, 0, 0, 1);
+	        label2.setGravity(Gravity.LEFT );
+	        label2.setTextColor(Color.WHITE);
+	        
+	        
+
+
+
+
+
 		for (int i = 0; i < inputs.size(); i++) 
 		{
 			current=inputs.get(i);
-            
+			
 			if(current.row>crow)
 			{
 				tr=new TableRow(context);
 				if (i % 2 ==1){
 				    // tr.setBackgroundColor(Color.GRAY);  // ColorChange
 			        tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, 1));
-			        //tr.setBackgroundColor(Color.rgb(51, 51, 51));
-			        tr.setBackgroundColor(Color.rgb( 140, 140, 140)); 
+			        tr.setBackgroundColor(Color.rgb(70, 70, 70));
+			        //tr.setBackgroundColor(Color.rgb( 140, 140, 140)); 
 			        tr.setBackgroundResource(R.drawable.border4); //SUPER oder
-
 			        // tr.setBackgroundResource(R.drawable.row_borders);
-				     tr.setPadding(5, 5, 5, 5);
+				     tr.setPadding(15, 5, 5, 5);
 				} else {
 				    //tr.setBackgroundColor(Color.GRAY);  // DKGRAY ColorChange
 			        tr.setBackgroundColor(Color.rgb( 120, 120, 120)); 
 			        tr.setBackgroundResource(R.drawable.border3); //SUPER oder
-
-
-				    tr.setPadding(5, 5, 5, 5);
+				    tr.setPadding(15, 5, 5, 5);
 			    }
 				// ---------------
 				tbl.addView(tr,lp); // keypoint !!!
@@ -267,6 +278,16 @@ public class Question
 			View rad=current.display(context);     			
 			tr.addView(rad,cellLp); // keypoint !!!
 			}
+		
+		/* pic Super
+        tr=new TableRow(context);
+        tr.setBackgroundColor(Color.rgb( 120, 120, 120)); 
+        tr.setBackgroundResource(R.drawable.border3); //SUPER oder
+	    tr.setPadding(15, 5, 5, 5);
+		tbl.addView(tr,lp); // keypoint !!!
+		tr.addView(label2,cellLp); // keypoint !!!
+		*/
+		
 		height=crow;	
 		return rootView;
 						
@@ -298,18 +319,47 @@ public class Question
 	
 	
 	public Element writeDataToPdf(Context context)
-	{
+	{   // head2 pic3
+	     Log.w("head:", "head head PDF content: "+head2 );
+
 		String result = "";
 	    if(width==0)
 	    	return null;
 		PdfPTable datatable = new PdfPTable(width);	
 		datatable.getDefaultCell().setPadding(3);
-		datatable.getDefaultCell().setBorderWidth(2);
+		datatable.getDefaultCell().setBorderWidth(1);
 		datatable.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+		
+		datatable.setHeaderRows(1);
+		
+	    int ii =0;
+	       
 		for (InputElement input : inputs) {
+			if (ii == 0){
+			   String pod;
+			   pod = input.writeDataToPdf();
+		       
+			   // PdfPCell cell = new PdfPCell(new Paragraph(pod));
+			   PdfPCell cell = new PdfPCell(new Phrase(pod, FontFactory.getFont(FontFactory.HELVETICA, 14)));
+			   cell.setBorderWidth(2);
+		       cell.setColspan(7);
+		       datatable.addCell(cell );
+			} else {
+
+		     // datatable.addCell("Header 1"); // pic3
+		     // datatable.addCell("Header \n 2");
 			datatable.addCell(input.writeDataToPdf());		
-			
+			}
+			ii ++;
+
 		}
+		
+		  String pod2="  ";
+		   // PdfPCell cell = new PdfPCell(new Paragraph(pod));
+		   PdfPCell cell = new PdfPCell(new Phrase(pod2, FontFactory.getFont(FontFactory.HELVETICA, 14)));
+		   cell.setBorderWidth(0);
+	       cell.setColspan(7);
+	       datatable.addCell(cell );
 		
 		return datatable;
 	}

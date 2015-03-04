@@ -88,23 +88,72 @@ public class DirectoryChooserDialog
     	String buildFinger =android.os.Build.FINGERPRINT;        
     	String buildID =android.os.Build.ID;   
     	String buildSER =android.os.Build.SERIAL;    
+	    Log.w("555:", " iser 1234 buildSER: "+buildSER);
+
     	// String iFinger = "Lenovo/LenovoS6000L-F/S6000L:4.2.2/JDQ39/S6000L_A422_001_029_130923_WW_:user/release-keys";
     	// String iDisplay = "S6000L_A422_001_029_130923_WW_WiFi"; // Wolfgang
     	String iModel = "S6000L";// Lenovo
     	String iID = "JDQ39"; // Valeri1
-    	// String iSER = "PNLZEAKRJVJVCYZT"; // Valeri1
-    	String iSER = "KN65QOWW9TSC5DQG"; // Valeri2    	
+    	String iSER = ""; //
+
+    	//  iSER = "PNLZEAKRJVJVCYZT"; // Valeri1
+    	//  iSER = "KN65QOWW9TSC5DQG"; // Valeri2    
+    	//  iSER = "KN65QOWW9TSC5DQG"; // Valeri2    
+    	//  iSER = "8ed02d3207ca75df"; // samsung weiss
+    	//  iSER = "YT55LFDMTKKJMRZ9"; // samsung weiss
+        iSER ="YT55LFDMTKKJMRZ9"; //wolfg
+     	iSER = "8ed02d3207ca75df"; // samsung weiss
+
+    	
     	// iSER= hd_nbr;
     //+++++++++++++TicTac2Start+++++++++++++++++++++++++++
 		File rootL = Environment.getExternalStorageDirectory();  // getExternalStorageDirectory();
 		String pathL = rootL+"/SurveyResults/";
+		String path2L = pathL;
 		File xxlogFileL = new File(pathL+"log.csv");   
     	long longFirstTime=1424925425721L;
     	long longFinishTime = 1454367600000L;
-		   
-		   		   
-		   
-   //***********TicTac2-READ-LAST-Time****************************************************************
+		Log.w("line ...", "TicTac lineXXX read !!!pathL: "+pathL); // sentence.replace("and", " ");
+
+    //------------------------------------
+
+			//##########################################		
+	        //File file2 = new File(context.getExternalFilesDir(null), "DayTwentyTwoFileTwo");	
+					// get the path to sdcard
+					File sdcard = Environment.getExternalStorageDirectory();
+					// to this path add a new directory path
+					//File dir = new File(sdcard.getAbsolutePath() + "/1Survey/"); mnt/extSdCard/
+					
+					File dir = new File("/mnt/extSdCard" + "/1Survey/"); //mnt/extSdCard/
+
+					// create this directory if not already created
+					dir.mkdir();
+					String data = "This is the content of my file";
+					// create the file in which we will write the contents
+					File file2 = new File(dir, "log.csv");
+					FileOutputStream os;
+					try {
+						os = new FileOutputStream(file2);
+						try {
+							os.write(data.getBytes());
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						try {
+							os.close();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					} catch (FileNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+	
+
+	        
+   //******READ****TicTac2-READ-LAST-Time********READ*************************************************
 			File file = new File(pathL+"log.csv");
 			//Read text from file
 			StringBuilder text = new StringBuilder();
@@ -162,8 +211,10 @@ public class DirectoryChooserDialog
 				
 			}else{
         		Toast.makeText(context, "Check-No- longLastTime:"+longLastTime, Toast.LENGTH_LONG).show();
-
+                // licence TEST XXX 
+				// timeLastFlag=1;
 				timeLastFlag=1;
+
 			}
 
 	//***********WRITE****************************************************************	
@@ -178,8 +229,9 @@ public class DirectoryChooserDialog
         // InputStream ins = getResources().openRawResource(R.raw.my_db_file);
         //========================================================================================
      	//if (iYear < 2016  && buildSER.equals(iSER) && buildFinger.contains(iID) && buildFinger.contains(iModel) )    {   
+        // if (iYear < 2016  )    {   
 
-        if (iYear < 2016  )    {   
+     	if (iYear < 2016  && buildSER.equals(iSER) )    {   
  	
         	// Toast.makeText(context,"Your Model is:" + buildModel +" Dev:"+ buildDev , Toast.LENGTH_LONG).show();
             m_sdcardDirectory = Environment.getExternalStorageDirectory().getAbsolutePath()+"/All_Surveys";
@@ -190,6 +242,7 @@ public class DirectoryChooserDialog
         	// Toast.makeText(context,"Your Model is: ID" + buildID +" SER:"+ buildSER , Toast.LENGTH_LONG).show();
 
     	 }//end else //
+        
     	//========================================================================================
         //m_sdcardDirectory = "res/raw";
         m_chosenDirectoryListener = chosenDirectoryListener;

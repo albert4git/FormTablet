@@ -258,7 +258,7 @@ public boolean dispatchTouchEvent(MotionEvent me){
         mViewPager = (CustomViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mDemoCollectionPagerAdapter);
         mViewPager.getAdapter().notifyDataSetChanged();  //This notify that you need to recreate the views // pinocio
-        // mViewPager.setCurrentItem(2); //buratino
+        mViewPager.setCurrentItem(0); //buratino
     	Log.w("BUR onCreate:", "BUR DOFa N, CollectionDemoActivity.albertIdNow %:"+CollectionDemoActivity.albertIdNow); // CollectionDemoActivity.albertIdNow= currentNow ; 
     	Log.w("BUR onCreate:", "BUR DOFa N, CollectionDemoActivity.albertNameNow %:"+CollectionDemoActivity.albertNameNow); // CollectionDemoActivity.albertIdNow= currentNow ; 
     	Log.w("BUR onCreate:", "BUR DOFa N, CollectionDemoActivity.albertEquationNow %:"+CollectionDemoActivity.albertEquationNow); // CollectionDemoActivity.albertIdNow= currentNow ; 
@@ -298,12 +298,19 @@ public boolean dispatchTouchEvent(MotionEvent me){
 		                {  				       
 					       // current=4; // TEST 
 		    			    Log.w("CVP setOnSwipeOutListener", "CVP HoerZu6.1 onSwipeOut 1001 CustomViewPager DDD");
+		    			    Log.w("belka ", "belka current: "+current);
+		    			    Log.w("belka ", "belka dofID: "+dofID);
+		    			    Log.w("belka ", "belka dofID2: "+dofID2);
+				 	        Log.w("belka ---", "belka dofCurrent :"+dofCurrent); // dofRelease
+				 	        Log.w("belka ---", "belka dofRelease :"+dofRelease); // dofRelease
+				 	        Log.w("belka ---", "belka dofRelease2 :"+dofRelease2); // dofRelease
+
 		    		        // mViewPager.setOnSwipeOutListener(listener);
 		    		        new Handler().post(new Runnable() {
 		    		        @Override
 		    		        public void run() {
 		    		        	//mViewPager.setCurrentItem(dofID); //SMERCH //buratino
-		    		        	mViewPager.setCurrentItem(dofID2); //SMERCH //buratino
+		    		        	 mViewPager.setCurrentItem(dofID2); //SMERCH //buratino
                                 dofRelease2 =1;
 		    		    		// Toast.makeText(getBaseContext(), " mViewPager.setCurrentItem: dofID "+dofID, Toast.LENGTH_LONG).show();
 
@@ -325,6 +332,7 @@ public boolean dispatchTouchEvent(MotionEvent me){
 			 	    Log.w("BUR onCreate: ---", "BUR DOFc IF BIG, 71qqq HH dofRelease :"+dofRelease); // 
 
 						///************************************************  
+			 	   /*
 					    LayoutInflater inflater = getLayoutInflater();
 		                View layout = inflater.inflate(R.layout.my_custom_toast,
 		                                               (ViewGroup) findViewById(R.id.custom_toast_layout));	     
@@ -334,8 +342,13 @@ public boolean dispatchTouchEvent(MotionEvent me){
 		                toast.setGravity(Gravity.CENTER, 0, 0);
 		                toast.setDuration(Toast.LENGTH_LONG);
 		                toast.setView(layout);
-		                toast.show();				  					 					  					  
+		                toast.show();		
+		             
+		                
+		               */		  					 					  					  
 						///************************************************
+		    		 // Toast.makeText(getBaseContext(), " Sie können ihre Eingaben überprüfen korrigieren :", Toast.LENGTH_LONG).show();
+
 
 
 		            } else {

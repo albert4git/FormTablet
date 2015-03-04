@@ -33,6 +33,7 @@ import com.lowagie.text.Element;
 import com.lowagie.text.Image;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
+import com.lowagie.text.Section;
 import com.lowagie.text.pdf.PdfWriter;
 
 
@@ -151,6 +152,8 @@ private Question readQuestion(XmlPullParser parser) throws XmlPullParserExceptio
     int id = 0;
     String content = null;
     Question question=new Question();
+    Question questionB=new Question();
+
     question.inputs= new ArrayList();
     String type;
     InputElement currentElement=null;
@@ -174,16 +177,24 @@ private Question readQuestion(XmlPullParser parser) throws XmlPullParserExceptio
         }
         String name = parser.getName();
         if (name.equals("content")) {
-        	question.content = readContent(parser);
-
+        	 question.content = readContent(parser);
+        	 question.qFlag =1;
+        	 
+        	 currentElement=readContent(parser, question); // Pic
+        	 question.inputs.add(currentElement); 
         	//------------------------------------------
         	// Toast.makeText(getApplicationContext(), "1234.A: question.content"+question.content, Toast.LENGTH_SHORT).show();
         	//------------------------------------------
 
         } else if (name.equals("input")) {
-        	currentElement=readInput(parser, question);
+        	currentElement=readInput(parser, question); //qPic
         	if(currentElement!=null)
         	question.inputs.add(currentElement);
+        	String qPic= question.toString();
+            // Log.w("question", " qqqq question: "+question);
+	            Log.w("question", " qqqq aPic: "+qPic);
+	            questionB = question;
+
       
         } else if (name.equals("image")) {
         	 // SET UP 1
@@ -217,6 +228,7 @@ private InputElement readInput(XmlPullParser parser,Question question) throws IO
 	parser.require(XmlPullParser.START_TAG, ns, "input");
 	String type;
 	type=parser.getAttributeValue(null, "type"); 	
+	
 	
 	if(type.equals("edittext"))
 	{
@@ -312,6 +324,7 @@ private String readText(XmlPullParser parser) throws IOException, XmlPullParserE
 	    return entries;
 	}
   
+  // One One One One One One One One One One One 
   private String readContent(XmlPullParser parser) throws IOException, XmlPullParserException {
 	    parser.require(XmlPullParser.START_TAG, ns, "content");
 	    // XXX TTT 
@@ -323,15 +336,23 @@ private String readText(XmlPullParser parser) throws IOException, XmlPullParserE
         // 
 	    //String title = "bb#"+readText(parser);
 	    String title = ""+readText(parser);
-
 	    parser.require(XmlPullParser.END_TAG, ns, "content");
+	    
     	// question.img ??
 		
 	    
 	    return title;
 	}
  
-  //*******
+//Two Two Two Two  Two Two Two  Two Two Two  Two Two Two  Two Two Two 
+ private InputElement readContent(XmlPullParser parser, Question question) throws IOException, XmlPullParserException {
+	   	
+	   // return readTextView(parser,question);
+		return readTextViewContent(parser,question);
+
+}// two
+//*******
+ 
   public Bitmap getbitpam(File file){
 	    Bitmap imgthumBitmap=null;
 	     try    
@@ -378,16 +399,20 @@ private String readText(XmlPullParser parser) throws IOException, XmlPullParserE
 
   //**
   //*******
- 
+ //####################################################################################################################
+
   private InputElement readEditText(XmlPullParser parser,Question question) throws IOException, XmlPullParserException {
 	   	TextBox	tb=new TextBox(question);
 	   	parser.require(XmlPullParser.START_TAG, ns, "input");
 	    tb.defaultText = parser.getAttributeValue(null, "default"); 	
-	    tb.row=Integer.parseInt(parser.getAttributeValue(null, "row"));
+	    tb.row=1+Integer.parseInt(parser.getAttributeValue(null, "row"));
 	    parser.next();
 	    parser.require(XmlPullParser.END_TAG, ns, "input");
 	    return (InputElement) tb;
 	}
+ 
+ //####################################################################################################################
+
   private InputElement readCheckBox(XmlPullParser parser,Question question) throws IOException, XmlPullParserException {
 	  	Check cb=new Check(question);
 	    parser.require(XmlPullParser.START_TAG, ns, "input");
@@ -399,27 +424,38 @@ private String readText(XmlPullParser parser) throws IOException, XmlPullParserE
 				// TODO: handle exception
 			}
 	    
-	    cb.row=Integer.parseInt(parser.getAttributeValue(null, "row"));
+	    cb.row=1+Integer.parseInt(parser.getAttributeValue(null, "row"));
 	    parser.next();
 	    parser.require(XmlPullParser.END_TAG, ns, "input");
 	    return (InputElement) cb;
 	}
+ //####################################################################################################################
   private InputElement readTextView(XmlPullParser parser,Question question) throws IOException, XmlPullParserException {
 	   	Label	lb=new Label(question);
 	   	parser.require(XmlPullParser.START_TAG, ns, "input");
-	    lb.row=Integer.parseInt(parser.getAttributeValue(null, "row"));
+	    lb.row=1+Integer.parseInt(parser.getAttributeValue(null, "row"));
 	    lb.text =""+readText(parser);	
 	    parser.require(XmlPullParser.END_TAG, ns, "input");
 	    return (InputElement) lb;
 	}
-
-
+ 
+ //########################################################################################################################
+ // Pic2
+  private InputElement readTextViewContent(XmlPullParser parser,Question question) throws IOException, XmlPullParserException {
+	   	Label	lb=new Label(question); // Pic2	  
+	   	lb.row=1;	   	 
+   	    lb.text =""+question.content; //-Nemez-
+	    return (InputElement) lb;
+	    
+	}
+ 
+  //########################################################################################################################
   private InputElement readRadio(XmlPullParser parser,Question question) throws IOException, XmlPullParserException {
 	  	Radio	r=new Radio(question);
 	  	if(question.RadioGroup==null)
 	  	question.RadioGroup=new RadioButtonGroup();
 	   	parser.require(XmlPullParser.START_TAG, ns, "input");
-	   	r.row=Integer.parseInt(parser.getAttributeValue(null, "row"));
+	   	r.row=1+Integer.parseInt(parser.getAttributeValue(null, "row"));
 	    try {
 			r.name=parser.getAttributeValue(null, "name");
 			r.coef=parser.getAttributeValue(null, "coefficient");
@@ -442,8 +478,9 @@ public void saveToFile(String filename,Context context){
 	String outBuf = null;
 	Question entry=null;
 	int lastInd=0;
+	int current = 0;
 	if (Environment.MEDIA_MOUNTED.equals(exStorageState)){
-		for (int current = 0; current < surveys.size(); current++) {
+		for (current = 0; current < surveys.size(); current++) {
 			
 	survey cSurvey=(survey) surveys.get(current);
 				
@@ -484,9 +521,14 @@ public void saveToFile(String filename,Context context){
 				//
 			
 				outBuf="";
-				int i;
+				int i=0; // KKK
+	   		    Log.w("iiiA:", "iiiA: "+i);
+
+
 				for ( i= lastInd ; i < lastInd +cSurvey.length; i++) {
-					
+		   		    Log.w("iiiA:", "iiiA: "+i);
+		   		    Log.w("lastInd iiiE:", "iiiE lastInd: "+lastInd);
+
 					entry = questions.get(i);
 					
 				
@@ -501,7 +543,12 @@ public void saveToFile(String filename,Context context){
 					outBuf+="\r\n";
 					
 				}
+	   		    Log.w("lastInd iiiF:", "iiiF: "+i);
+
 				lastInd=i;
+				
+	   		    Log.w("lastInd iiiE:", "iiiE lastInd: "+lastInd);
+
                 // IRA ?
 				outer.write(outBuf);
 				outer.close();
@@ -522,6 +569,7 @@ public void saveToFile(String filename,Context context){
 		System.out.println("File not accessible");
 		//Toast.makeText(context, R.string.pp_omni_file_not_accessible, Toast.LENGTH_SHORT).show();
 	}
+	 current = 0;
 }
 
 //-NAT-/-NAT-/-NAT-/-NAT-/-NAT/-/-NAT-/-NAT-/-NAT-/-NAT-/-NAT/-/-NAT-/-NAT-/-NAT-/-NAT-/-NAT/-
@@ -562,11 +610,10 @@ int csvFileInd=0;
 File rootA = Environment.getExternalStorageDirectory();  // getExternalStorageDirectory();
 String pathA = rootA+"/SurveyResults/";
 File xxlogFile = new File(pathA+"history.csv");
-
-
+int current = 0;
 
 if (Environment.MEDIA_MOUNTED.equals(exStorageState)){
-	for (int current = 0; current < surveys.size(); current++) {
+for ( current = 0; current < surveys.size(); current++) {
 		
 survey cSurvey=(survey) surveys.get(current);
 document = new Document(PageSize.A4, 10, 10, 10, 10);		
@@ -641,6 +688,7 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
             xoutInpt+=filename+";";
             xoutInpt+=pname+";";
             //-----------------------
+            
 			// If not, create dirs
 			// AB File logFile = new File(path+year+"-"+month+"-"+day+"-"+minutes+"-"+filename+".xls");
 
@@ -665,24 +713,33 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
 			// Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.wolfgang_logo2);
             //pdf-logo
 			// Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.lmubanner);
-			Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.kirsh1);
+			// Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.kirsh1);
+			Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.gcbs);
 
 
 			bitmap.compress(Bitmap.CompressFormat.JPEG /* FileType */,
 			                        100 /* Ratio */, stream);
 			Image jpg = Image.getInstance(stream.toByteArray());
 		
-			jpg.scalePercent(57f, 57f);
+			jpg.scalePercent(99f, 99f);
 			document.add(jpg);
 			String score = null;
-			int i;
-			for ( i= lastInd ; i < lastInd +cSurvey.length; i++) {
+			int i=0;
+   		    Log.w("iiiG:", "iiiG: "+i); // LLL
+            int qp = 0;
+			// for ( i= 0 ; i < lastInd +cSurvey.length; i++) {
+		    for ( i= lastInd ; i < lastInd +cSurvey.length; i++) {
+               qp ++ ;
 				
+	   		    Log.w("iiiD:", "iiiD: "+i);
 				entry = questions.get(i);
+				// pic5 
 				
-			
+
+				
 				try {
 					Element element = entry.writeDataToPdf(context);
+					
 	
 					if(element!=null)
 					{
@@ -721,22 +778,25 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
 							 String needle ="Haendigkeit";
 							 
 							 if(containsIgnoreCase( pname, needle))		
-							 {
-								y=y*10;
-									}
+							 { y=y*10;}
                               sumScore+=y;
                              //----------------------------------------------------
-
+                              
+                              
+                             
 							 if(entry.name!=null)
 								 cSurvey.evaluator.putVariable(entry.name, score);
-							 document.add(new Paragraph(" \nQuestion "+(i+1)+") score:"+score+"\n\n"));
+							 document.add(new Paragraph(" \nQuestion "+(qp)+") score:"+score+"\n\n"));
+							    Log.w("iii:", "iii: "+i);
+
 						}	
 						else
 							outBuf+="null"+"\r\n";
 							//xoutBuf+="null"+"\r\n";
 					
-					document.add(element);
-					
+					document.add(element); //pic4
+		           
+
 					}
 				} catch (DocumentException e) {
 					// TODO Auto-generated catch block
@@ -746,17 +806,19 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
 										e.printStackTrace();
 				}
 				
-			
 				
 			}
 			lastInd=i;
+			
 			String overall = null;
 			if(cSurvey.equation!=null)
 			{
 		    overall=cSurvey.evaluator.evaluate(cSurvey.equation);
 			document.add(new Paragraph(" \nOverall Score: "+overall+"\n\n"));
 			}
+		    Log.w("iiiB:", "iii: "+i);
 
+			
             /// /// /// /// /// /// /// /// /// /// /// ///
             //xoutBuf+="\r\n";
 			//xouter.append(xoutBuf);
@@ -794,8 +856,10 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
                 // writer2.close();
                 // xoutInpt="";
                 /// /// /// /// /// /// /// /// /// /// /// ///
+            i=0;
+   		    Log.w("iiiC:", "iiiC: "+i);
+   		    
 
-			
 			Toast.makeText(context, "Survey saved", Toast.LENGTH_SHORT).show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -836,6 +900,7 @@ document = new Document(PageSize.A4, 10, 10, 10, 10);
 		}
 		//00000000000000000000000000000000
 		
+ 
 	}
 	//==============================================================================
 	
@@ -846,32 +911,28 @@ else{
 	//Toast.makeText(context, R.string.pp_omni_file_not_accessible, Toast.LENGTH_SHORT).show();
 }
 
+current = 0;
+
 }
 //-----------------------------/YYY/---------------------------------------------  
 
 
-
-
-
-public boolean containsIgnoreCase( String haystack, String needle ) {
-	  if(needle.equals(""))
-	    return true;
-	  if(haystack == null || needle == null || haystack .equals(""))
-	    return false; 
-
-	  Pattern p = Pattern.compile(needle,Pattern.CASE_INSENSITIVE+Pattern.LITERAL);
-	  Matcher m = p.matcher(haystack);
-	  return m.find();
-	}
-
-
-
-
-
-private Context getApplicationContext() {
-	// TODO Auto-generated method stub
-	return null;
-}
+		public boolean containsIgnoreCase( String haystack, String needle ) {
+			  if(needle.equals(""))
+			    return true;
+			  if(haystack == null || needle == null || haystack .equals(""))
+			    return false; 
+		
+			  Pattern p = Pattern.compile(needle,Pattern.CASE_INSENSITIVE+Pattern.LITERAL);
+			  Matcher m = p.matcher(haystack);
+			  return m.find();
+			}
+		
+		
+		private Context getApplicationContext() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 
 }
   
