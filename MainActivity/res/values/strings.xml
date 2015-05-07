@@ -15,19 +15,259 @@
   -->
 
 <resources>
-    <string name="app_name">Fragebogen AB v1.2 / KN65QOWW9TSC5DQG </string>
-    
+    <string name="app_name">SurveyAPK ABv4.5 </string>    
     <string name="dummy_section_text">Section %1d is just a dummy section.</string>
-
-    <string name="demo_collection">  Fragebogen  </string>
+    <string name="demo_collection"> Fragebogen </string>
+        <string name="reset"> RESET ALL </string>
+        <string name="resetF"> RESET FOLDER </string>
+        
+    
     <string name="chooser_title"> FragebogenApp </string>
     <string name="exit">Kill</string>
     <string name="finish">Ende</string>
     <string name="exitText">It will kill the activity, you can check it by checking the task manager after clicking Kill</string>
     <string name="finishText">It will only Finish the activity</string>
-        <color name="red">#770000</color>
-        <color name="green">#007700</color>
-        <color name="blue">#33CCFF</color>
-                
+    <color name="red">#770000</color>
+    <color name="green">#007700</color>
+    <color name="blue">#33CCFF</color>
+    
+
+<string name="mannfraup">Mann/Frau</string>    
+<string-array name="mannfrau">
+	<item> </item>
+	<item>Frau</item>
+	<item>Mann</item>
+</string-array>
+
+
+<string name="diagnoseP">Diagnose</string>    
+<string-array name="diagnose">
+    <item>unbekannt</item>    
+	<item>CIS</item>
+	<item>Multiple Sklerose vom schubförmigen Verlaufstyp</item>
+	<item>Multiple Sklerose vom schubförmigen Verlaufstyp mit inkompletter Remission</item>
+	<item>MS vom sekundär progredienten Verlaufstyp</item>
+	<item>MS vom primär progredienten Verlaufstyp</item>
+	<item>Andere Diagnosen</item>
+</string-array>
+        
+<string name="againP">Wiederholler</string>    
+<string-array name="again">
+	<item>unknown</item>  
+	<item>1Mal</item>
+	<item>2Mal</item>
+	<item>3Mal</item>
+	<item>4Mal</item>
+	<item>5Mal</item>     
+</string-array>
+
+<string name="studyP">Studie</string>    
+<string-array name="study">
+	<item>no</item>  
+	<item>EEG-LMU</item>  
+	<item>MS-Multiple Sklerose</item>
+	<item>tDCS-GCBS</item>
+	<item>Vestibulaere Migraene</item>                 
+</string-array> 
+
+<string name="agroupP">Studie</string>    
+<string-array name="agroup">        
+	<item>no</item>  
+	<item>Berlin AG1 </item>  
+	<item>Bochum AG2 </item>         
+	<item>LMU Neuroimaging</item>  
+	<item>LMU Institute for Clinical Radiology</item>
+	<item>LMU Neuroimmunologie</item>
+	<item>LMU AG Dieterich </item>  
+	<item>Tuebingen AG3 </item>          
+</string-array>
+
+
+<string name="subjectP">Subject/Patient</string>    
+<string-array name="subject">
+	<item>Subject</item>  
+	<item>Patient</item>                         
+</string-array> 
+
+<string name="pharmacologyP">Studie</string>    
+<string-array name="pharmacology">        
+	<item>no</item>  
+	<item>Glatirameracetat </item>            
+	<item>Interferon-beta 1a im </item>       
+	<item>Interferon-beta 1a sc </item>      
+	<item>PEG-Interferon-beta 1a sc </item>   
+	<item>Interferon-beta 1b sc </item>      
+	<item>Dimethylfumarat </item>            
+	<item>Teriflunomid </item>                
+	<item>Fingolimod  </item>                
+	<item>Natalizumab </item>                
+	<item>Alemtuzumab </item>               
+	<item>Mitoxantron </item>               
+	<item>Cortison-Intervalltherapie </item>          
+</string-array>
+
+<string name="doseP">Dosierung mg</string>    
+<string-array name="dose">
+     <item>0</item> 
+     <item>0.1</item>  
+     <item>0.2</item>
+     <item>0.3</item>  
+     <item>0.4</item>  
+     <item>0.5</item>
+     <item>0.6</item> 
+     <item>0.7</item> 
+     <item>0.8</item> 
+     <item>0.9</item>                                 
+     <item>1</item>  
+     <item>2</item>
+     <item>3</item>  
+     <item>4</item>  
+     <item>5</item>              
+</string-array>
+
+<string name="treatmentP">Behandlung</string>    
+<string-array name="treatment">
+     <item>no</item>     
+     <item>yes</item>  
+     <item>tDCS</item>                         
+     <item>Medication</item>                                 
+</string-array> 
+
+<string name="alterP">Alter</string>    
+<string-array name="alter">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+
+        <item>30</item>
+        <item>31</item>
+        <item>32</item>
+        <item>33</item>
+        <item>34</item>
+        <item>35</item>
+        <item>36</item>
+        <item>37</item>
+        <item>38</item>
+        <item>39</item>
+
+        <item>40</item>
+        <item>41</item>
+        <item>42</item>
+        <item>43</item>
+        <item>44</item>
+        <item>45</item>
+        <item>46</item>
+        <item>47</item>
+        <item>48</item>
+        <item>49</item>
+
+        <item>50</item>
+        <item>51</item>
+        <item>52</item>
+        <item>53</item>
+        <item>54</item>
+        <item>55</item>
+        <item>56</item>
+        <item>57</item>
+        <item>58</item>
+        <item>59</item>
+
+        <item>60</item>
+        <item>61</item>
+        <item>62</item>
+        <item>63</item>
+        <item>64</item>
+        <item>65</item>
+        <item>66</item>
+        <item>67</item>
+        <item>68</item>
+        <item>69</item>
+
+        <item>70</item>
+        <item>71</item>
+        <item>72</item>
+        <item>73</item>
+        <item>74</item>
+        <item>75</item>
+        <item>76</item>
+        <item>77</item>
+        <item>78</item>
+        <item>79</item>
+
+        <item>80</item>
+        <item>81</item>
+        <item>82</item>
+        <item>83</item>
+        <item>84</item>
+        <item>85</item>
+        <item>86</item>
+        <item>87</item>
+        <item>88</item>
+        <item>89</item>
+
+        <item>90</item>
+        <item>91</item>
+        <item>92</item>
+        <item>93</item>
+        <item>94</item>
+        <item>95</item>
+        <item>96</item>
+        <item>97</item>
+        <item>98</item>
+        <item>99</item>
+
+        <item>100</item>
+        <item>101</item>
+        <item>102</item>
+        <item>103</item>
+        <item>104</item>
+        <item>105</item>
+        <item>106</item>
+        <item>107</item>
+        <item>108</item>
+        <item>109</item>
+
+        <item>110</item>
+        <item>111</item>
+        <item>112</item>
+        <item>113</item>
+        <item>114</item>
+        <item>115</item>
+        <item>116</item>
+        <item>117</item>
+        <item>118</item>
+        <item>119</item>    
+</string-array>
+
+
+    
 </resources>
   

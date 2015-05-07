@@ -7,4 +7,33 @@
     
     >
     
+<Button
+android:id="@+id/bt3"
+android:text="@string/resetF"  
+   android:layout_width="fill_parent"
+   android:layout_height="wrap_content"
+   android:textSize="30dp"   
+   style="@style/btnStyleBlackpearl"    
+/> 
+
+<Button
+    android:id="@+id/bt1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentTop="true"
+    android:layout_marginTop="92dp"
+    android:onClick="clickFunc"
+    android:text="Click me" 
+    
+    />
+
+<Switch
+     android:id="@+id/on_switch"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:textOff="OFF"
+     android:textOn="ON"/>
+
 </LinearLayout>

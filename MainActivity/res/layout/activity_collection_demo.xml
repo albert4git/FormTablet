@@ -21,7 +21,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
         
 -->
 
-<com.example.android.effectivenavigation.CustomViewPager  
+<com.example.android.surveyapk.CustomViewPager  
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/pager"
     android:textColor="@color/blue"
@@ -36,5 +36,5 @@ xmlns:android="http://schemas.android.com/apk/res/android"
         android:paddingTop="4dp"
         android:paddingBottom="4dp" />
 
-</com.example.android.effectivenavigation.CustomViewPager>
+</com.example.android.surveyapk.CustomViewPager>
 
