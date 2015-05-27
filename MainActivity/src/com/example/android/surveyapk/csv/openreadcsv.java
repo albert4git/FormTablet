@@ -56,155 +56,176 @@ import com.example.android.surveyapk.directorychooser.DirectoryChooserDialog;
 
 import com.example.android.effectivenavigation.R;
 
-
 public class openreadcsv {
-    public static int delta =0;
-    public static long  sVersion =15; 
-    public static String timeMS ="";
-    public static String strTimeS ="";
-    public static int timeS = 0;
-    public static String korb ="";
+	public static int delta = 0;
+	public static long sVersion = 15;
+	public static String timeMS = "";
+	public static String strTimeS = "";
+	public static int timeS = 0;
+	public static String korb = "";
 
-
-
-	public void openreadcsv() {	   
+	public void openreadcsv() {
 		// Log.w("line ...", " achshav theline line timeNow: ");
-		
-	}//end 
-	
+
+	}// end
+
 	public static long readcsv(String alpha, String betha) {
 		String line = "";
 		String cvsSplitBy = ",";
-		long longPerviRaz=1424925425721L;
-		long longPervoePolzovanie=0;
+		long longPerviRaz = 1424925425721L;
+		long longPervoePolzovanie = 0;
 		long longKonezRibalki = 1454367600000L;
-		long longPosledniePolzovanie =0;
-		File rootL = Environment.getExternalStorageDirectory();  // getExternalStorageDirectory();
-		String pathL = rootL+"/4Survey/log/";
-		File xxlogFileL = new File(pathL+"log.csv");   
-	    long timeNow= System.currentTimeMillis() ;
-	    Date cDate = new Date(timeNow);
-	    timeMS=Long.toString(timeNow); // the LastTimeMs in Ms
-	    timeS = (int) (timeNow /1000) ;
-		Log.w("line ...", " spez timeS: "+timeS);		
-	    timeS = (int) (timeNow /1000) - 1400000000 ;
-		Log.w("line ...", " spez timeS: "+timeS);
-	    strTimeS=Long.toString(timeS); // the LastTimeMs in Ms
-		Log.w("line ...", " spez strTimeS: "+strTimeS);
-		//*******************
+		long longPosledniePolzovanie = 0;
+		File rootL = Environment.getExternalStorageDirectory(); // getExternalStorageDirectory();
+		String pathL = rootL + "/4Survey/log/";
+		File xxlogFileL = new File(pathL + "log.csv");
+		long timeNow = System.currentTimeMillis();
+		Date cDate = new Date(timeNow);
+		timeMS = Long.toString(timeNow); // the LastTimeMs in Ms
+		timeS = (int) (timeNow / 1000);
+		Log.w("line ...", " spez timeS: " + timeS);
+		timeS = (int) (timeNow / 1000) - 1400000000;
+		Log.w("line ...", " spez timeS: " + timeS);
+		strTimeS = Long.toString(timeS); // the LastTimeMs in Ms
+		Log.w("line ...", " spez strTimeS: " + strTimeS);
+		// *******************
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(new Date(System.currentTimeMillis()));
 		int hours = calendar.get(Calendar.HOUR_OF_DAY);
 		int minutes = calendar.get(Calendar.MINUTE);
 		int seconds = calendar.get(Calendar.SECOND);
 		int day = calendar.get(Calendar.DAY_OF_MONTH);
-		int month = calendar.get(Calendar.MONTH)+1;
+		int month = calendar.get(Calendar.MONTH) + 1;
 		int year = calendar.get(Calendar.YEAR);
-        String logTimeString = year+"-"+month+"-"+day+" "+hours+":"+minutes+":"+seconds; 
-        //************************    
-	    String magnitMM =""; 
-	    magnitMM+=timeMS; // the LastTimeMs in Ms
-		magnitMM+=","+alpha;
-		magnitMM+=","+betha;	
-		magnitMM+=","+"SurveyAPK";	
-		magnitMM+=","+logTimeString;	
-		magnitMM+=","+delta;	
-		
-		Log.w("line ...", " lineXXX read !!!pathL: "+pathL); // sentence.replace("and", " ");
-		Log.w("line ...", " achshav theline line longPosledniePolzovanie: "+longPosledniePolzovanie);
-		Log.w("line ...", " achshav theline line timeNow: "+timeNow);
-		Log.w("line ...", " achshav theline line longKonezRibalki: "+longKonezRibalki);
-		Log.w("line ...", " achshav theline line magnitMM: "+magnitMM);
+		String logTimeString = year + "-" + month + "-" + day + " " + hours
+				+ ":" + minutes + ":" + seconds;
+		// ************************
+		String magnitMM = "";
+		magnitMM += timeMS; // the LastTimeMs in Ms
+		magnitMM += "," + alpha;
+		magnitMM += "," + betha;
+		magnitMM += "," + "SurveyAPK";
+		magnitMM += "," + logTimeString;
+		magnitMM += "," + delta;
 
+		Log.w("line ...", " lineXXX read !!!pathL: " + pathL); // sentence.replace("and",
+																// " ");
+		Log.w("line ...", " achshav theline line longPosledniePolzovanie: "
+				+ longPosledniePolzovanie);
+		Log.w("line ...", " achshav theline line timeNow: " + timeNow);
+		Log.w("line ...", " achshav theline line longKonezRibalki: "
+				+ longKonezRibalki);
+		Log.w("line ...", " achshav theline line magnitMM: " + magnitMM);
 
-		//******PreCHETAIU*****************************************************
-			if(!xxlogFileL.exists()){
-				try {
-					xxlogFileL.createNewFile();
-					CSVWriter writer1 = new CSVWriter(new FileWriter(xxlogFileL, true));
-					String [] record1 = magnitMM.split(",");
-					writer1.writeNext(record1);
-					writer1.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+		// ******PreCHETAIU*****************************************************
+		if (!xxlogFileL.exists()) {
+			try {
+				xxlogFileL.createNewFile();
+				CSVWriter writer1 = new CSVWriter(new FileWriter(xxlogFileL,
+						true));
+				String[] record1 = magnitMM.split(",");
+				writer1.writeNext(record1);
+				writer1.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}// NetuLog
+		// ******CHETAIU*****************************************************
+		File file = new File(pathL + "log.csv");
+		StringBuilder text = new StringBuilder();
+		String[] logic;
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			int i = 0;
+			while ((line = br.readLine()) != null) {
+				line = line.replace("\"", "");
+				Log.w("line ...", " line read line: " + line);
+				logic = line.split(cvsSplitBy);
+				// Log.w("line ...",
+				// " line read longPosledniePolzovanie: "+longPosledniePolzovanie);
+				if (i == 0) { // Krug Pervii !!
+					longPervoePolzovanie = Long.valueOf(logic[0]);
+					Log.w("line ...", " achshav theline line logic[0]: "
+							+ logic[0]);
+					Log.w("line ...", " achshav theline line logic[1]: "
+							+ logic[1]);
+					Log.w("line ...", " achshav theline line logic[2]: "
+							+ logic[2]);
+					Log.w("line ...", " achshav theline line logic[3]: "
+							+ logic[3]);
+					Log.w("line ...", " achshav theline line logic[4]: "
+							+ logic[4]);
+					Log.w("line ...", " achshav3 theline line logic[5]: "
+							+ logic[5]);
+
 				}
-			}//NetuLog						
-		 //******CHETAIU*****************************************************
-				File file = new File(pathL+"log.csv");
-				StringBuilder text = new StringBuilder();
-				String[] logic;
-				try {
-				    BufferedReader br = new BufferedReader(new FileReader(file));
-		            int i=0;
-				    while ((line = br.readLine()) != null) {
-				        line = line.replace("\"", "");		        
-						   Log.w("line ...", " line read line: "+line);
-						   logic = line.split(cvsSplitBy);
-						   //Log.w("line ...", " line read longPosledniePolzovanie: "+longPosledniePolzovanie);
-					    	if(i==0){ // Krug Pervii !!
-					    		longPervoePolzovanie = Long.valueOf(logic[0]);
-					    		Log.w("line ...", " achshav theline line logic[0]: "+logic[0]);
-					    		Log.w("line ...", " achshav theline line logic[1]: "+logic[1]);
-					    		Log.w("line ...", " achshav theline line logic[2]: "+logic[2]);
-					    		Log.w("line ...", " achshav theline line logic[3]: "+logic[3]);
-					    		Log.w("line ...", " achshav theline line logic[4]: "+logic[4]);
-					    		Log.w("line ...", " achshav3 theline line logic[5]: "+logic[5]);
+				// Krug Poslednii
+				longPosledniePolzovanie = Long.valueOf(logic[0]);
+				Log.w("line ...", " achshav3 theline line logic[0]: "
+						+ logic[0]);
+				Log.w("line ...", " achshav3 theline line logic[1]: "
+						+ logic[1]);
+				Log.w("line ...", " achshav3 theline line logic[2]: "
+						+ logic[2]);
+				Log.w("line ...", " achshav3 theline line logic[3]: "
+						+ logic[3]);
+				Log.w("line ...", " achshav3 theline line logic[4]: "
+						+ logic[4]);
+				Log.w("line ...", " achshav3 theline line logic[5]: "
+						+ logic[5]);
 
-					    	}	
-					    	// Krug Poslednii 
-							longPosledniePolzovanie = Long.valueOf(logic[0]);
-				    		Log.w("line ...", " achshav3 theline line logic[0]: "+logic[0]);
-				    		Log.w("line ...", " achshav3 theline line logic[1]: "+logic[1]);
-				    		Log.w("line ...", " achshav3 theline line logic[2]: "+logic[2]);
-				    		Log.w("line ...", " achshav3 theline line logic[3]: "+logic[3]);
-				    		Log.w("line ...", " achshav3 theline line logic[4]: "+logic[4]);
-				    		Log.w("line ...", " achshav3 theline line logic[5]: "+logic[5]);
+				delta = Integer.valueOf(logic[5]);
 
-							delta = Integer.valueOf(logic[5]);
+				i++;
+			}
+			br.close();
+		} catch (IOException e) {
+			// You'll need to add proper error handling here
+		}// End_Chetaiu
+		Log.w("line ...", " achshav2  longPosledniePolzovanie: "
+				+ longPosledniePolzovanie);
+		Log.w("line ...", " achshav2 timeNow: " + timeNow);
+		Log.w("line ...", " achshav2 longKonezRibalki: " + longKonezRibalki);
+		Log.w("line ...", " achshav2 sVersion: " + sVersion);
+		Log.w("line ...", " achshav2 delta: " + delta);
+		// ******Praverij i Pishi log ***********************************
+		if (delta == 0) { // IF AA
+			if (timeNow < longKonezRibalki) { // IF AA
+				if (timeNow > longPosledniePolzovanie) { // IF AAA
+					// mnsk1 //mnsk1 //mnsk1 //mnsk1 //mnsk1 //mnsk1 //mnsk1
+					// //mnsk1 //mnsk1
+					try {
+						// if(!xxlogFileL.exists()){
+						// xxlogFileL.createNewFile();}
+						// delta --;
+						magnitMM = "";
+						magnitMM += timeMS; // the LastTimeMs in Ms
+						magnitMM += "," + alpha;
+						magnitMM += "," + betha;
+						magnitMM += "," + "SurveyAPK";
+						magnitMM += "," + logTimeString;
+						magnitMM += "," + delta;
 
-		             i ++;
-				    }
-				    br.close();
-				}
-				catch (IOException e) {
-				    //You'll need to add proper error handling here
-				}// End_Chetaiu				
-			   Log.w("line ...", " achshav2  longPosledniePolzovanie: "+longPosledniePolzovanie);
-			   Log.w("line ...", " achshav2 timeNow: "+timeNow);
-			   Log.w("line ...", " achshav2 longKonezRibalki: "+longKonezRibalki);	
-			   Log.w("line ...", " achshav2 sVersion: "+sVersion);	
-			   Log.w("line ...", " achshav2 delta: "+delta);				   
-		   //******Praverij i Pishi log ***********************************		
-		   if ( delta == 0){ // IF AA
-			   if ( timeNow < longKonezRibalki ){ // IF AA
-						if ( timeNow > longPosledniePolzovanie ){ // IF AAA
-							// mnsk1 //mnsk1 //mnsk1 //mnsk1 //mnsk1 //mnsk1 //mnsk1 //mnsk1 //mnsk1
-									try {
-									  // if(!xxlogFileL.exists()){
-									  // xxlogFileL.createNewFile();}	
-									  //delta --;
-										magnitMM =""; 
-									    magnitMM+=timeMS; // the LastTimeMs in Ms
-										magnitMM+=","+alpha;
-										magnitMM+=","+betha;	
-										magnitMM+=","+"SurveyAPK";	
-										magnitMM+=","+logTimeString;	
-										magnitMM+=","+delta;
-										
-										CSVWriter writer15 = new CSVWriter(new FileWriter(xxlogFileL, true));
-										String [] record15 = magnitMM.split(",");
-										writer15.writeNext(record15);
-										writer15.close();
-									} catch (IOException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}							
-						}else{ delta++;	}// END_IF AAA							
-				 }else {  delta++; }	
-			 } else { delta++; }
-		return delta;	
-	 }//end getCSVnow method
+						CSVWriter writer15 = new CSVWriter(new FileWriter(
+								xxlogFileL, true));
+						String[] record15 = magnitMM.split(",");
+						writer15.writeNext(record15);
+						writer15.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} else {
+					delta++;
+				}// END_IF AAA
+			} else {
+				delta++;
+			}
+		} else {
+			delta++;
+		}
+		return delta;
+	}// end getCSVnow method
 
-
-}//end_class
+}// end_class

@@ -1,68 +1,72 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:id="@+id/mainlayout"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:layout_gravity="center"
-android:background="#bbBBbb"
-android:gravity="center_horizontal"
-android:orientation="vertical" >
+    android:id="@+id/mainlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="#bbBBbb"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
 
-<!-- 1Banner
+    <!--
+1Banner
 android:background="@drawable/nilogo"
 android:background="@drawable/edit_text_red"
 
 android:src="@drawable/gcbs" />               
- -->    
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content" >
-             
-<ImageView
-android:id="@+id/imageView3"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"/>         
-</LinearLayout>
+    -->
 
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:gravity="center_vertical"
-android:background="#999999"
-android:maxHeight="8dp"
-android:minHeight="3dp" 
-android:textAlignment="center" >
-</LinearLayout>
-<!-- 2name -->
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:gravity="center_vertical"
-android:background="@drawable/border6" 
-android:maxHeight="35dp"
-android:minHeight="35dp" 
-android:textAlignment="center" >
-<TextView
-android:id="@+id/textView1"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:textStyle="bold"   
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
-android:text="Name (anonymisiert):  "
-android:textSize="25sp" />
-<EditText
-android:id="@+id/name"
-android:textSize="24dp"
-android:background="@drawable/edit_text_design"           
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:textStyle="bold"                       
-android:maxLength="50"    
-android:layout_marginRight="20dp" 
-android:hint="zum Bsp.: ABN7905"                             
-android:inputType="textPersonName" />
-</LinearLayout>
-<!-- 3Diagnose   
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#999999"
+        android:gravity="center_vertical"
+        android:maxHeight="8dp"
+        android:minHeight="3dp"
+        android:textAlignment="center" >
+    </LinearLayout>
+    <!-- 2name -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border6"
+        android:gravity="center_vertical"
+        android:maxHeight="35dp"
+        android:minHeight="35dp"
+        android:textAlignment="center" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name (anonymisiert):  "
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/edit_text_design"
+            android:hint="zum Bsp.: ABN7905"
+            android:inputType="textPersonName"
+            android:maxLength="50"
+            android:textSize="24dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <!--
+3Diagnose   
 <LinearLayout
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
@@ -95,420 +99,443 @@ android:background="@drawable/spinner_background"
 android:background="@drawable/spinner_background"        
 android:background="@drawable/spinner_background"        
 android:background="@drawable/spinner_background"        
--->
-<!--  Diagnose2 -->       
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:gravity="center_vertical"
-android:background="@drawable/border6" 
-android:maxHeight="35dp"
-android:minHeight="35dp" 
-android:textAlignment="center" >
-<TextView
-android:id="@+id/textView411"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:textStyle="bold"
-android:gravity="center"   
-android:text="Diagnose:       "
-android:textSize="25sp" />        
-<Spinner
-android:id="@+id/diagnoseIs"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:layout_marginRight="20dp"
-android:layout_marginLeft="100dp"   
-android:prompt="@string/diagnoseP"             
-android:entries="@array/diagnose"
-/>        
-</LinearLayout>    
+    -->
+    <!-- Diagnose2 -->
 
-<!-- 4ZmannFrau -->       
-<LinearLayout
-android:layout_width="match_parent"
-android:background="@drawable/border6" 
-android:layout_height="wrap_content"
-android:gravity="center_vertical"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border6"
+        android:gravity="center_vertical"
+        android:maxHeight="35dp"
+        android:minHeight="35dp"
+        android:textAlignment="center" >
 
-android:maxHeight="35dp"
-android:minHeight="35dp" 
-android:textAlignment="center" >
-<TextView
-android:id="@+id/textView3"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:textStyle="bold"
-android:gravity="center"   
-android:text="Mann/Frau:    "
-android:textSize="25sp" />      
-<Spinner
-android:id="@+id/genderIs"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:layout_marginRight="20dp"
-android:layout_marginLeft="100dp"        
-android:entries="@array/mannfrau"
-android:prompt="@string/mannfraup" />                  
-</LinearLayout>       
-<!-- 5Alter -->       
-<LinearLayout
-android:layout_width="match_parent"
-android:background="@drawable/border6" 
-android:layout_height="wrap_content"
-android:gravity="center_vertical"
-android:maxHeight="35dp"
-android:minHeight="35dp" 
-android:textAlignment="center" >
-<TextView
-android:id="@+id/textView4"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:textStyle="bold"
-android:gravity="center"   
-android:text="Alter:               "
-android:textSize="25sp" />        
-<Spinner
-android:id="@+id/ageIs"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:layout_marginRight="20dp"
-android:layout_marginLeft="100dp"   
-android:prompt="@string/alterP"             
-android:entries="@array/alter"
-/>        
-</LinearLayout>
-<!-- 6Study -->   
-<LinearLayout
-android:layout_width="match_parent"
-android:background="@drawable/border6" 
-android:layout_height="wrap_content"
-android:gravity="center_vertical"
-android:maxHeight="35dp"
-android:minHeight="35dp" 
-android:textAlignment="center" >
-<TextView
-android:id="@+id/textView5"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:textStyle="bold"
-android:gravity="center"   
-android:text="Studie:                       "
-android:textSize="25sp" />
-<Spinner
-android:id="@+id/studyIs"
-android:maxLength="50"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:layout_marginLeft="35dp"                       
-android:layout_marginRight="20dp"           
-android:prompt="@string/studyP"             
-android:entries="@array/study" 
-/>
-</LinearLayout> 
+        <TextView
+            android:id="@+id/textView411"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Diagnose:       "
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:gravity="center_vertical"
-android:background="@drawable/border6" 
-android:maxHeight="35dp"
-android:minHeight="35dp" 
-android:textAlignment="center" >
-<TextView
-android:id="@+id/textView51"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:textStyle="bold"
-android:gravity="center"   
-android:text="Arbeitsgruppe:        "
-android:textSize="25sp" />
-<Spinner
-android:id="@+id/groupIs"
-android:maxLength="50"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:layout_marginLeft="35dp"                       
-android:layout_marginRight="20dp"           
-android:prompt="@string/agroupP"             
-android:entries="@array/agroup" 
-/>
-</LinearLayout> 
-<!-- 7Study -->   
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:gravity="center_vertical"
-android:background="@drawable/border6" 
-android:maxHeight="35dp"
-android:minHeight="35dp" 
-android:textAlignment="center" >
-<TextView
-android:id="@+id/textView6"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:textStyle="bold"
-android:gravity="center"   
-android:text="Subject/Patient:      "
-android:textSize="25sp" />
-<Spinner
-android:id="@+id/subjectIs"
-android:maxLength="50"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:layout_marginLeft="35dp"                       
-android:layout_marginRight="20dp"           
-android:prompt="@string/subjectP"             
-android:entries="@array/subject" 
-/>
-</LinearLayout>
-<!-- 9Again -->   
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:gravity="center_vertical"
-android:background="@drawable/border6" 
-android:maxHeight="35dp"
-android:minHeight="35dp" 
-android:textAlignment="center" >
-<TextView
-android:id="@+id/textView8"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:textStyle="bold"
-android:gravity="center"   
-android:text="Wiederholer:            "
-android:textSize="25sp" />
-<Spinner
-android:id="@+id/againIs"
-android:maxLength="50"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:layout_marginLeft="35dp"                       
-android:layout_marginRight="20dp"           
-android:textStyle="bold"   
-android:entries="@array/again"
-android:prompt="@string/againP" />   
-</LinearLayout>    
-<!-- 8Study -->   
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:gravity="center_vertical"
-android:background="@drawable/border6" 
-android:maxHeight="35dp"
-android:minHeight="35dp" 
-android:textAlignment="center" >
-<TextView
-android:id="@+id/textView7"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:textStyle="bold"
-android:gravity="center"   
-android:text="Behandlung:             "
-android:textSize="25sp" />
-<Spinner
-android:id="@+id/treatmentIs"
-android:maxLength="50"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:layout_marginLeft="35dp"                       
-android:layout_marginRight="20dp"           
-android:prompt="@string/treatmentP"             
-android:entries="@array/treatment" 
-/>
-</LinearLayout>
-<!-- 8Study -->   
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:gravity="center_vertical"
-android:background="@drawable/border6" 
-android:maxHeight="35dp"
-android:minHeight="35dp" 
-android:textAlignment="center" >
-<TextView
-android:id="@+id/textView17"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:textStyle="bold"
-android:gravity="center"   
-android:text="Medikation:              "
-android:textSize="25sp" />
-<Spinner
-android:id="@+id/pharmaIs"
-android:maxLength="50"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:layout_marginLeft="35dp"                       
-android:layout_marginRight="20dp"           
-android:prompt="@string/pharmacologyP"             
-android:entries="@array/pharmacology" 
-/>
-</LinearLayout>   
-<!-- Dosierung -->   
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:gravity="center_vertical"
-android:background="@drawable/border6" 
-android:maxHeight="35dp"
-android:minHeight="35dp" 
-android:textAlignment="center" >
-<TextView
-android:id="@+id/textView16"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:textStyle="bold"
-android:gravity="center"   
-android:text="Dosierung:                "
-android:textSize="25sp" />
-<Spinner
-android:id="@+id/doseIs"
-android:textSize="24dp"     
-android:maxLength="50"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:layout_marginLeft="35dp"                       
-android:layout_marginRight="20dp"           
-android:prompt="@string/doseP"             
-android:entries="@array/dose" 
-/>
-</LinearLayout> 
+        <Spinner
+            android:id="@+id/diagnoseIs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="20dp"
+            android:entries="@array/diagnose"
+            android:prompt="@string/diagnoseP" />
+    </LinearLayout>
 
-<!-- 10 -->   
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:gravity="center_vertical"
-android:background="@drawable/border6" 
-android:maxHeight="35dp"
-android:minHeight="35dp" 
-android:textAlignment="center" >
-<TextView
-android:id="@+id/textView21"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:textStyle="bold"
-android:gravity="center"   
-android:text="Kommentar:                   "
-android:textSize="25sp" />
-<EditText
-android:id="@+id/commentIs"
-android:background="@drawable/edit_text_design"           
-android:maxLength="50"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:layout_marginRight="20dp"            
-android:textStyle="bold"    
-android:inputType="textPersonName" />
-</LinearLayout>
-<!-- 3 -->  
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:gravity="center_vertical"
-android:background="#999999"
-android:maxHeight="8dp"
-android:minHeight="3dp" 
-android:textAlignment="center" >
-</LinearLayout>
+    <!-- 4ZmannFrau -->
 
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:gravity="center_vertical"
-android:background="#111111"
-android:maxHeight="5dp"
-android:minHeight="3dp" 
-android:textAlignment="center" >
-</LinearLayout>
-<!-- 4 -->  
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border6"
+        android:gravity="center_vertical"
+        android:maxHeight="35dp"
+        android:minHeight="35dp"
+        android:textAlignment="center" >
 
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:gravity="center"
-android:background="#555555"
-android:maxHeight="30dp"
-android:minHeight="20dp" 
-android:textAlignment="center" >
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Mann/Frau:    "
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
-<Button        
-android:id="@+id/demo_collection_button"
-android:text="@string/demo_collection"  
-   android:layout_width="fill_parent"
-   android:layout_height="wrap_content"
-   android:textSize="30dp" 
-   style="@style/btnStyleBlackpearl"       
-/>           
-</LinearLayout>  
-<!-- 4 -->  
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:gravity="center"
-android:background="#555555"
-android:maxHeight="80dp"
-android:minHeight="60dp" 
-android:textAlignment="center" >
+        <Spinner
+            android:id="@+id/genderIs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="20dp"
+            android:entries="@array/mannfrau"
+            android:prompt="@string/mannfraup" />
+    </LinearLayout>
+    <!-- 5Alter -->
 
-<Button
-android:id="@+id/reset_button2"
-android:text="@string/resetF"  
-   android:layout_width="fill_parent"
-   android:layout_height="wrap_content"
-   android:textSize="30dp"   
-   style="@style/btnStyleBlackpearl"    
-/>        
-</LinearLayout> 
-<!-- 4 -->  
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:gravity="center"
-android:background="#555555"
-android:maxHeight="80dp"
-android:minHeight="60dp" 
-android:textAlignment="center" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border6"
+        android:gravity="center_vertical"
+        android:maxHeight="35dp"
+        android:minHeight="35dp"
+        android:textAlignment="center" >
 
-<Button
-android:id="@+id/reset_button"
-android:text="@string/reset"  
-   android:layout_width="fill_parent"
-   android:layout_height="wrap_content"
-   android:textSize="30dp"   
-   style="@style/btnStyleBlackpearl"    
-/>        
-</LinearLayout> 
-<!-- 5 -->
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Alter:               "
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:gravity="center_vertical"
-android:background="#555555"
-android:maxHeight="358dp"
-android:minHeight="340dp" 
-android:textAlignment="center" >
+        <Spinner
+            android:id="@+id/ageIs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="20dp"
+            android:entries="@array/alter"
+            android:prompt="@string/alterP" />
+    </LinearLayout>
+    <!-- 6Study -->
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border6"
+        android:gravity="center_vertical"
+        android:maxHeight="35dp"
+        android:minHeight="35dp"
+        android:textAlignment="center" >
 
-<TableLayout
-android:layout_width="fill_parent"
-android:layout_height="wrap_content"
-android:background="#FFFFFF" >
-<TextView 
-android:id="@+id/TextView9" 
-android:text="4Survey"
-android:layout_weight="1" 
-android:background="#dcdcdc"
-android:maxHeight="70dp"
-android:minHeight="60dp" 
-android:textColor="#000000"
-android:padding="20dip" 
-android:textSize="20dp"   
-android:gravity="center"/>  
-</TableLayout>
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Studie:                       "
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/studyIs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="20dp"
+            android:entries="@array/study"
+            android:maxLength="50"
+            android:prompt="@string/studyP" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border6"
+        android:gravity="center_vertical"
+        android:maxHeight="35dp"
+        android:minHeight="35dp"
+        android:textAlignment="center" >
+
+        <TextView
+            android:id="@+id/textView51"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Arbeitsgruppe:        "
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/groupIs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="20dp"
+            android:entries="@array/agroup"
+            android:maxLength="50"
+            android:prompt="@string/agroupP" />
+    </LinearLayout>
+    <!-- 7Study -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border6"
+        android:gravity="center_vertical"
+        android:maxHeight="35dp"
+        android:minHeight="35dp"
+        android:textAlignment="center" >
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Subject/Patient:      "
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/subjectIs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="20dp"
+            android:entries="@array/subject"
+            android:maxLength="50"
+            android:prompt="@string/subjectP" />
+    </LinearLayout>
+    <!-- 9Again -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border6"
+        android:gravity="center_vertical"
+        android:maxHeight="35dp"
+        android:minHeight="35dp"
+        android:textAlignment="center" >
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Wiederholer:            "
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/againIs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="20dp"
+            android:entries="@array/again"
+            android:maxLength="50"
+            android:prompt="@string/againP"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <!-- 8Study -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border6"
+        android:gravity="center_vertical"
+        android:maxHeight="35dp"
+        android:minHeight="35dp"
+        android:textAlignment="center" >
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Behandlung:             "
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/treatmentIs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="20dp"
+            android:entries="@array/treatment"
+            android:maxLength="50"
+            android:prompt="@string/treatmentP" />
+    </LinearLayout>
+    <!-- 8Study -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border6"
+        android:gravity="center_vertical"
+        android:maxHeight="35dp"
+        android:minHeight="35dp"
+        android:textAlignment="center" >
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Medikation:              "
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/pharmaIs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="20dp"
+            android:entries="@array/pharmacology"
+            android:maxLength="50"
+            android:prompt="@string/pharmacologyP" />
+    </LinearLayout>
+    <!-- Dosierung -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border6"
+        android:gravity="center_vertical"
+        android:maxHeight="35dp"
+        android:minHeight="35dp"
+        android:textAlignment="center" >
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Dosierung:                "
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/doseIs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="20dp"
+            android:entries="@array/dose"
+            android:maxLength="50"
+            android:prompt="@string/doseP"
+            android:textSize="24dp" />
+    </LinearLayout>
+
+    <!-- 10 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border6"
+        android:gravity="center_vertical"
+        android:maxHeight="35dp"
+        android:minHeight="35dp"
+        android:textAlignment="center" >
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Kommentar:                   "
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/commentIs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/edit_text_design"
+            android:inputType="textPersonName"
+            android:maxLength="50"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <!-- 3 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#999999"
+        android:gravity="center_vertical"
+        android:maxHeight="8dp"
+        android:minHeight="3dp"
+        android:textAlignment="center" >
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#111111"
+        android:gravity="center_vertical"
+        android:maxHeight="5dp"
+        android:minHeight="3dp"
+        android:textAlignment="center" >
+    </LinearLayout>
+    <!-- 4 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#555555"
+        android:gravity="center"
+        android:maxHeight="30dp"
+        android:minHeight="20dp"
+        android:textAlignment="center" >
+
+        <Button
+            android:id="@+id/demo_collection_button"
+            style="@style/btnStyleBlackpearl"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/demo_collection"
+            android:textSize="30dp" />
+    </LinearLayout>
+    <!-- 4 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#555555"
+        android:gravity="center"
+        android:maxHeight="80dp"
+        android:minHeight="60dp"
+        android:textAlignment="center" >
+
+        <Button
+            android:id="@+id/reset_button2"
+            style="@style/btnStyleBlackpearl"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/resetF"
+            android:textSize="30dp" />
+    </LinearLayout>
+    <!-- 4 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#555555"
+        android:gravity="center"
+        android:maxHeight="80dp"
+        android:minHeight="60dp"
+        android:textAlignment="center" >
+
+        <Button
+            android:id="@+id/reset_button"
+            style="@style/btnStyleBlackpearl"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/reset"
+            android:textSize="30dp" />
+    </LinearLayout>
+    <!-- 5 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#555555"
+        android:gravity="center_vertical"
+        android:maxHeight="358dp"
+        android:minHeight="340dp"
+        android:textAlignment="center" >
+    </LinearLayout>
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF" >
+
+        <TextView
+            android:id="@+id/TextView9"
+            android:layout_weight="1"
+            android:background="#dcdcdc"
+            android:gravity="center"
+            android:maxHeight="70dp"
+            android:minHeight="60dp"
+            android:padding="20dip"
+            android:text="4Survey"
+            android:textColor="#000000"
+            android:textSize="20dp" />
+    </TableLayout>
 
 </LinearLayout>

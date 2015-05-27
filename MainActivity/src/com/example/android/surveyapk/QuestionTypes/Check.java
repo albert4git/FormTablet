@@ -1,4 +1,5 @@
 package com.example.android.surveyapk.QuestionTypes;
+
 import android.R.*;
 import android.text.Editable;
 import android.util.Log;
@@ -41,12 +42,12 @@ import android.widget.CheckBox;
 
 import com.example.android.effectivenavigation.R;
 
-
 public class Check extends InputElement implements OnCheckedChangeListener {
 	CheckBox checkBox;
 	public String defaultState;
-	public String coef=null;
-	public String name=null;
+	public String coef = null;
+	public String name = null;
+
 	public Check(Question question) {
 		super(question);
 		// TODO Auto-generated constructor stub
@@ -56,103 +57,102 @@ public class Check extends InputElement implements OnCheckedChangeListener {
 	public View display(Activity context) {
 		checkBox = new CheckBox(context);
 		checkBox.setOnCheckedChangeListener(this);
-		 if (val!=null)
-			{
-			 checkBox.setChecked((Boolean.valueOf(val)));
-			}
-		 checkBox.setTextSize(35);
+		if (val != null) {
+			checkBox.setChecked((Boolean.valueOf(val)));
+		}
+		checkBox.setTextSize(35);
 		return checkBox;
-		
+
 	}
 
-
 	@Override
-	public void onItemSelected(AdapterView<?> parent, View view,int position, long id) {
+	public void onItemSelected(AdapterView<?> parent, View view, int position,
+			long id) {
 		// TODO Auto-generated method stub
 	}
-	
+
 	@Override
 	public String writeData() {
-	
+
 		String outBuf = "";
-		outBuf+=this.val;
-		if(name!=null)
-		{
-			if(val=="true")
-				
-			question.evaluator.putVariable(name, coef);
+		outBuf += this.val;
+		if (name != null) {
+			if (val == "true")
+
+				question.evaluator.putVariable(name, coef);
 			else
-			question.evaluator.putVariable(name, "0");	
-		
+				question.evaluator.putVariable(name, "0");
+
 		}
 		return outBuf;
 	}
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		 val=String.valueOf(checkBox.isChecked()); 
-			Log.w("checkBox", "checkBox RoboOnChecked: val: "+val);
+		val = String.valueOf(checkBox.isChecked());
+		Log.w("checkBox", "checkBox RoboOnChecked: val: " + val);
 
 	}
-	
+
 	@Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) 
-    {
-    	//val=String.valueOf(progress);
-    }
+	public void onProgressChanged(SeekBar seekBar, int progress,
+			boolean fromUser) {
+		// val=String.valueOf(progress);
+	}
 
 	@Override
 	public String writeDataToPdf() {
-		Log.w("checkBox", "checkBox Robo3Pdf: name: "+name);
-		Log.w("checkBox", "checkBox Robo3Pdf: coef: "+coef);
-		Log.w("checkBox", "checkBox Robo3Pdf: val: "+this.val);
-		
+		Log.w("checkBox", "checkBox Robo3Pdf: name: " + name);
+		Log.w("checkBox", "checkBox Robo3Pdf: coef: " + coef);
+		Log.w("checkBox", "checkBox Robo3Pdf: val: " + this.val);
+
 		String outBuf = "";
-		if(Boolean.valueOf(val))
-			outBuf+="X";
-	
-		if(name!=null)
-		{
-			if(val=="true")
-			question.evaluator.putVariable(name, coef);
+		if (Boolean.valueOf(val))
+			outBuf += "X";
+
+		if (name != null) {
+			if (val == "true")
+				question.evaluator.putVariable(name, coef);
 			else
-				question.evaluator.putVariable(name, "0");	
-		
+				question.evaluator.putVariable(name, "0");
+
 		}
 		return outBuf;
 	}
 
-
 	/*	*/
 	@Override
-	public int validate()
-	{
-		// Log.w("Radio boolean validate()77:", "this.isValidCount:"+this.isValidCount);
+	public int validate() {
+		// Log.w("Radio boolean validate()77:",
+		// "this.isValidCount:"+this.isValidCount);
 		// return this.isValidCount;
-		  int tst=1;
-		  return tst;
+		int tst = 1;
+		return tst;
 	}
+
 	@Override
-	public int validate(String albertRadioTest)
-	{	//ToDo	
-		int isValidNr =1 ;
-		Log.w(">>>999 RadioVaid(it):", "albertRadioTest: "+albertRadioTest);
+	public int validate(String albertRadioTest) { // ToDo
+		int isValidNr = 1;
+		Log.w(">>>999 RadioVaid(it):", "albertRadioTest: " + albertRadioTest);
 		// return this.isValidCount;
-		// return isValidCount; 
-		return isValidNr; 
+		// return isValidCount;
+		return isValidNr;
 
 	}
+
 	@Override
-	public String validate(String albertRadioTest,String albertRadioName, Activity context )
-	{		
-		// this.isGroupValidated ??? ------------------------------------------------------------------------------------------------------------------------------
-		Toast myToast = Toast.makeText(context, "007 albertRadioTest:"+albertRadioTest, Toast.LENGTH_SHORT);
+	public String validate(String albertRadioTest, String albertRadioName,
+			Activity context) {
+		// this.isGroupValidated ???
+		// ------------------------------------------------------------------------------------------------------------------------------
+		Toast myToast = Toast.makeText(context, "007 albertRadioTest:"
+				+ albertRadioTest, Toast.LENGTH_SHORT);
 		myToast.setGravity(Gravity.RIGHT, 0, 0);
-		myToast.show(); 
-		//=-----------------------------------------
-		String stringBox=albertRadioTest;
-		Log.w(">>>999 RadioVaid(it):", "albertRadioTest: "+albertRadioTest);
-		return stringBox; 
+		myToast.show();
+		// =-----------------------------------------
+		String stringBox = albertRadioTest;
+		Log.w(">>>999 RadioVaid(it):", "albertRadioTest: " + albertRadioTest);
+		return stringBox;
 
-	}	
+	}
 }

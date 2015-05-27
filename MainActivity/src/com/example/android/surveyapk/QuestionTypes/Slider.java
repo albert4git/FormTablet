@@ -1,8 +1,7 @@
 package com.example.android.surveyapk.QuestionTypes;
+
 import android.R;
 import android.R.*;
-
-
 
 import android.location.GpsStatus.Listener;
 import android.text.Editable;
@@ -51,14 +50,13 @@ import android.widget.CheckBox;
 
 //import com.example.android.effectivenavigation.R;
 
-
 public class Slider extends InputElement implements OnCheckedChangeListener {
 	CheckBox checkBox;
 	public String defaultState;
-	public String coef=null;
-	public String name=null;
-	public int stepSize =1 ;
-	public String dMax ;
+	public String coef = null;
+	public String name = null;
+	public int stepSize = 1;
+	public String dMax;
 
 	public Slider(Question question) {
 		super(question);
@@ -69,154 +67,150 @@ public class Slider extends InputElement implements OnCheckedChangeListener {
 	public View display(Activity context) {
 		checkBox = new CheckBox(context);
 		checkBox.setOnCheckedChangeListener(this);
-		 if (val!=null)
-			{
-			 checkBox.setChecked((Boolean.valueOf(val)));
-			}
-		 checkBox.setTextSize(35);
-		//return checkBox;
-		 /*
-		         TextView texta = (TextView) context.findViewById(R.layout.list_content);
-		 		 TextView questionTextt=(TextView) rootView.findViewById(R.id.text1);
-	             Button btn=(Button) findViewById(R.id.demo_collection_button);
-         */		 
-		 
-        SeekBar slider = new SeekBar(context);
-        int foo = Integer.parseInt(coef);
-		Log.w("SeekBar", "SeekBar Robo2: dMax: "+dMax);
-		Log.w("SeekBar", "SeekBar Robo2: foo: "+foo);
-
-        slider.setMax(foo);        
-        // slider.setProgress(20);
-        slider.setTag(this);
-        String[] percent = { "0", "10", "20", "30", "40", "50"};
-        
-        slider.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {       
-
-            @Override       
-            public void onStopTrackingTouch(SeekBar seekBar) {      
-                // TODO Auto-generated method stub      
-            }       
-
-            @Override       
-            public void onStartTrackingTouch(SeekBar seekBar) {     
-                // TODO Auto-generated method stub      
-            }       
-
-            @Override       
-            public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {     
-                // TODO Auto-generated method stub                  	
-        	    progress = ((int)Math.round(progress/stepSize))*stepSize;
-        	    seekBar.setProgress(progress);
-            	
-                val=String.valueOf(progress);
-        		Log.w("SeekBar", "SeekBar Robo: progress: "+progress);
-        		coef = val;
-
-            }       
-        });             
-        if (val!=null)
-		{
-        	
-        	
-        	slider.setProgress(Integer.valueOf(val));
-        	//((Boolean.valueOf(val)));
+		if (val != null) {
+			checkBox.setChecked((Boolean.valueOf(val)));
 		}
-        
+		checkBox.setTextSize(35);
+		// return checkBox;
+		/*
+		 * TextView texta = (TextView)
+		 * context.findViewById(R.layout.list_content); TextView
+		 * questionTextt=(TextView) rootView.findViewById(R.id.text1); Button
+		 * btn=(Button) findViewById(R.id.demo_collection_button);
+		 */
+
+		SeekBar slider = new SeekBar(context);
+		int foo = Integer.parseInt(coef);
+		Log.w("SeekBar", "SeekBar Robo2: dMax: " + dMax);
+		Log.w("SeekBar", "SeekBar Robo2: foo: " + foo);
+
+		slider.setMax(foo);
+		// slider.setProgress(20);
+		slider.setTag(this);
+		String[] percent = { "0", "10", "20", "30", "40", "50" };
+
+		slider.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress,
+					boolean fromUser) {
+				// TODO Auto-generated method stub
+				progress = ((int) Math.round(progress / stepSize)) * stepSize;
+				seekBar.setProgress(progress);
+
+				val = String.valueOf(progress);
+				Log.w("SeekBar", "SeekBar Robo: progress: " + progress);
+				coef = val;
+
+			}
+		});
+		if (val != null) {
+
+			slider.setProgress(Integer.valueOf(val));
+			// ((Boolean.valueOf(val)));
+		}
+
 		return slider;
 
 	}
 
-
 	@Override
-	public void onItemSelected(AdapterView<?> parent, View view,int position, long id) {
+	public void onItemSelected(AdapterView<?> parent, View view, int position,
+			long id) {
 		// TODO Auto-generated method stub
 	}
-	
+
 	@Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) 
-    {
-        val=String.valueOf(progress);
-		Log.w("SeekBar", "SeekBar Robo1: progress: "+progress);
-		Log.w("SeekBar", "SeekBar Robo1: val: "+val);
+	public void onProgressChanged(SeekBar seekBar, int progress,
+			boolean fromUser) {
+		val = String.valueOf(progress);
+		Log.w("SeekBar", "SeekBar Robo1: progress: " + progress);
+		Log.w("SeekBar", "SeekBar Robo1: val: " + val);
 		coef = val;
 
-    }
-	
+	}
+
 	@Override
 	public String writeData() {
-		Log.w("SeekBar", "SeekBar Robo2WD: progress: this.val "+this.val);
-		Log.w("SeekBar", "SeekBar Robo2WD: name "+name);
-		Log.w("SeekBar", "SeekBar Robo2WD: coef "+coef);
-		
+		Log.w("SeekBar", "SeekBar Robo2WD: progress: this.val " + this.val);
+		Log.w("SeekBar", "SeekBar Robo2WD: name " + name);
+		Log.w("SeekBar", "SeekBar Robo2WD: coef " + coef);
+
 		String outBuf = "";
-		outBuf+=this.val;
-		if(name!=null)
-		{
+		outBuf += this.val;
+		if (name != null) {
 			// remooved if //
-			question.evaluator.putVariable(name, coef);		
+			question.evaluator.putVariable(name, coef);
 		}
 		return outBuf;
 	}
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		 val=String.valueOf(checkBox.isChecked()); 
-		 //val=Long.valueOf(Listener.this);
+		val = String.valueOf(checkBox.isChecked());
+		// val=Long.valueOf(Listener.this);
 
 	}
-    
 
-
-	
 	@Override
 	public String writeDataToPdf() {
-		Log.w("SeekBar", "SeekBar Robo3Pdf: name: "+name);
-		Log.w("SeekBar", "SeekBar Robo3Pdf: coef: "+coef);
-		Log.w("SeekBar", "SeekBar Robo3Pdf: val: "+this.val);
+		Log.w("SeekBar", "SeekBar Robo3Pdf: name: " + name);
+		Log.w("SeekBar", "SeekBar Robo3Pdf: coef: " + coef);
+		Log.w("SeekBar", "SeekBar Robo3Pdf: val: " + this.val);
 
 		String outBuf = "";
-		//if(Boolean.valueOf(val))
-			outBuf+=val;
-	    // CHANGED .............
-		if(name!=null)
-		{		
-			question.evaluator.putVariable(name, coef);	
+		// if(Boolean.valueOf(val))
+		outBuf += val;
+		// CHANGED .............
+		if (name != null) {
+			question.evaluator.putVariable(name, coef);
 		}
 		return outBuf;
 	}
 
-
 	/*	*/
 	@Override
-	public int validate()
-	{
-		// Log.w("Radio boolean validate()77:", "this.isValidCount:"+this.isValidCount);
+	public int validate() {
+		// Log.w("Radio boolean validate()77:",
+		// "this.isValidCount:"+this.isValidCount);
 		// return this.isValidCount;
-		  int tst=1;
-		  return tst;
+		int tst = 1;
+		return tst;
 	}
+
 	@Override
-	public int validate(String albertRadioTest)
-	{	//ToDo	
-		int isValidNr =1 ;
-		Log.w(">>>999 RadioVaid(it):", "albertRadioTest: "+albertRadioTest);
+	public int validate(String albertRadioTest) { // ToDo
+		int isValidNr = 1;
+		Log.w(">>>999 RadioVaid(it):", "albertRadioTest: " + albertRadioTest);
 		// return this.isValidCount;
-		// return isValidCount; 
-		return isValidNr; 
+		// return isValidCount;
+		return isValidNr;
 
 	}
+
 	@Override
-	public String validate(String albertRadioTest,String albertRadioName, Activity context )
-	{		
-		// this.isGroupValidated ??? ------------------------------------------------------------------------------------------------------------------------------
-		Toast myToast = Toast.makeText(context, "007 albertRadioTest:"+albertRadioTest, Toast.LENGTH_SHORT);
+	public String validate(String albertRadioTest, String albertRadioName,
+			Activity context) {
+		// this.isGroupValidated ???
+		// ------------------------------------------------------------------------------------------------------------------------------
+		Toast myToast = Toast.makeText(context, "007 albertRadioTest:"
+				+ albertRadioTest, Toast.LENGTH_SHORT);
 		myToast.setGravity(Gravity.RIGHT, 0, 0);
-		myToast.show(); 
-		//=-----------------------------------------
-		String stringBox=albertRadioTest;
-		Log.w(">>>999 RadioVaid(it):", "albertRadioTest: "+albertRadioTest);
-		return stringBox; 
+		myToast.show();
+		// =-----------------------------------------
+		String stringBox = albertRadioTest;
+		Log.w(">>>999 RadioVaid(it):", "albertRadioTest: " + albertRadioTest);
+		return stringBox;
 
-	}	
+	}
 }

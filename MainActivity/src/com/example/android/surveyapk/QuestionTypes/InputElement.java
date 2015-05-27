@@ -1,4 +1,5 @@
 package com.example.android.surveyapk.QuestionTypes;
+
 import android.R.*;
 import android.text.Editable;
 import android.util.Log;
@@ -33,7 +34,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 
-public abstract class InputElement  {
+public abstract class InputElement {
 
 	String val;
 	Activity context;
@@ -42,22 +43,32 @@ public abstract class InputElement  {
 	public int row;
 	public String type;
 	public String radioBoxCount;
-	//************************************************
-	public InputElement(Question question)
-	{
+
+	// ************************************************
+	public InputElement(Question question) {
 		this.isValidCount = isValidCount;
-		this.question=question;
+		this.question = question;
 
 	}
-	public abstract View display(Activity context);
-	public abstract String writeData();
-	public abstract String writeDataToPdf();
-	public abstract int validate();
-	public abstract int validate(String albertRadioTest);
-	public abstract String validate(String albertRadioTest,String albertRadioName, Activity context );
-	//
-	public abstract void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser);
-	public abstract void onItemSelected(AdapterView<?> parent, View view, int position, long id); 
 
-   
+	public abstract View display(Activity context);
+
+	public abstract String writeData();
+
+	public abstract String writeDataToPdf();
+
+	public abstract int validate();
+
+	public abstract int validate(String albertRadioTest);
+
+	public abstract String validate(String albertRadioTest,
+			String albertRadioName, Activity context);
+
+	//
+	public abstract void onProgressChanged(SeekBar seekBar, int progress,
+			boolean fromUser);
+
+	public abstract void onItemSelected(AdapterView<?> parent, View view,
+			int position, long id);
+
 }

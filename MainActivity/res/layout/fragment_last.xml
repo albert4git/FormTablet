@@ -1,0 +1,61 @@
+<!--
+  Copyright 2012 The Android Open Source Project
+ROOT VIEW LAST PAGE
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+ <TextView
+     android:id="@+id/text1"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"  
+     android:gravity="center"
+     android:textSize="@dimen/mydimension" />
+
+    
+<ScrollView 
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent"     
+    android:layout_below="@+id/imageView1"
+    android:background="@drawable/lb2"
+    android:fillViewport='true' >
+    
+   
+    
+<LinearLayout 
+    android:textSize="@dimen/mydimension"
+    android:id="@+id/inputs_layout"
+    android:background="#6183A6"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@android:id/text1"
+    android:gravity="center"
+    android:orientation="horizontal" >
+    
+    <Button
+
+        android:id="@+id/buttonLL"    
+        android:layout_width="wrap_content"
+        android:layout_height="146dp"
+        android:layout_marginBottom="16dp"
+        android:textStyle="bold"    
+        android:background="#ccCCcc"
+        android:text="@string/finish"
+        android:minHeight="100dp"
+        android:minWidth="260dp"
+        android:layout_centerInParent="true"
+        android:textAllCaps="true"
+        android:textSize="20sp"      
+        android:theme="@android:style/Theme.Translucent"
+    />
+
+</LinearLayout>
+
+
+</ScrollView>   
+
+
+
+</LinearLayout>

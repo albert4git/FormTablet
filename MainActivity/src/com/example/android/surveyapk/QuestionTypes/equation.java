@@ -20,27 +20,28 @@ import android.widget.ImageView; //1
 public class equation {
 	public int id;
 	public String equation;
-	Evaluator evaluator ;
-	public equation(Question question) {	
+	Evaluator evaluator;
+
+	public equation(Question question) {
 		// TODO Auto-generated constructor stub
 		evaluator = new Evaluator();
-        Log.w("666", "6666 iSCORE6: equation6: "+equation);
-		
+		Log.w("666", "6666 iSCORE6: equation6: " + equation);
+
 	}
-	void eval(){
-        Log.w("777", "7777 iSCORE7: equation7: "+equation);
 
-	       String result=null;
-	       evaluator.putVariable("a", "2");
-	       try {
-				result=evaluator.evaluate("#{a}*5");
-		        Log.w("888", "8888 iSCORE8: result8: "+result);
+	void eval() {
+		Log.w("777", "7777 iSCORE7: equation7: " + equation);
 
-			} catch (EvaluationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		String result = null;
+		evaluator.putVariable("a", "2");
+		try {
+			result = evaluator.evaluate("#{a}*5");
+			Log.w("888", "8888 iSCORE8: result8: " + result);
+
+		} catch (EvaluationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-	
+	}
 
 }

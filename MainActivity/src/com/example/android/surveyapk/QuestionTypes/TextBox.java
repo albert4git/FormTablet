@@ -1,4 +1,5 @@
 package com.example.android.surveyapk.QuestionTypes;
+
 import android.R.*;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -41,60 +42,60 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.EditorInfo;
 import android.widget.LinearLayout;
 
-public class TextBox extends  InputElement  implements TextWatcher
-{	
+public class TextBox extends InputElement implements TextWatcher {
 	Question question;
 	public String defaultText;
-	public String name=null;
+	public String name = null;
 
 	EditText textbox;
 	TextBox textBox2; // Add !!
+
 	public TextBox(Question question) {
 		super(question);
-		this.question=question;
-		
+		this.question = question;
+
 	}
 
 	@Override
 	public View display(Activity context) {
 		// Toast.makeText(context, " textbox :", Toast.LENGTH_LONG).show();
-		 textbox = new EditText(context) ;
-		 // textBox = new TextBox("Test WebService", stringBuffer.toString(), 1024, 0); 
-	     // textBox2 = new TextBox("", "", 256, 0);		 
-	     textbox.setBackgroundResource(R.drawable.border5); //SUPER oder      
-	       // Button btn=(Button) findViewById(R.id.demo_collection_button);
-           // TextView text = (TextView) layout.findViewById(R.id.textToShow);
-		   // public  EditText edCommentIs;
-		   // textbox = (EditText) findViewById(R.id.commentIs); // flusheshier ? 
+		textbox = new EditText(context);
+		// textBox = new TextBox("Test WebService", stringBuffer.toString(),
+		// 1024, 0);
+		// textBox2 = new TextBox("", "", 256, 0);
+		textbox.setBackgroundResource(R.drawable.border5); // SUPER oder
+		// Button btn=(Button) findViewById(R.id.demo_collection_button);
+		// TextView text = (TextView) layout.findViewById(R.id.textToShow);
+		// public EditText edCommentIs;
+		// textbox = (EditText) findViewById(R.id.commentIs); // flusheshier ?
 
-		 textbox.setSingleLine();
-		 //textbox.setLines(5);
+		textbox.setSingleLine();
+		// textbox.setLines(5);
 
-		 textbox.addTextChangedListener(this);
-		 if (val!=null)
-			{
-			 textbox.setText(val);
-			}
-		 
-		 textbox.setTextSize(25);
-	        //textbox.setTextColor(Color.WHITE);
-	        //textbox.setBackgroundResource(R.drawable.border5); //SUPER oder
+		textbox.addTextChangedListener(this);
+		if (val != null) {
+			textbox.setText(val);
+		}
 
+		textbox.setTextSize(25);
+		// textbox.setTextColor(Color.WHITE);
+		// textbox.setBackgroundResource(R.drawable.border5); //SUPER oder
 
 		return textbox;
 	}
 
 	@Override
-	public void onItemSelected(AdapterView<?> parent, View view,int position, long id) {
+	public void onItemSelected(AdapterView<?> parent, View view, int position,
+			long id) {
 		// TODO Auto-generated method stub
 	}
-	
+
 	@Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) 
-    {
-    	//val=String.valueOf(progress);
-    }
-	
+	public void onProgressChanged(SeekBar seekBar, int progress,
+			boolean fromUser) {
+		// val=String.valueOf(progress);
+	}
+
 	@Override
 	public void onTextChanged(CharSequence s, int start, int before, int count) {
 
@@ -102,74 +103,79 @@ public class TextBox extends  InputElement  implements TextWatcher
 
 	@Override
 	public void afterTextChanged(Editable s) {
-		val=textbox.getText().toString();
+		val = textbox.getText().toString();
 		System.out.println(val);
-		
+
 	}
 
 	@Override
 	public void beforeTextChanged(CharSequence s, int start, int count,
 			int after) {
-		
+
 	}
-
-
-
 
 	@Override
 	public String writeData() {
 		String outBuf = "";
-		outBuf+=this.val;
+		outBuf += this.val;
 		return outBuf;
 	}
 
 	@Override
 	public String writeDataToPdf() {
 		String outBuf = "";
-		outBuf+=this.val;
-		
-        MainActivity.alphaDef+=  ", `"+question.name+"-"+name+"` TEXT";
-        MainActivity.alphaName+=", "+question.name+"-"+name;
-        MainActivity.alphaVal+=",'"+val+"'";
-		 Log.w("SeekBar", " Robo3Pdf: gras34 MainActivity.alphaName: "+MainActivity.alphaName );
-		 Log.w("SeekBar", " Robo3Pdf: gras35 MainActivity.alphaVal: "+MainActivity.alphaVal );
-		 Log.w("SeekBar", " Robo3Pdf: gras36 MainActivity.alphaDef: "+MainActivity.alphaDef );
-		 Log.w("ANGARA", "  ANGARA2 MainActivity.alphaName: "+MainActivity.alphaName );
-		 Log.w("ANGARA", "  ANGARA2 MainActivity.alphaVal: "+MainActivity.alphaVal );
+		outBuf += this.val;
+
+		MainActivity.alphaDef += ", `" + question.name + "-" + name + "` TEXT";
+		MainActivity.alphaName += ", " + question.name + "-" + name;
+		MainActivity.alphaVal += ",'" + val + "'";
+		Log.w("SeekBar", " Robo3Pdf: gras34 MainActivity.alphaName: "
+				+ MainActivity.alphaName);
+		Log.w("SeekBar", " Robo3Pdf: gras35 MainActivity.alphaVal: "
+				+ MainActivity.alphaVal);
+		Log.w("SeekBar", " Robo3Pdf: gras36 MainActivity.alphaDef: "
+				+ MainActivity.alphaDef);
+		Log.w("ANGARA", "  ANGARA2 MainActivity.alphaName: "
+				+ MainActivity.alphaName);
+		Log.w("ANGARA", "  ANGARA2 MainActivity.alphaVal: "
+				+ MainActivity.alphaVal);
 		return outBuf;
 	}
-	
+
 	/*	*/
 	@Override
-	public int validate()
-	{
-	// Log.w("Radio boolean validate()77:", "this.isValidCount:"+this.isValidCount);
-	// return this.isValidCount;
-	  int tst=1;
-	  return tst;
-
-	}
-	@Override
-	public int validate(String albertRadioTest)
-	{	//ToDo	
-		int isValidNr =1 ;
-		Log.w(">>>999 RadioVaid(it):", "albertRadioTest: "+albertRadioTest);
+	public int validate() {
+		// Log.w("Radio boolean validate()77:",
+		// "this.isValidCount:"+this.isValidCount);
 		// return this.isValidCount;
-		// return isValidCount; 
-		return isValidNr; 
+		int tst = 1;
+		return tst;
 
 	}
+
 	@Override
-	public String validate(String albertRadioTest,String albertRadioName, Activity context )
-	{		
-		// this.isGroupValidated ??? ------------------------------------------------------------------------------------------------------------------------------
-		Toast myToast = Toast.makeText(context, "007 albertRadioTest:"+albertRadioTest, Toast.LENGTH_SHORT);
+	public int validate(String albertRadioTest) { // ToDo
+		int isValidNr = 1;
+		Log.w(">>>999 RadioVaid(it):", "albertRadioTest: " + albertRadioTest);
+		// return this.isValidCount;
+		// return isValidCount;
+		return isValidNr;
+
+	}
+
+	@Override
+	public String validate(String albertRadioTest, String albertRadioName,
+			Activity context) {
+		// this.isGroupValidated ???
+		// ------------------------------------------------------------------------------------------------------------------------------
+		Toast myToast = Toast.makeText(context, "007 albertRadioTest:"
+				+ albertRadioTest, Toast.LENGTH_SHORT);
 		myToast.setGravity(Gravity.RIGHT, 0, 0);
-		myToast.show(); 
-		//=-----------------------------------------
-		String stringBox=albertRadioTest;
-		Log.w(">>>999 RadioVaid(it):", "albertRadioTest: "+albertRadioTest);
-		return stringBox; 
+		myToast.show();
+		// =-----------------------------------------
+		String stringBox = albertRadioTest;
+		Log.w(">>>999 RadioVaid(it):", "albertRadioTest: " + albertRadioTest);
+		return stringBox;
 
 	}
 }

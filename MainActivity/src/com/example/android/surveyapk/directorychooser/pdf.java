@@ -14,7 +14,6 @@ package com.example.android.surveyapk.directorychooser;
  * itext-questions@lists.sourceforge.net
  */
 
-
 import java.io.FileOutputStream;
 
 import com.lowagie.text.Document;
@@ -41,12 +40,16 @@ public class pdf {
 		Document document = new Document(PageSize.A4.rotate(), 10, 10, 10, 10);
 		try {
 			// step2
-			PdfWriter.getInstance(document, new FileOutputStream(android.os.Environment.getExternalStorageDirectory() + java.io.File.separator + "droidtext" + java.io.File.separator + "AddBigTable.pdf"));
+			PdfWriter.getInstance(document, new FileOutputStream(
+					android.os.Environment.getExternalStorageDirectory()
+							+ java.io.File.separator + "droidtext"
+							+ java.io.File.separator + "AddBigTable.pdf"));
 			// step3
 			document.open();
 			// step4
-			String[] bogusData = { "M0065920", "SL", "FR86000P", "PCGOLD", "119000", "96 06", "2001-08-13", "4350",
-					"6011648299", "FLFLMTGP", "153", "119000.00" };
+			String[] bogusData = { "M0065920", "SL", "FR86000P", "PCGOLD",
+					"119000", "96 06", "2001-08-13", "4350", "6011648299",
+					"FLFLMTGP", "153", "119000.00" };
 			int NumColumns = 12;
 
 			PdfPTable datatable = new PdfPTable(NumColumns);
@@ -55,7 +58,8 @@ public class pdf {
 			datatable.setWidthPercentage(100); // percentage
 			datatable.getDefaultCell().setPadding(3);
 			datatable.getDefaultCell().setBorderWidth(2);
-			datatable.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+			datatable.getDefaultCell().setHorizontalAlignment(
+					Element.ALIGN_CENTER);
 			datatable.addCell("Clock #");
 			datatable.addCell("Trans Type");
 			datatable.addCell("Cusip");
@@ -91,4 +95,3 @@ public class pdf {
 		document.close();
 	}
 }
-
