@@ -4,6 +4,7 @@ package com.example.android.surveyapk;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,17 +13,20 @@ import net.sourceforge.jeval.EvaluationException;
 import net.sourceforge.jeval.Evaluator;
 import com.example.android.effectivenavigation.R;
 import com.example.android.surveyapk.QuestionTypes.Mydata;
+import com.example.android.surveyapk.asignature.SignatureView;
 import com.example.android.surveyapk.directorychooser.DirectoryChooserDialog;
 import com.example.android.surveyapk.directorychooser.pdf;
 import android.R.layout;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
+import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -41,8 +45,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DigitalClock;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -86,9 +92,11 @@ public class MainActivity extends Activity{
 	public static String topEquation6 ="null"; 
 	public static String topEquation7 ="null"; 
 	public static String topEquation8 ="null"; 
-	
+	public static String topEquation9 ="null"; 
+
 	public static Long theID;
 	public static String sname; 
+	public static String surveyName; 
 
 	public static String strGenderIs; 
 	public static String strGroupIs;
@@ -119,6 +127,7 @@ public class MainActivity extends Activity{
 
     public void onCreate(Bundle savedInstanceState) {
     	
+       	
         super.onCreate(savedInstanceState);
         //Creation theory !!!
         //setContentView(R.layout.activity_collection_demo);
@@ -128,22 +137,23 @@ public class MainActivity extends Activity{
 
         l.setBackgroundColor(Color.BLUE); // DKGRAY
         l.setBackgroundResource(R.drawable.border2); //SUPER oder
-        TextView label= new TextView(this);
-        Evaluator evaluator = new Evaluator();
-        String result=null;
-        evaluator.putVariable("a", "2");
-        try {
-        	
-			result=evaluator.evaluate("#{a}*5");
-			Log.w("MainAct", "--- iSCORE-A5 !evaluator.evaluate! result: "+result);
-
-		} catch (EvaluationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        label.setText(result);
-        l.addView(label);
-        //-----check-------
+        //-----------------------------------------------------------------
+		        TextView label= new TextView(this);
+		        Evaluator evaluator = new Evaluator();
+		        String result=null;
+		        evaluator.putVariable("a", "2");
+		        try {
+		        	
+					result=evaluator.evaluate("#{a}*5");
+					Log.w("MainAct", "--- iSCORE-A5 !evaluator.evaluate! result: "+result);
+		
+				} catch (EvaluationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		        label.setText(result);
+		        // l.addView(label);
+        //-----check---------------------------------------------------------
         subjectName = (EditText) findViewById(R.id.name); // flushes hier ?
         // subjectDign = (EditText) findViewById(R.id.dign); // Nr1
         edCommentIs = (EditText) findViewById(R.id.commentIs); // flusheshier ? 
@@ -287,9 +297,54 @@ public class MainActivity extends Activity{
 		            @Override
 		            public void onClick(View v) {
 		            	m_chosenDir = "";
+						//  SignatureView mSignature;
+						//  mSignature = (SignatureView) findViewById(R.id.signaturePad);
+
 		            }
 		        });	// reset listener !
 
+		        //--------------------------------------------
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(new Date(System.currentTimeMillis()));
+				int hours = calendar.get(Calendar.HOUR_OF_DAY);
+				int minutes = calendar.get(Calendar.MINUTE);
+				int seconds = calendar.get(Calendar.SECOND);
+				int day = calendar.get(Calendar.DAY_OF_MONTH);
+				int month = calendar.get(Calendar.MONTH)+1;
+				int year = calendar.get(Calendar.YEAR);
+		        String mTimeString = year+"-"+month+"-"+day; 	       
+
+		        //-----------
+		        TextView labelm = new TextView(getBaseContext());
+				labelm.setText(mTimeString);
+			    labelm.setTextSize(35);
+		        labelm.setPadding(5, 4, 3, 3);
+		        labelm.setGravity(Gravity.CENTER );
+		        labelm.setTextColor(Color.WHITE);
+		        labelm.setBackgroundColor(Color.BLACK);
+
+		        l.addView(labelm);		          
+
+               //----------------------------------------------------------------------------------
+		          // DigitalClock digital = (DigitalClock) findViewById(R.id.digital_clock);
+		          final DigitalClock clk = new DigitalClock (MainActivity.this);
+		          //--------------
+		          RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams ((int) LayoutParams.WRAP_CONTENT, (int) LayoutParams.WRAP_CONTENT);		          
+		          params.addRule(RelativeLayout.CENTER_IN_PARENT);		          
+		          clk.setTextSize(30);	
+		          clk.setBackgroundColor(Color.DKGRAY);
+		          //- clk.setTextColor(Color.GREEN);
+		          clk.setGravity(Gravity.CENTER_HORIZONTAL); 
+		          l.addView(clk);		          
+		          clk.setOnClickListener(new View.OnClickListener() {		  			
+			  			@Override
+				  		public void onClick(View v) {
+				  			// TODO Auto-generated method stub		  				
+				  			Toast.makeText(getBaseContext(), clk.getText().toString(), Toast.LENGTH_SHORT).show();
+				  		}
+			  	    });        
+		          
+		        
   }
         //  l.addView(btn);
     

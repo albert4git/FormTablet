@@ -115,7 +115,6 @@ android:text="Diagnose:       "
 android:textSize="25sp" />        
 <Spinner
 android:id="@+id/diagnoseIs"
-android:background="@drawable/spinner_background" 
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
 android:layout_marginRight="20dp"
@@ -145,7 +144,6 @@ android:text="Mann/Frau:    "
 android:textSize="25sp" />      
 <Spinner
 android:id="@+id/genderIs"
-android:background="@drawable/spinner_background" 
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
 android:layout_marginRight="20dp"
@@ -172,7 +170,6 @@ android:text="Alter:               "
 android:textSize="25sp" />        
 <Spinner
 android:id="@+id/ageIs"
-android:background="@drawable/spinner_background" 
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
 android:layout_marginRight="20dp"
@@ -200,7 +197,6 @@ android:text="Studie:                       "
 android:textSize="25sp" />
 <Spinner
 android:id="@+id/studyIs"
-android:background="@drawable/spinner_background" 
 android:maxLength="50"
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
@@ -229,7 +225,6 @@ android:text="Arbeitsgruppe:        "
 android:textSize="25sp" />
 <Spinner
 android:id="@+id/groupIs"
-android:background="@drawable/spinner_background" 
 android:maxLength="50"
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
@@ -258,7 +253,6 @@ android:text="Subject/Patient:      "
 android:textSize="25sp" />
 <Spinner
 android:id="@+id/subjectIs"
-android:background="@drawable/spinner_background" 
 android:maxLength="50"
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
@@ -287,7 +281,6 @@ android:text="Wiederholer:            "
 android:textSize="25sp" />
 <Spinner
 android:id="@+id/againIs"
-android:background="@drawable/spinner_background" 
 android:maxLength="50"
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
@@ -316,7 +309,6 @@ android:text="Behandlung:             "
 android:textSize="25sp" />
 <Spinner
 android:id="@+id/treatmentIs"
-android:background="@drawable/spinner_background" 
 android:maxLength="50"
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
@@ -345,7 +337,6 @@ android:text="Medikation:              "
 android:textSize="25sp" />
 <Spinner
 android:id="@+id/pharmaIs"
-android:background="@drawable/spinner_background" 
 android:maxLength="50"
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
@@ -374,7 +365,6 @@ android:text="Dosierung:                "
 android:textSize="25sp" />
 <Spinner
 android:id="@+id/doseIs"
-android:background="@drawable/spinner_background" 
 android:textSize="24dp"     
 android:maxLength="50"
 android:layout_width="match_parent"
@@ -498,8 +488,8 @@ android:layout_width="match_parent"
 android:layout_height="wrap_content"
 android:gravity="center_vertical"
 android:background="#555555"
-android:maxHeight="400dp"
-android:minHeight="400dp" 
+android:maxHeight="358dp"
+android:minHeight="340dp" 
 android:textAlignment="center" >
 
 </LinearLayout>
@@ -509,10 +499,16 @@ android:layout_width="fill_parent"
 android:layout_height="wrap_content"
 android:background="#FFFFFF" >
 <TextView 
-android:id="@+id/TextView9" android:text="SurveyAPK"
-android:layout_weight="1" android:background="#dcdcdc"
+android:id="@+id/TextView9" 
+android:text="4Survey"
+android:layout_weight="1" 
+android:background="#dcdcdc"
+android:maxHeight="70dp"
+android:minHeight="60dp" 
 android:textColor="#000000"
-android:padding="20dip" android:gravity="center"/>  
+android:padding="20dip" 
+android:textSize="20dp"   
+android:gravity="center"/>  
 </TableLayout>
 
 </LinearLayout>

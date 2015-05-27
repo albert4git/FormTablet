@@ -214,10 +214,17 @@ public class Radio extends InputElement {
 			
 		}
 		String outBuf = "";
-		if(Boolean.valueOf(val))
-		outBuf+="X";
-		
-     
+
+		if(Boolean.valueOf(val)){
+			if(  text.contains("Ja") ||
+				 text.contains("Nein")	
+					){ 
+				outBuf+=text;
+
+			} else {
+			outBuf+="   X";
+					}
+		}
 		return outBuf;
 	}
 

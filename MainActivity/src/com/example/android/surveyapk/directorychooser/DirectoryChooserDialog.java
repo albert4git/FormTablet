@@ -114,11 +114,17 @@ public class DirectoryChooserDialog
         iSER ="YT55LFDMTKKJMRZ9";  // wolf 93d6a68807c4f1c8
      	iSER ="8ed02d3207ca75df"; // samsung weiss HB1 // origin 
         iSER ="93d6a68807c4f1c8";  // GCBS	tDCS samsung
-        iSER ="YT55LFDMTKKJMRZ9";  // wolf 93d6a68807c4f1c8
     	iSER ="KN65QOWW9TSC5DQG"; // Valeri2    
         iSER ="93d6a68807c4f1c8";  // GCBS	tDCS samsung
+     	iSER ="8ed02d3207ca75df"; // samsung weiss green HB1 // origin 
+     	iSER ="a5e816e0077bb150";  // NeuroImmuno 2 8ed02d3207ca75df
      	iSER ="8ed02d3207ca75df"; // samsung weiss HB1 // origin 
-     	iSER ="a5e816e0077bb150";  // NeuroImmuno 2
+    	iSER ="PNLZEAKRJVJVCYZT"; // Valeri1
+     	iSER ="8ed02d3207ca75df"; // samsung weiss green HB1 // origin 
+
+     	iSER ="a5e816e0077bb150";  // NeuroImmuno 2 8ed02d3207ca75df DeepPurpel
+        iSER ="YT55LFDMTKKJMRZ9";  // wolf 93d6a68807c4f1c8
+     	iSER ="8ed02d3207ca75df"; // samsung weiss green HB1 // origin 
 
         
         int count = 0;
@@ -270,7 +276,9 @@ public class DirectoryChooserDialog
 	    //**     
         //***********SOF end log BORIS *****************************************************	
 	    //bemet 
-     	if (iYear < 2016  && buildSER.equals(iSER) )    {   	
+	    // if (iYear < 2016  && buildSER.equals(iSER) )     	
+
+     	if (iYear < 2016  )    {   	
         	// Toast.makeText(context,"Your Model is:" + buildModel +" Dev:"+ buildDev , Toast.LENGTH_LONG).show();
                  m_sdcardDirectory = Environment.getExternalStorageDirectory().getAbsolutePath()+"/4Survey/inbox";
 		 

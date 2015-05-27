@@ -12,10 +12,28 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
+  
+    <item>Multiple Sklerose vom schubförmigen Verlaufstyp</item>
+    <item>Multiple Sklerose vom schubförmigen Verlaufstyp mit inkompletter Remission</item>
+    <item>MS vom sekundär progredienten Verlaufstyp</item>
+    <item>MS vom primär progredienten Verlaufstyp</item>
+    <item>Andere Diagnosen</item>
+  
+         <item>Cerebellar ataxia</item>
+       <item>Downbeat nystagmus</item>
+       <item>Gleichgewichtsstörung</item>
+       <item>BPPV</item>
+       <item>Morbus Menière</item>
+       <item>Multifaktorielle Gangstörung</item>
+       <item>Phobischer Schwankschwindel</item>    
+       <item>Upbeat nystagmus</item>
+       <item>Vestibularisparoxysmie</item>
+       <item>Vestibuläre Migräne</item>
+        <item>Schwindel / Taumeln</item>   
   -->
 
 <resources>
-    <string name="app_name">SurveyAPK ABv4.5 </string>    
+    <string name="app_name">4Survey v.5 </string>    
     <string name="dummy_section_text">Section %1d is just a dummy section.</string>
     <string name="demo_collection"> Fragebogen </string>
         <string name="reset"> RESET ALL </string>
@@ -42,13 +60,19 @@
 
 <string name="diagnoseP">Diagnose</string>    
 <string-array name="diagnose">
-    <item>unbekannt</item>    
-	<item>CIS</item>
-	<item>Multiple Sklerose vom schubförmigen Verlaufstyp</item>
-	<item>Multiple Sklerose vom schubförmigen Verlaufstyp mit inkompletter Remission</item>
-	<item>MS vom sekundär progredienten Verlaufstyp</item>
-	<item>MS vom primär progredienten Verlaufstyp</item>
-	<item>Andere Diagnosen</item>
+    <item>unbekannt</item>           
+       <item>Cerebellar ataxia</item>
+       <item>Downbeat nystagmus</item>
+       <item>Gleichgewichtsstörung</item>
+       <item>BPPV</item>
+       <item>Morbus Menière</item>
+       <item>Multifaktorielle Gangstörung</item>
+       <item>Phobischer Schwankschwindel</item>    
+       <item>Upbeat nystagmus</item>
+       <item>Vestibularisparoxysmie</item>
+       <item>Vestibuläre Migräne</item>
+        <item>Schwindel / Taumeln</item>   
+    	              
 </string-array>
         
 <string name="againP">Wiederholler</string>    
@@ -58,12 +82,28 @@
 	<item>2Mal</item>
 	<item>3Mal</item>
 	<item>4Mal</item>
-	<item>5Mal</item>     
+	<item>5Mal</item>  
+	<item>6Mal</item>     
+    <item>7Mal</item>     
+    <item>8Mal</item>     
+    <item>9Mal</item>     
+    <item>10Mal</item>     
+    <item>11Mal</item>     
+    <item>12Mal</item>     
+    <item>13Mal</item>     
+    <item>14Mal</item>     
+    <item>15Mal</item>     
+    <item>16Mal</item>     
+    <item>17Mal</item>     
+    <item>18Mal</item>     
+    <item>19Mal</item>     
+    <item>20Mal</item>     
 </string-array>
 
 <string name="studyP">Studie</string>    
 <string-array name="study">
 	<item>no</item>  
+	<item>tDCS</item>	
 	<item>EEG-LMU</item>  
 	<item>MS-Multiple Sklerose</item>
 	<item>tDCS-GCBS</item>
@@ -72,7 +112,8 @@
 
 <string name="agroupP">Studie</string>    
 <string-array name="agroup">        
-	<item>no</item>  
+	<item>no</item> 
+	 <item>LMU AG Kirsch </item>  
 	<item>Berlin AG1 </item>  
 	<item>Bochum AG2 </item>         
 	<item>LMU Neuroimaging</item>  

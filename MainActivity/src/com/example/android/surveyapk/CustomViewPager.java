@@ -75,7 +75,7 @@ public boolean onTouchEvent(MotionEvent ev)
 	 
       //RadioButtonGroup.statBoxBuffer ="VW";
       RadioButtonGroup.statBoxBuffer =CollectionDemoActivity.albertEquationNow;
-	  Log.w("CVP ", "CVP $$$$$HH3.1   1001  DDD");
+	  Log.w("CVP ", "CVP $$$$HH3.1   1001  DDD");
 	  Log.w("03CVP onTouchEvent", "@1001 VW 333 onTouchEvent statBoxBuffer"+RadioButtonGroup.statBoxBuffer);
       Log.w("04CVP onTouchEvent", "@1001 VW 333 onTouchEvent statBoxBuffer"+RadioButtonGroup.statBoxBuffer);
    
@@ -90,13 +90,13 @@ public boolean onTouchEvent(MotionEvent ev)
  if(lockScroll) {
      //Toast.makeText(context, "##A swipe <<<!",   Toast.LENGTH_SHORT).show();
      // return false; // >> Dirction Rechts !
-	 Log.w("CVP ", "CVP $$$$$HH3   1001  DDD");
+	 Log.w("CVP ", "CVP $$$HH3   1001  DDD");
 
      return super.onTouchEvent(ev);
 
  } else {
        //Toast.makeText(context, "##B swipe >>>!",   Toast.LENGTH_SHORT).show();
- 	     Log.w("CVP ", "CVP $$$$$HH2   1001  DDD");
+ 	     Log.w("CVP ", "CVP $$$HH2   1001  DDD");
 
      return super.onTouchEvent(ev);
  }
@@ -106,7 +106,7 @@ public boolean onTouchEvent(MotionEvent ev)
 
 @Override // new 
 public boolean onInterceptTouchEvent(MotionEvent event) {
-    Log.w("CVP ", "CVP $$$$$HH0.2   1001  DDD");
+    Log.w("CVP ", "CVP $$$HH0.2   1001  DDD");
 
     if (enabled) {
         return super.onInterceptTouchEvent(event);
@@ -130,7 +130,7 @@ public boolean onInterceptTouchEvent(MotionEvent event) {
 public void setPagingEnabled(boolean enabled) {
     // ^^^^^^^^???^^^^^^^^
     this.enabled = enabled;
-     Log.w("CVP ", "CVP $$$$$HH0   1001  DDD");
+     Log.w("CVP ", "CVP $$$HH0   1001  DDD");
 
 } 
 //****************************************************************
@@ -138,7 +138,7 @@ public void setPagingEnabled(boolean enabled) {
 public void setOnSwipeOutListener(OnSwipeOutListener listener)
 {   // ^^^^^^^^???^^^^^^^^ pop am anfang
     //Toast.makeText(context, "##4 Please fill in the details, then swipe !", Toast.LENGTH_LONG).show();
-    Log.w("CVP ", "CVP $$$$$HH0.1   1001  DDD");
+    Log.w("CVP ", "CVP $$$$HH0.1   1001  DDD");
 
     Log.w("CVP setOnSwipeOutListener", "CVP HoerZu1 onSwipeOut 1001 CustomViewPager DDD");
     mListener = listener;

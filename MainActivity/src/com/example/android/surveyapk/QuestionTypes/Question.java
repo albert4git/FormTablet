@@ -91,7 +91,6 @@ public class Question
 	public int qFlag = 0;
 	public int qFlag2 = 0;
 
-
 	public List <InputElement> inputs;
 	int width,height;
 	public Evaluator evaluator;
@@ -193,7 +192,6 @@ public class Question
 		     RadioButtonGroup.q_IMG_Flag = 0; 
 	         RadioButtonGroup.q_IMG = ""; 
 	         content2="";
-			 //_path= _path + "/" + "4Survay/tpj/lb4.jpg";
 
 	     if (   RadioButtonGroup.q_IMG_Flag > 0) { 
 
@@ -354,14 +352,12 @@ public class Question
 	    int ii =0;
 	       
 		for (InputElement input : inputs) {
-			if (ii == 0){
-			   String pod;
-			   pod = input.writeDataToPdf();
-			   
-			   Log.w("line ...", " gras pod: "+pod);				   
-
+			if (ii == 0){				   
 				if( DirectoryChooserDialog.delta <5 ){
-				   // PdfPCell cell = new PdfPCell(new Paragraph(pod));
+				   String pod;
+				   pod = input.writeDataToPdf();			   
+				   Log.w("line ...", " gras pod: "+pod);
+	               // ---- Content ---- //
 				   PdfPCell cell = new PdfPCell(new Phrase(pod, FontFactory.getFont(FontFactory.HELVETICA, 14)));
 				   cell.setBorderWidth(2);
 			       cell.setColspan(7);
@@ -369,17 +365,32 @@ public class Question
 				}
 			} else {
 				if( DirectoryChooserDialog.delta <5 ){
-					 Log.w("line ...", " gras pod2: else ");				   
-			         // datatable.addCell("Header 1"); // pic3
-				     datatable.addCell(input.writeDataToPdf());	
-				}
+					   String pod;
+					   pod = input.writeDataToPdf();			   
+					   Log.w("line ...", " gras pod: "+pod);
+		               // ---- Content ---- //
+						if(  pod.contains(").") || pod.contains("      ") ){
+							   PdfPCell cell = new PdfPCell(new Phrase(pod, FontFactory.getFont(FontFactory.HELVETICA, 14)));
+							   cell.setBorderWidth(2);
+						       cell.setColspan(7);
+						       datatable.addCell(cell);
+						}else {
+							   PdfPCell cell = new PdfPCell(new Phrase(pod, FontFactory.getFont(FontFactory.HELVETICA, 14)));
+							   cell.setBorderWidth(1);
+						       //cell.setColspan(2);
+						       datatable.addCell(cell);
+						}
+
+					}
+			   //datatable.addCell(input.writeDataToPdf());	//ChurovSelect
+
 			}
 			ii ++;
 
 		}
-		  Log.w("line ...", " gras pod3: nach_else ");				   
+		   Log.w("line ...", " gras pod3: nach_else ");				   
 		   //String pod2=" AERODROM  ";
-		   String pod2="   ";
+		   String pod2="   \n "; // TableEnd
 		   // PdfPCell cell = new PdfPCell(new Paragraph(pod));
 		   PdfPCell cell = new PdfPCell(new Phrase(pod2, FontFactory.getFont(FontFactory.HELVETICA, 14)));
 		   cell.setBorderWidth(0);

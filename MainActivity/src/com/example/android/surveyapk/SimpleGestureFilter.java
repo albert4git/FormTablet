@@ -138,12 +138,12 @@ public class SimpleGestureFilter extends SimpleOnGestureListener{
                 boolean result = false;
           
           if(velocityX > this.swipe_Min_Velocity && xDistance > this.swipe_Min_Distance){
-           if(e1.getX() > e2.getX()) // right to   
+           if(e1.getX() > e2.getX() ) // right to   
             {this.listener.onSwipe(SWIPE_LEFT);
    	         CustomViewPager.enabled = false; //$$$$$
    	  	     Log.w("CVP setOnSwipeOutListener", "CVP $$$$$HH1   1001  FALSE");
    	  	     Log.w("CVP setOnSwipeOutListener", "CVP HoerZu24  1001  DDD");
-       	     // Toast.makeText(context, "##2 Left!",   Toast.LENGTH_SHORT).show(); //suspend   
+       	     //Toast.makeText(context, "## Left | CustomViewPager.enabled = false",   Toast.LENGTH_SHORT).show(); //suspend   
              result = true;
             }
            else

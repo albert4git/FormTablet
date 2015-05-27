@@ -5,7 +5,41 @@
     android:background="#111177"
     android:orientation="vertical" 
     
-    >
+>
+
+<EditText
+   android:id="@+id/isNumber"
+   android:title="Max Amount"
+   android:background="#FF00FF"   
+   android:key="viewMax"
+   android:defaultValue="12"
+   android:hint="77"   
+   android:digits="0123456789"/>    
+    
+<EditText
+android:id="@+id/myNumber"
+    android:inputType="phone"
+    android:digits="1234567890"
+/> 
+
+<EditText
+android:id="@+id/mNumber"
+    android:inputType="phone"
+    android:digits="1234567890"
+/> 
+
+    
+<Spinner   
+    android:id="@+id/sp1"                                 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/spinner_border"
+    android:gravity="center"
+    android:paddingRight="10dp"
+    android:textColor="#11BB11"
+    android:textSize="35dp" 
+/>    
+    
     
 <Button
 android:id="@+id/bt3"

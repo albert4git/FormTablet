@@ -1,8 +1,11 @@
 package com.example.android.surveyapk;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,11 +14,28 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.Writer;
+import java.security.InvalidKeyException;
+import java.security.KeyFactory;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.PublicKey;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
+import java.security.interfaces.RSAPublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.RSAPublicKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
 
 import java.util.*;
@@ -27,11 +47,12 @@ import net.sourceforge.jeval.EvaluationException;
 import net.sourceforge.jeval.Evaluator;
 
 import org.apache.commons.io.FileUtils;
-import org.bouncycastle.openpgp.PGPPublicKey;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
+
+import repack.org.bouncycastle.crypto.generators.RSAKeyPairGenerator;
 
 import com.example.android.effectivenavigation.R;
 import com.example.android.surveyapk.QuestionTypes.*;
@@ -51,7 +72,10 @@ import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.Rectangle;
 import com.lowagie.text.Section;
+import com.lowagie.text.TextElementArray;
 import com.lowagie.text.pdf.CMYKColor;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import com.lowagie.text.pdf.codec.Base64.OutputStream;
 
@@ -62,8 +86,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.os.Environment;
 import android.renderscript.Font;
+//import android.util.Base64; //for apache.common
 import android.util.Log;
 import android.util.Xml;
 import android.view.Gravity;
@@ -74,8 +100,21 @@ import android.widget.Toast;
 import au.com.bytecode.opencsv.CSVWriter;
 //=====================================================
 import java.lang.Math;//in the top of my file
+import java.math.BigInteger;
+import java.net.MalformedURLException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+//?? import org.apache.commons.codec;
+import org.apache.commons.*;
+//import android.util.Base64; /// apache
+import org.apache.commons.codec.binary.Base64; //new
 // DATE CHANGER FILE ! ToDo here
 //Bouncy castle imports
+/*
+import org.bouncycastle.openpgp.PGPPublicKey;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.openpgp.PGPCompressedData;
 import org.bouncycastle.openpgp.PGPCompressedDataGenerator;
@@ -93,7 +132,10 @@ import org.bouncycastle.openpgp.PGPPublicKeyRingCollection;
 import org.bouncycastle.openpgp.PGPSecretKey;
 import org.bouncycastle.openpgp.PGPSecretKeyRingCollection;
 import org.bouncycastle.openpgp.PGPUtil;
-
+*/
+//import sun.misc.BASE64Encoder;
+//import sun.misc.BASE64Decoder;
+//import org.apache.commons.codec.binary.Base64
 
 public class QuestionParser {
 	
@@ -137,8 +179,7 @@ public class QuestionParser {
 		 Arrays.sort(files);
 		 questions=new ArrayList();
 		 surveys=new ArrayList();
-		 if(files.length==0)
-			 Toast.makeText(context, "No surveys found in the selected folder", Toast.LENGTH_SHORT);
+		 if(files.length==0) { Toast.makeText(context, "No surveys found in the selected folder", Toast.LENGTH_SHORT); }
 		 
 		 for (File file : files) {
 			 try {
@@ -295,10 +336,13 @@ private InputElement readInput(XmlPullParser parser,Question question) throws IO
 	if(type.equals("button"))
 	{
 		Log.w("-QP-", "B2B RBG100- kluch YYY0.3 ");
-
 		return readButtonM(parser,question);
 	}
-	
+	if(type.equals("buttonSgS"))
+	{
+		Log.w("-QP-", "B2B RBG100- kluch YYY0.3 ");
+		return readButtonSgS(parser,question);
+	}
 	if(type.equals("spinnt"))
 	{
 		Log.w("-QP-", "B2B RBG100- kluch YYY0.3 ");
@@ -323,10 +367,18 @@ private InputElement readInput(XmlPullParser parser,Question question) throws IO
 	{
 		return readImg(parser,question);
 	}
+	if(type.equals("sgcanvas"))
+	{
+		return sgCanvas(parser,question);
+	}
 	if(type.equals("editbox"))
 	{
 		return readMultiBox(parser,question);
-	}	
+	}
+	if(type.equals("edittextN"))
+	{
+		return readEditTextN(parser,question);
+	}
 	if(type.equals("edittext"))
 	{
 		return readEditText(parser,question);
@@ -336,11 +388,21 @@ private InputElement readInput(XmlPullParser parser,Question question) throws IO
 		return readCheckBox(parser,question);
 	}
 	else if(type.equals("textview"))
-	{
-		
+	{		
 		return readTextView(parser,question);
 	}
-	
+	else if(type.equals("textviewS"))
+	{		
+		return readTextViewS(parser,question);
+	}
+	else if(type.equals("textviewG"))
+	{		
+		return readTextViewG(parser,question);
+	}
+	else if(type.equals("textSgS"))
+	{		
+		return readTextViewV(parser,question);
+	}
 	else if(type.equals("radio"))
 	{
 		Log.w("-QP-", "B2B RBG100- kluch Radio YYY0.4 ");
@@ -397,6 +459,9 @@ private String readText(XmlPullParser parser) throws IOException, XmlPullParserE
 	        }
 	    }
 	 }
+//***************************************  ********************************************************
+//***************************************  *****************************************************  
+  
   private List readQuestions(XmlPullParser parser) throws XmlPullParserException, IOException {
 	     entries = new ArrayList();
 			Log.w("-QP-", "B2B RBG100- kluch1 YYY0.9 ");
@@ -408,16 +473,25 @@ private String readText(XmlPullParser parser) throws IOException, XmlPullParserE
 	    	cSurvey=surveys.get(surveys.size() - 1);
 	    	try {
 		    	cSurvey.equation=parser.getAttributeValue(null, "equation");
+		    	
 		    	MainActivity.topEquation2 =parser.getAttributeValue(null, "equation2");
 		    	MainActivity.topEquation3 =parser.getAttributeValue(null, "equation3");		    	
 		    	MainActivity.topEquation4 =parser.getAttributeValue(null, "equation4");
 		    	MainActivity.topEquation5 =parser.getAttributeValue(null, "equation5");
 		    	MainActivity.topEquation6 =parser.getAttributeValue(null, "equation6");
 		    	MainActivity.topEquation7 =parser.getAttributeValue(null, "equation7");
+		    	MainActivity.topEquation8 =parser.getAttributeValue(null, "equation8");
+		    	MainActivity.topEquation9 =parser.getAttributeValue(null, "equation9");
 
-				Log.w("-QP-", "1 MULL TAPOR iSCORE MainActivity.topEquation1: "+MainActivity.topEquation );
-				Log.w("-QP-", "2 MULL TAPOR iSCORE MainActivity.topEquation2: "+MainActivity.topEquation2 );
-				Log.w("-QP-", "3 MULL TAPOR iSCORE MainActivity.topEquation3: "+MainActivity.topEquation3 );
+		    	//? MainActivity.topEquation4 =parser.getAttributeValue(namespace, name)
+		    	
+				Log.w("-QP-", "0 MULL2  cSurvey.file: "+cSurvey.file );
+				Log.w("-QP-", "1 MULL2  cSurvey.equation: "+cSurvey.equation );
+				Log.w("-QP-", "2 MULL2  MainActivity.topEquation2: "+MainActivity.topEquation2 );
+				Log.w("-QP-", "3 MULL2  MainActivity.topEquation3: "+MainActivity.topEquation3 );
+				Log.w("-QP-", "4 MULL2  MainActivity.topEquation4: "+MainActivity.topEquation4 );
+				Log.w("-QP-", "4 MULL2 ===================-----===================: AAA");
+
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
@@ -429,7 +503,6 @@ private String readText(XmlPullParser parser) throws IOException, XmlPullParserE
 	        	 String name = parser.getName();
 	        if (name.equals("question")) {
 	            entries.add(readQuestion(parser));
-
 	            
 	        }
 	        else {
@@ -488,6 +561,16 @@ private InputElement readMPG(XmlPullParser parser,Question question) throws IOEx
 	    parser.require(XmlPullParser.END_TAG, ns, "input");
 	    return (InputElement) tb;
 	}
+//******* XXXX **********
+private InputElement sgCanvas(XmlPullParser parser,Question question) throws IOException, XmlPullParserException {
+	    sgCanvas tb=new sgCanvas(question);
+	   	parser.require(XmlPullParser.START_TAG, ns, "input");
+	    tb.defaultText = parser.getAttributeValue(null, "default"); 	
+	    tb.row=1+Integer.parseInt(parser.getAttributeValue(null, "row"));
+	    parser.next();
+	    parser.require(XmlPullParser.END_TAG, ns, "input");
+	    return (InputElement) tb;
+	}
   //**
   private String readImage(XmlPullParser parser) throws IOException,XmlPullParserException {
 		//MyLog.d(TAG, "readImage");
@@ -528,7 +611,44 @@ private InputElement readMPG(XmlPullParser parser,Question question) throws IOEx
 		    parser.require(XmlPullParser.END_TAG, ns, "input");
 		    return (InputElement) tb;
 		}
- //####################################################################################################################
+ //-----------------------------ButtonM----------------------------------------
+	  private InputElement readSwitchM(XmlPullParser parser,Question question) throws IOException, XmlPullParserException {
+		  	SwitchM cb=new SwitchM(question);
+		    parser.require(XmlPullParser.START_TAG, ns, "input");
+		    //cb.def=parser.getAttributeValue(null, "default");
+	   	    // cb.text =""+question.content; //-Nemez-
+	
+		    try {
+				cb.name=parser.getAttributeValue(null, "name");
+				// cb.coef=parser.getAttributeValue(null, "coefficient");	 
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+		    
+		    cb.row=1+Integer.parseInt(parser.getAttributeValue(null, "row"));
+		    parser.next();
+		    parser.require(XmlPullParser.END_TAG, ns, "input");
+		   	// i wish: question.RadioGroup.addToGroup(cb);
+			Log.w("-QP-", " spin100- kluch2 Spinn -RadioButtonGroup.statBoxBuffer: "+RadioButtonGroup.statBoxBuffer);
+			Log.w("-QP-", "B2B RBG100- kluch YYY0.2 ");
+	
+		    return (InputElement) cb;
+		}
+
+	//####################################################################################################################
+	  private InputElement readEditTextN(XmlPullParser parser,Question question) throws IOException, XmlPullParserException {
+		   	TextBoxN	tb=new TextBoxN(question);
+		   	parser.require(XmlPullParser.START_TAG, ns, "input");
+			tb.name=parser.getAttributeValue(null, "name");
+		    tb.defaultText = parser.getAttributeValue(null, "default"); 	
+		    tb.row=1+Integer.parseInt(parser.getAttributeValue(null, "row"));
+		    parser.next();
+		    parser.require(XmlPullParser.END_TAG, ns, "input");
+		    return (InputElement) tb;
+		}
+	 
+
+//####################################################################################################################
   private InputElement readEditText(XmlPullParser parser,Question question) throws IOException, XmlPullParserException {
 	   	TextBox	tb=new TextBox(question);
 	   	parser.require(XmlPullParser.START_TAG, ns, "input");
@@ -566,7 +686,33 @@ private InputElement readMPG(XmlPullParser parser,Question question) throws IOEx
 	    parser.require(XmlPullParser.END_TAG, ns, "input");
 	    return (InputElement) lb;
 	}
- 
+  //####################################################################################################################
+  private InputElement readTextViewS(XmlPullParser parser,Question question) throws IOException, XmlPullParserException {
+	   	LabelSpace	lb=new LabelSpace(question);
+	   	parser.require(XmlPullParser.START_TAG, ns, "input");
+	    lb.row=1+Integer.parseInt(parser.getAttributeValue(null, "row"));
+	    lb.text =""+readText(parser);	
+	    parser.require(XmlPullParser.END_TAG, ns, "input");
+	    return (InputElement) lb;
+	}
+  //####################################################################################################################
+  private InputElement readTextViewV(XmlPullParser parser,Question question) throws IOException, XmlPullParserException {
+	   	LabelV	lb=new LabelV(question);
+	   	parser.require(XmlPullParser.START_TAG, ns, "input");
+	    lb.row=1+Integer.parseInt(parser.getAttributeValue(null, "row"));
+	    lb.text =""+readText(parser);	
+	    parser.require(XmlPullParser.END_TAG, ns, "input");
+	    return (InputElement) lb;
+	}
+  //####################################################################################################################
+  private InputElement readTextViewG(XmlPullParser parser,Question question) throws IOException, XmlPullParserException {
+	   	LabelClock	lb=new LabelClock(question);
+	   	parser.require(XmlPullParser.START_TAG, ns, "input");
+	    lb.row=1+Integer.parseInt(parser.getAttributeValue(null, "row"));
+	    lb.text =""+readText(parser);	
+	    parser.require(XmlPullParser.END_TAG, ns, "input");
+	    return (InputElement) lb;
+	}
  //########################################################################################################################
  // Pic2
   private InputElement readTextViewContent(XmlPullParser parser,Question question) throws IOException, XmlPullParserException {
@@ -576,8 +722,7 @@ private InputElement readMPG(XmlPullParser parser,Question question) throws IOEx
 	    return (InputElement) lb;
 	    
 	}
- 
-//########################################################################################################################
+//#########################- RRR -#########################################################################################
   private InputElement readRadio(XmlPullParser parser,Question question) throws IOException, XmlPullParserException {
 	  	Radio	r=new Radio(question);
 	  	if(question.RadioGroup==null)
@@ -588,6 +733,7 @@ private InputElement readMPG(XmlPullParser parser,Question question) throws IOEx
 			r.name=parser.getAttributeValue(null, "name");
 			r.coef=parser.getAttributeValue(null, "coefficient");
 			r.def=parser.getAttributeValue(null, "default");			
+		    //r.text =""+readText(parser);	// what to do ??double
 
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -616,8 +762,8 @@ private InputElement readMPG(XmlPullParser parser,Question question) throws IOEx
 		    return (InputElement) cb;
 		}
 	//-----------------------------ButtonM----------------------------------------
-	  private InputElement readSwitchM(XmlPullParser parser,Question question) throws IOException, XmlPullParserException {
-		  	SwitchM cb=new SwitchM(question);
+	  private InputElement readButtonM(XmlPullParser parser,Question question) throws IOException, XmlPullParserException {
+		  	buttonM cb=new buttonM(question);
 		    parser.require(XmlPullParser.START_TAG, ns, "input");
 		    //cb.def=parser.getAttributeValue(null, "default");
 	   	    // cb.text =""+question.content; //-Nemez-
@@ -638,9 +784,9 @@ private InputElement readMPG(XmlPullParser parser,Question question) throws IOEx
 
 		    return (InputElement) cb;
 		}
-//-----------------------------ButtonM----------------------------------------
-	  private InputElement readButtonM(XmlPullParser parser,Question question) throws IOException, XmlPullParserException {
-		  	buttonM cb=new buttonM(question);
+		//-----------------------------ButtonM----------------------------------------
+	  private InputElement readButtonSgS(XmlPullParser parser,Question question) throws IOException, XmlPullParserException {
+		  	buttonSgS cb=new buttonSgS(question);
 		    parser.require(XmlPullParser.START_TAG, ns, "input");
 		    //cb.def=parser.getAttributeValue(null, "default");
 	   	    // cb.text =""+question.content; //-Nemez-
@@ -709,7 +855,7 @@ private InputElement readMPG(XmlPullParser parser,Question question) throws IOEx
 		}
 //-----------------------------ANGRIFF----------------------------------------
 	  private InputElement readSpinnerT(XmlPullParser parser,Question question) throws IOException, XmlPullParserException {
-		  	SpinnerM cb=new SpinnerM(question);
+		  	SpinnerT cb=new SpinnerT(question);
 		    parser.require(XmlPullParser.START_TAG, ns, "input");
 		    cb.def=parser.getAttributeValue(null, "default");
 	   	    cb.text =""+question.content; //-Nemez-
@@ -732,6 +878,7 @@ private InputElement readMPG(XmlPullParser parser,Question question) throws IOEx
 		}
 
 //-----------------------------/IRA/------------------------------------------------  
+//------------------------------//--------------------------------------------------  
   
 public void saveToFile(String filename,Context context){
 	// String iTimeString = null;
@@ -814,11 +961,8 @@ public void saveToFile(String filename,Context context){
 					
 				}
 	   		    Log.w("lastInd iiiF:", "iiiF: "+i);
-
-				lastInd=i;
-				
+				lastInd=i;				
 	   		    Log.w("lastInd iiiE:", "iiiE lastInd: "+lastInd);
-
                 // IRA ?
 				outer.write(outBuf);
 				outer.close();
@@ -826,8 +970,7 @@ public void saveToFile(String filename,Context context){
 				Toast toast = Toast.makeText(context,"Survey saved:"+name+filename , Toast.LENGTH_LONG);
 				toast.setGravity(Gravity.CENTER, 0, 0);
 				toast.show();
-				
-				
+								
 			} catch (IOException e) {
 				e.printStackTrace();
 				Toast.makeText(context, "Couldn't save"+filename , Toast.LENGTH_LONG).show();
@@ -905,11 +1048,17 @@ public void saveToPdf (String filename,String PatDign, Context context) {
 	String pathJ = rootA+"/4Survey/outbox/JSONbox/";
 	String pathH = rootA+"/4Survey/outbox/hist/";
 	//
+	//keyIn.close();
+	//RSAKeyPairGenerator r = new RSAKeyPairGenerator();
 	String pathK = rootA+"/4Survey/key/";
-	String pathKAB = rootA+"/4Survey/key/ABKEY.as";
-	// read the key 
+	String pathKAB = rootA+"/4Survey/key/ABKEY.asc";
 
 
+	// InputStream keyIn = new ByteArrayInputStream(pathKAB2);
+    //-- FileInputStream key = new FileInputStream("res/keys/public.bpg");
+    //-- PGPPublicKey pubKey = KeyBasedFileProcessorUtil.readPublicKey(key);
+	
+	
 	
     //__________________.BOX.______________________ //
 	Calendar calendar = Calendar.getInstance();
@@ -972,9 +1121,10 @@ public void saveToPdf (String filename,String PatDign, Context context) {
 			surveyFileName=surveyName[surveyName.length-1];
 			logErr+=surveyFileName+", ";
 			logErr+=MainActivity.sname+", ";
-
-            Log.w("Seide", " 1logic surveyFileName: "+surveyFileName );
-            Log.w("Seide", " 1logic filename: "+filename );
+			 MainActivity.surveyName = surveyFileName; 
+			 
+            Log.w("Seide", "MULL 1logic surveyFileName: "+surveyFileName );
+            Log.w("Seide", "MULL 1logic filename: "+filename );
             surveyFileName = surveyFileName.replace(".xml", "");
             Log.w("Seide", " 1logic surveyFileName2: "+surveyFileName );
             //--------------------------------------------------------------------------------
@@ -1067,7 +1217,10 @@ public void saveToPdf (String filename,String PatDign, Context context) {
 			document.open();
 			ByteArrayOutputStream stream = new ByteArrayOutputStream();
             // pdf-logo Logo LOGO 		
+			// Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.kirsh1);
+			//Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.nilogo);
 			Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.gcbs);
+
 			bitmap.compress(Bitmap.CompressFormat.JPEG /* FileType */, 100 /* Ratio */, stream);
 			Image jpg = Image.getInstance(stream.toByteArray());		
 			jpg.scalePercent(99f, 99f);
@@ -1153,7 +1306,9 @@ public void saveToPdf (String filename,String PatDign, Context context) {
  							if(entry.equation!=null){   
  							    bSc = entry.name+""; //mach_bar								
  								score=entry.evaluator.evaluate(entry.equation);
- 								scoreV += ""+entry.name+" score: "+score; 								
+ 								scoreV += ""+entry.name+" score: "+score; 	
+ 								cSurvey.evaluator.putVariable(bSc, score); // WOZU ?	DAZU							
+
  								MainActivity.alphaDef+=" ,`"+entry.name+"_score`"+" REAL";
  								MainActivity.alphaName+=" ,"+entry.name+"_score";
  								MainActivity.alphaVal+=" ,"+score+"";
@@ -1162,116 +1317,169 @@ public void saveToPdf (String filename,String PatDign, Context context) {
  								MainActivity.scoreName+=" ,"+entry.name+"_score";
  								MainActivity.scoreVal+=" ,"+score+"";
  								//MainActivity.betaIn="";
- 								cSurvey.evaluator.putVariable(entry.name, score); // WOZU ?	DAZU							
  						        Log.w("", "1 eradio ================================== 2");
  						        Log.w("", "1 eradio NAME: "+entry.name);
  						        Log.w("", "1 eradio entry.equation: "+entry.equation );
  						        Log.w("", "1 eradio bSc: "+bSc);	
  							}
- 							if(entry.eq2!=null){  
- 							    bSc = entry.name+"eq2"; //mach_bar
- 								score2=entry.evaluator.evaluate(entry.eq2);// weg damit
- 								scoreV += ", "+bSc+" score2: "+score2; 																
- 								MainActivity.alphaDef+=" ,`"+entry.name+"_score2`"+" REAL"; // add bSc ? 
- 								MainActivity.alphaName+=" ,"+entry.name+"_score2";
- 								MainActivity.alphaVal+=" ,"+score2+"";
- 								//*******
- 								MainActivity.scoreDef+=" ,`"+entry.name+"_score2`"+" REAL"; // add bSc ? 
- 								MainActivity.scoreName+=" ,"+entry.name+"_score2";
- 								MainActivity.scoreVal+=" ,"+score2+"";	
- 							    //2222222222222222222222222222222222222222222222222222222222222222
- 							    cSurvey.evaluator.putVariable(bSc, score2); 
- 						        Log.w("2", "2 eradio ================================== 2");
- 						        Log.w("2", "2 eradio NAME: "+entry.name);
- 						        Log.w("2", "2 eradio entry.eq2: "+entry.eq2);
- 						        Log.w("2", "2 eradio bSc: "+bSc);							    
- 							}
- 							if(entry.eq3!=null){  
- 							    bSc = entry.name+"eq3"; //mach_bar
- 								score3=entry.evaluator.evaluate(entry.eq3); // weg damit
- 								scoreV += ", "+bSc+" score3: "+score3; 								
- 								MainActivity.alphaDef+=" ,`"+entry.name+"_score3`"+" REAL";
- 								MainActivity.alphaName+=" ,"+entry.name+"_score3";
- 								MainActivity.alphaVal+=" ,"+score3+"";	
- 								//***
- 								MainActivity.scoreDef+=" ,`"+entry.name+"_score3`"+" REAL";
- 								MainActivity.scoreName+=" ,"+entry.name+"_score3";
- 								MainActivity.scoreVal+=" ,"+score3+"";	
- 							    //33333333333333333333333333333333333333333333333333333333333333333		
- 							    cSurvey.evaluator.putVariable(bSc, score3); 
- 						        Log.w("3", "3 eradio =================================== 3");
- 						        Log.w("3", "3 eradio NAME: "+entry.name);
- 						        Log.w("3", "3 eradio entry.eq3: "+entry.eq3);
- 						        Log.w("3", "3 eradio bSc: "+bSc);
- 							}
- 					         Log.w("bSc", "STOP: ============================== eradio STOP");							
- 							if(entry.eq4!=null){ 
- 							    bSc = entry.name+"eq4"; //mach_bar
- 								score4=entry.evaluator.evaluate(entry.eq4);// weg damit
- 								scoreV += ", "+entry.name+" score4: "+score4; 								
- 								MainActivity.alphaDef+=" ,`"+entry.name+"_score4`"+" REAL";
- 								MainActivity.alphaName+=" ,"+entry.name+"_score4";
- 								MainActivity.alphaVal+=" ,"+score4+"";
- 								//***
- 								MainActivity.scoreDef+=" ,`"+entry.name+"_score4`"+" REAL";
- 								MainActivity.scoreName+=" ,"+entry.name+"_score4";
- 								MainActivity.scoreVal+=" ,"+score4+"";
- 							    cSurvey.evaluator.putVariable(bSc, score4); 							    
- 							}
- 							if(entry.eq5!=null){  
- 							    bSc = entry.name+"eq5"; //mach_bar
- 								score5=entry.evaluator.evaluate(entry.eq5);// weg damit
- 								scoreV += ", "+entry.name+" score5: "+score5; 
- 								MainActivity.alphaDef+=" ,`"+entry.name+"_score5`"+" REAL";
- 								MainActivity.alphaName+=" ,"+entry.name+"_score5";
- 								MainActivity.alphaVal+=" ,"+score5+"";	
- 								//***
- 								MainActivity.scoreDef+=" ,`"+entry.name+"_score5`"+" REAL";
- 								MainActivity.scoreName+=" ,"+entry.name+"_score5";
- 								MainActivity.scoreVal+=" ,"+score5+"";
- 								
- 							    cSurvey.evaluator.putVariable(bSc, score5); 
- 							}
- 							if(entry.eq6!=null){  
- 							    bSc = entry.name+"eq6"; //mach_bar
- 								score6=entry.evaluator.evaluate(entry.eq6);// weg damit
- 								scoreV += ", "+entry.name+" score6: "+score6; 
- 								MainActivity.alphaDef+=" ,`"+entry.name+"_score6`"+" REAL";
- 								MainActivity.alphaName+=" ,"+entry.name+"_score6";
- 								MainActivity.alphaVal+=" ,"+score6+"";
- 								//***
- 								MainActivity.scoreDef+=" ,`"+entry.name+"_score6`"+" REAL";
- 								MainActivity.scoreName+=" ,"+entry.name+"_score6";
- 								MainActivity.scoreVal+=" ,"+score6+"";
- 							    cSurvey.evaluator.putVariable(bSc, score6); 
- 							}
- 							if(entry.eq7!=null){  
- 							    bSc = entry.name+"eq7"; //mach_bar
- 								score7=entry.evaluator.evaluate(entry.eq7);// weg damit
- 								scoreV += ", "+entry.name+" score7: "+score7; 
- 								MainActivity.alphaDef+=" ,`"+entry.name+"_score7`"+" REAL";
- 								MainActivity.alphaName+=" ,"+entry.name+"_score7";
- 								MainActivity.alphaVal+=" ,"+score7+"";
- 								//***
- 								MainActivity.scoreDef+=" ,`"+entry.name+"_score7`"+" REAL";
- 								MainActivity.scoreName+=" ,"+entry.name+"_score7";
- 								MainActivity.scoreVal+=" ,"+score7+"";								
- 							    cSurvey.evaluator.putVariable(bSc, score7); 
- 							}
-                             //---------------------------------------------------
+ 							try {
+								if(entry.eq2!=null){  
+								    bSc = entry.name+"eq2"; //mach_bar
+									score2=entry.evaluator.evaluate(entry.eq2);// weg damit
+									scoreV += ", "+bSc+" score2: "+score2; 		
+								    cSurvey.evaluator.putVariable(bSc, score2); 
 
- 							 try {
-                               //outBuf+=score+"\r\n";
-                               //csvValCont+=score+","; //minus;
-                               //weg subScore = score.substring(0,1); // 
-                               //subScore = csvValCont.replace(".0", ""); // BUND
-                               y = Integer.parseInt(subScore);
-                               //weg String needle ="Haendigkeit";							 
-                               //weg if(containsIgnoreCase( surveyFileName, needle))	{ y=y*10;}
-                               //*** sumScore+=y; *** BND , braucht man das ?
- 							 } catch (NumberFormatException e) {
-                               //do something! anything to handle the exception.
- 							 }							 
+									MainActivity.alphaDef+=" ,`"+entry.name+"_score2`"+" REAL"; // add bSc ? 
+									MainActivity.alphaName+=" ,"+entry.name+"_score2";
+									MainActivity.alphaVal+=" ,"+score2+"";
+									//*******
+									MainActivity.scoreDef+=" ,`"+entry.name+"_score2`"+" REAL"; // add bSc ? 
+									MainActivity.scoreName+=" ,"+entry.name+"_score2";
+									MainActivity.scoreVal+=" ,"+score2+"";	
+								    //2222222222222222222222222222222222222222222222222222222222222222
+								    Log.w("2", "2 eradio ================================== 2");
+								    Log.w("2", "2 eradio NAME: "+entry.name);
+								    Log.w("2", "2 eradio entry.eq2: "+entry.eq2);
+								    Log.w("2", "2 eradio bSc: "+bSc);							    
+								}
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+					   			logErr+="Problem with equation in survey #1252 | "+cSurvey.file+"eq2: "+entry.eq2+" | entryName: "+entry.name+"eq2" ;
+					   			for (int ik=0; ik < 3; ik++)
+					   			{
+									Toast.makeText(context, "Problem with equation in survey: "+cSurvey.file+"eq2: "+entry.eq2+" | entryName: "+entry.name+"eq2" , Toast.LENGTH_LONG).show();
+					   			}
+							}
+ 							try {
+								if(entry.eq3!=null){  
+								    bSc = entry.name+"eq3"; //mach_bar
+									score3=entry.evaluator.evaluate(entry.eq3); // weg damit
+									scoreV += ", "+bSc+" score3: "+score3; 
+								    cSurvey.evaluator.putVariable(bSc, score3); 
+
+									MainActivity.alphaDef+=" ,`"+entry.name+"_score3`"+" REAL";
+									MainActivity.alphaName+=" ,"+entry.name+"_score3";
+									MainActivity.alphaVal+=" ,"+score3+"";	
+									//***
+									MainActivity.scoreDef+=" ,`"+entry.name+"_score3`"+" REAL";
+									MainActivity.scoreName+=" ,"+entry.name+"_score3";
+									MainActivity.scoreVal+=" ,"+score3+"";	
+								    //33333333333333333333333333333333333333333333333333333333333333333		
+								    Log.w("3", "3 eradio =================================== 3");
+								    Log.w("3", "3 eradio NAME: "+entry.name);
+								    Log.w("3", "3 eradio entry.eq3: "+entry.eq3);
+								    Log.w("3", "3 eradio bSc: "+bSc);
+								}
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+					   			logErr+="Problem with equation in survey #1252 | "+cSurvey.file+"eq3: "+entry.eq3+" | entryName: "+entry.name+"eq3" ;
+					   			for (int ik=0; ik < 3; ik++)
+					   			{
+									Toast.makeText(context, "Problem with equation in survey: "+cSurvey.file+"eq3: "+entry.eq3+" | entryName: "+entry.name+"eq3" , Toast.LENGTH_LONG).show();
+					   			}
+							}
+ 					         Log.w("bSc", "STOP: ============================== eradio STOP");							
+ 							try {
+								if(entry.eq4!=null){ 
+								    bSc = entry.name+"eq4"; //mach_bar
+									score4=entry.evaluator.evaluate(entry.eq4);// weg damit
+									scoreV += ", "+entry.name+" score4: "+score4; 
+								    cSurvey.evaluator.putVariable(bSc, score4); 							    
+
+									MainActivity.alphaDef+=" ,`"+entry.name+"_score4`"+" REAL";
+									MainActivity.alphaName+=" ,"+entry.name+"_score4";
+									MainActivity.alphaVal+=" ,"+score4+"";
+									//***
+									MainActivity.scoreDef+=" ,`"+entry.name+"_score4`"+" REAL";
+									MainActivity.scoreName+=" ,"+entry.name+"_score4";
+									MainActivity.scoreVal+=" ,"+score4+"";
+								}
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+					   			logErr+="Problem with equation in survey #1252 | "+cSurvey.file+"eq4: "+entry.eq4+" | entryName: "+entry.name+"eq4" ;
+					   			for (int ik=0; ik < 3; ik++)
+					   			{
+									Toast.makeText(context, "Problem with equation in survey: "+cSurvey.file+"eq4: "+entry.eq4+" | entryName: "+entry.name+"eq4" , Toast.LENGTH_LONG).show();
+					   			}
+							}
+ 							try {
+								if(entry.eq5!=null){  
+								    bSc = entry.name+"eq5"; //mach_bar
+									score5=entry.evaluator.evaluate(entry.eq5);// weg damit
+									scoreV += ", "+entry.name+" score5: "+score5; 
+								    cSurvey.evaluator.putVariable(bSc, score5); 
+
+									MainActivity.alphaDef+=" ,`"+entry.name+"_score5`"+" REAL";
+									MainActivity.alphaName+=" ,"+entry.name+"_score5";
+									MainActivity.alphaVal+=" ,"+score5+"";	
+									//***
+									MainActivity.scoreDef+=" ,`"+entry.name+"_score5`"+" REAL";
+									MainActivity.scoreName+=" ,"+entry.name+"_score5";
+									MainActivity.scoreVal+=" ,"+score5+"";
+									
+								}
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+					   			logErr+="Problem with equation in survey #1252 | "+cSurvey.file+"eq5: "+entry.eq5+" | entryName: "+entry.name+"eq5" ;
+					   			for (int ik=0; ik < 3; ik++)
+					   			{
+									Toast.makeText(context, "Problem with equation in survey: "+cSurvey.file+"eq5: "+entry.eq5+" | entryName: "+entry.name+"eq5" , Toast.LENGTH_LONG).show();
+					   			}
+							}
+ 							try {
+								if(entry.eq6!=null){  
+								    bSc = entry.name+"eq6"; //mach_bar
+									score6=entry.evaluator.evaluate(entry.eq6);// weg damit
+									scoreV += ", "+entry.name+" score6: "+score6; 
+								    cSurvey.evaluator.putVariable(bSc, score6); 
+								  
+									MainActivity.alphaDef+=" ,`"+entry.name+"_score6`"+" REAL";
+									MainActivity.alphaName+=" ,"+entry.name+"_score6";
+									MainActivity.alphaVal+=" ,"+score6+"";
+									//***
+									MainActivity.scoreDef+=" ,`"+entry.name+"_score6`"+" REAL";
+									MainActivity.scoreName+=" ,"+entry.name+"_score6";
+									MainActivity.scoreVal+=" ,"+score6+"";
+								}
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+					   			logErr+="Problem with equation in survey #1252 | "+cSurvey.file+"eq6: "+entry.eq6+" | entryName: "+entry.name+"eq6" ;
+					   			for (int ik=0; ik < 3; ik++)
+					   			{
+									Toast.makeText(context, "Problem with equation in survey: "+cSurvey.file+"eq6: "+entry.eq6+" | entryName: "+entry.name+"eq6" , Toast.LENGTH_LONG).show();
+					   			}
+							}
+ 							try {
+								if(entry.eq7!=null){  
+								    bSc = entry.name+"eq7"; //mach_bar
+									score7=entry.evaluator.evaluate(entry.eq7);// weg damit
+									scoreV += ", "+entry.name+" score7: "+score7; 
+								    cSurvey.evaluator.putVariable(bSc, score7); 
+
+									MainActivity.alphaDef+=" ,`"+entry.name+"_score7`"+" REAL";
+									MainActivity.alphaName+=" ,"+entry.name+"_score7";
+									MainActivity.alphaVal+=" ,"+score7+"";
+									//***
+									MainActivity.scoreDef+=" ,`"+entry.name+"_score7`"+" REAL";
+									MainActivity.scoreName+=" ,"+entry.name+"_score7";
+									MainActivity.scoreVal+=" ,"+score7+"";								
+								}
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+					   			logErr+="Problem with equation in survey #1252 | "+cSurvey.file+"eq6: "+entry.eq6+" | entryName: "+entry.name+"eq6" ;
+					   			for (int ik=0; ik < 3; ik++)
+					   			{
+									Toast.makeText(context, "Problem with equation in survey: "+cSurvey.file+"eq6: "+entry.eq6+" | entryName: "+entry.name+"eq6" , Toast.LENGTH_LONG).show();
+					   			}
+							}
+                             //---------------------------------------------------
+							 
  							 if(entry.name!=null) {
  						        Log.w("SeekBar", " DAVIS iscore12 cSurvey.evaluator.putVariable(entry.name: "+entry.name);
  					        	Log.w("SeekBar", " DAVIS iscore12 cSurvey.evaluator.putVariable score: "+score);
@@ -1293,9 +1501,12 @@ public void saveToPdf (String filename,String PatDign, Context context) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (EvaluationException e) {
-		   			logErr+="Problem with equation in survey #809, ";
+		   			logErr+="Problem with equation in survey #1367, "+cSurvey.file+"equ: "+entry.equation+"name: "+entry.name;
 
-					Toast.makeText(context, "Problem with equation in survey "+cSurvey.file , Toast.LENGTH_LONG).show();
+		   			for (int ik=0; ik < 3; ik++)
+		   			{
+						Toast.makeText(context, "Problem with equation in survey: "+cSurvey.file+"equ: "+entry.equation+"name: "+entry.name , Toast.LENGTH_LONG).show();
+		   			}
 					e.printStackTrace();
 				}
 				scoreV = "";
@@ -1312,6 +1523,9 @@ public void saveToPdf (String filename,String PatDign, Context context) {
 			String tss5 = "";
 			String tss6 = "";
 			String tss7 = "";
+			String tss8 = "";
+			String tss9 = "";
+
 			// parser.getAttributeValue(null, "equation2");     //WIRD GEBRAUCHT WICHTIG!!!
 	    	// question.eq2= parser.getAttributeValue(null, "equation2");     //WIRD GEBRAUCHT WICHTIG!!!
 			Log.w("QP!", " fradio MainActivity.topEquation2: "+MainActivity.topEquation2);
@@ -1319,77 +1533,321 @@ public void saveToPdf (String filename,String PatDign, Context context) {
 			Log.w("QP!", " fradio ======================= === === ===");
 			//#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 			//#-#
-            /*
-			if(MainActivity.topEquation2!=null){  
-				 // tss2 = cSurvey.evaluator.evaluate(MainActivity.topEquation2); 
-		         try {
-		     		 String expression = "#{mq1} + #{q2} +#{q2}";
-		     		  expression = "10 + 52";
-			          Evaluator mEvaluator = new Evaluator();
-		             // tss2 = mEvaluator.evaluate(MainActivity.topEquation2);
-		             // tss2 = mEvaluator.evaluate(expression);
-		         } catch (EvaluationException e) {
-		             // TODO Auto-generated catch block
-		             e.printStackTrace();
-		         }	
-		
-				//******
-				Log.w("QP", " beta gama tss2 ii: "+tss2);			
-				 document.add(new Paragraph(" tss2: "+tss2+""));
-				//*******
-				MainActivity.alphaDef+=" ,`"+"topSubScore2`"+" REAL";
-				MainActivity.alphaName+=" ,"+"topSubScore2";
-				MainActivity.alphaVal+=" ,"+tss2+"";
-				//*******
-				MainActivity.scoreDef+=" ,`"+"topSubScore2`"+" REAL";
-				MainActivity.scoreName+=" ,"+"topSubScore2";
-				MainActivity.scoreVal+=" ,"+tss2+"";
+					
+				try {
+					if(MainActivity.topEquation2!=null){  
+						tss2 += cSurvey.evaluator.evaluate(MainActivity.topEquation2); 
+						cSurvey.evaluator.putVariable("eq2", tss2);
+
+						Log.w("QP", " beta gama tss2: "+tss2);			
+						document.add(new Paragraph(" tss2: "+tss2+""));
+						//*******
+						MainActivity.alphaDef+=" ,`"+"topSubScore2`"+" REAL";
+						MainActivity.alphaName+=" ,"+"topSubScore2";
+						MainActivity.alphaVal+=" ,"+tss2+"";
+						//*******
+						MainActivity.scoreDef+=" ,`"+"topSubScore2`"+" REAL";
+						MainActivity.scoreName+=" ,"+"topSubScore2";
+						MainActivity.scoreVal+=" ,"+tss2+"";
+						
+						
+						Log.w("QP!", " fradio MainActivity.topEquation2: "+MainActivity.topEquation2);
+						Log.w("QP!", " fradio tss2: "+tss2);
+					}
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+		   			logErr+="Problem with equation in survey #1252 | Top: "+cSurvey.file+"TOP eq2: "+MainActivity.topEquation2+" | "+" | "  ;
+		   			for (int ik=0; ik < 3; ik++)
+		   			{
+						Toast.makeText(context, "Problem with equation in survey: TOP: "+cSurvey.file+"TOP eq2: "+MainActivity.topEquation2+" | "+" | " , Toast.LENGTH_LONG).show();
+		   			}
+				}
 				
-				 cSurvey.evaluator.putVariable("eq2", tss2);				
-				Log.w("QP!", " BELKA2 fradio MainActivity.topEquation2 ii: "+MainActivity.topEquation2);
-				Log.w("QP!", " BELKA2 fradio tss2: "+tss2);
-			}
-			if(MainActivity.topEquation3!=null){  
-				// tss3 = cSurvey.evaluator.evaluate(MainActivity.topEquation3); 
-				Log.w("QP", " beta gama tss3 iii: "+tss3);
-				document.add(new Paragraph(" tss3: "+tss3+""));
-				//*******
-				MainActivity.alphaDef+=" ,`"+"topSubScore3`"+" REAL";
-				MainActivity.alphaName+=" ,"+"topSubScore3";
-				MainActivity.alphaVal+=" ,"+tss3+"";
-				//*******
-				MainActivity.scoreDef+=" ,`"+"topSubScore3`"+" REAL";
-				MainActivity.scoreName+=" ,"+"topSubScore3";
-				MainActivity.scoreVal+=" ,"+tss3+"";
-				
-				cSurvey.evaluator.putVariable("eq3", tss3);
-				
-				Log.w("QP!", " BELKA3 fradio MainActivity.topEquation3 iii: "+MainActivity.topEquation3);
-				Log.w("QP!", " BELKA3 tss3: "+tss3);
-			}
-            */
+				try {
+					if(MainActivity.topEquation3!=null){  
+						tss3 += cSurvey.evaluator.evaluate(MainActivity.topEquation3); 
+						cSurvey.evaluator.putVariable("eq3", tss3);
+
+						Log.w("QP", " beta gama tss3: "+tss3);
+						document.add(new Paragraph(" tss3: "+tss3+""));
+						//*******
+						MainActivity.alphaDef+=" ,`"+"topSubScore3`"+" REAL";
+						MainActivity.alphaName+=" ,"+"topSubScore3";
+						MainActivity.alphaVal+=" ,"+tss3+"";
+						//*******
+						MainActivity.scoreDef+=" ,`"+"topSubScore3`"+" REAL";
+						MainActivity.scoreName+=" ,"+"topSubScore3";
+						MainActivity.scoreVal+=" ,"+tss3+"";
+						
+						
+						Log.w("QP!", " fradio MainActivity.topEquation3: "+MainActivity.topEquation3);
+						Log.w("QP!", " fradio tss2: "+tss3);
+					}
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+		   			logErr+="Problem with equation in survey #1252 | Top: "+cSurvey.file+"TOP eq3: "+MainActivity.topEquation3+" | "+" | "  ;
+		   			for (int ik=0; ik < 3; ik++)
+		   			{
+						Toast.makeText(context, "Problem with equation in survey: TOP: "+cSurvey.file+"TOP eq3: "+MainActivity.topEquation3+" | "+" | " , Toast.LENGTH_LONG).show();
+		   			}
+				}
+				try {
+					if(MainActivity.topEquation4!=null){  
+						//NEW
+						tss4 += cSurvey.evaluator.evaluate(MainActivity.topEquation4); 
+						cSurvey.evaluator.putVariable("eq4", tss4);					
+
+						Log.w("QP", " beta gama tss4: "+tss4);
+						document.add(new Paragraph(" tss4: "+tss4+""));
+						//*******
+						MainActivity.alphaDef+=" ,`"+"topSubScore4`"+" REAL";
+						MainActivity.alphaName+=" ,"+"topSubScore4";
+						MainActivity.alphaVal+=" ,"+tss4+"";
+						//*******
+						MainActivity.scoreDef+=" ,`"+"topSubScore4`"+" REAL";
+						MainActivity.scoreName+=" ,"+"topSubScore4";
+						MainActivity.scoreVal+=" ,"+tss4+"";
+						
+						Log.w("QP!", " fradio MainActivity.topEquation4: "+MainActivity.topEquation4);
+						Log.w("QP!", " fradio tss4: "+tss4);
+					}
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+		   			logErr+="Problem with equation in survey #1252 | Top: "+cSurvey.file+"TOP eq4: "+MainActivity.topEquation4+" | "+" | "  ;
+		   			for (int ik=0; ik < 3; ik++)
+		   			{
+						Toast.makeText(context, "Problem with equation in survey: TOP: "+cSurvey.file+"TOP eq4: "+MainActivity.topEquation4+" | "+" | " , Toast.LENGTH_LONG).show();
+		   			}
+				}
+				try {
+					if(MainActivity.topEquation5!=null){  
+						//NEW
+						tss5 += cSurvey.evaluator.evaluate(MainActivity.topEquation5); 
+						cSurvey.evaluator.putVariable("eq5", tss5);				
+
+						Log.w("QP", " beta gama tss5: "+tss5);
+						document.add(new Paragraph(" tss5: "+tss5+""));
+						//*******
+						MainActivity.alphaDef+=" ,`"+"topSubScore5`"+" REAL";
+						MainActivity.alphaName+=" ,"+"topSubScore5";
+						MainActivity.alphaVal+=" ,"+tss5+"";
+						//*******
+						MainActivity.scoreDef+=" ,`"+"topSubScore5`"+" REAL";
+						MainActivity.scoreName+=" ,"+"topSubScore5";
+						MainActivity.scoreVal+=" ,"+tss5+"";
+						
+						Log.w("QP!", " fradio MainActivity.topEquation5: "+MainActivity.topEquation5);
+						Log.w("QP!", " fradio tss5: "+tss5);
+					}
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+		   			logErr+="Problem with equation in survey #1252 | Top: "+cSurvey.file+"TOP eq5: "+MainActivity.topEquation5+" | "+" | "  ;
+		   			for (int ik=0; ik < 3; ik++)
+		   			{
+						Toast.makeText(context, "Problem with equation in survey: TOP: "+cSurvey.file+"TOP eq5: "+MainActivity.topEquation5+" | "+" | " , Toast.LENGTH_LONG).show();
+		   			}
+				}
+
 			//#-#
+				try {
+					if(MainActivity.topEquation6!=null){  
+						//NEW
+						tss6 += cSurvey.evaluator.evaluate(MainActivity.topEquation6); 
+						cSurvey.evaluator.putVariable("eq6", tss6);				
+
+						Log.w("QP", " beta gama tss6: "+tss6);
+						document.add(new Paragraph(" tss6: "+tss6+""));
+						//*******
+						MainActivity.alphaDef+=" ,`"+"topSubScore6`"+" REAL";
+						MainActivity.alphaName+=" ,"+"topSubScore6";
+						MainActivity.alphaVal+=" ,"+tss6+"";
+						//*******
+						MainActivity.scoreDef+=" ,`"+"topSubScore6`"+" REAL";
+						MainActivity.scoreName+=" ,"+"topSubScore6";
+						MainActivity.scoreVal+=" ,"+tss6+"";
+						
+						Log.w("QP!", " fradio MainActivity.topEquation6: "+MainActivity.topEquation6);
+						Log.w("QP!", " fradio tss6: "+tss6);
+					}
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+		   			logErr+="Problem with equation in survey #1252 | Top: "+cSurvey.file+"TOP eq6: "+MainActivity.topEquation6+" | "+" | "  ;
+		   			for (int ik=0; ik < 3; ik++)
+		   			{
+						Toast.makeText(context, "Problem with equation in survey: TOP: "+cSurvey.file+"TOP eq6: "+MainActivity.topEquation6+" | "+" | " , Toast.LENGTH_LONG).show();
+		   			}
+				}
+			//#-#
+				try {
+					if(MainActivity.topEquation7!=null){  
+						//NEW
+						tss7 += cSurvey.evaluator.evaluate(MainActivity.topEquation7); 
+						cSurvey.evaluator.putVariable("eq7", tss7);				
+
+						Log.w("QP", " beta gama tss7: "+tss7);
+						document.add(new Paragraph(" tss7: "+tss7+""));
+						//*******
+						MainActivity.alphaDef+=" ,`"+"topSubScore7`"+" REAL";
+						MainActivity.alphaName+=" ,"+"topSubScore7";
+						MainActivity.alphaVal+=" ,"+tss7+"";
+						//*******
+						MainActivity.scoreDef+=" ,`"+"topSubScore7`"+" REAL";
+						MainActivity.scoreName+=" ,"+"topSubScore7";
+						MainActivity.scoreVal+=" ,"+tss7+"";
+						
+						Log.w("QP!", " fradio MainActivity.topEquation7: "+MainActivity.topEquation7);
+						Log.w("QP!", " fradio tss7: "+tss7);
+					}
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+		   			logErr+="Problem with equation in survey #1252 | Top: "+cSurvey.file+"TOP eq7: "+MainActivity.topEquation7+" | "+" | "  ;
+		   			for (int ik=0; ik < 3; ik++)
+		   			{
+						Toast.makeText(context, "Problem with equation in survey: TOP: "+cSurvey.file+"TOP eq7: "+MainActivity.topEquation7+" | "+" | " , Toast.LENGTH_LONG).show();
+		   			}
+				}
+			//#-#
+				try {
+					if(MainActivity.topEquation8!=null){  
+						//NEW
+						tss8 += cSurvey.evaluator.evaluate(MainActivity.topEquation8); 
+						cSurvey.evaluator.putVariable("eq8", tss8);				
+
+						Log.w("QP", " beta gama tss8: "+tss8);
+						document.add(new Paragraph(" tss8: "+tss8+""));
+						//*******
+						MainActivity.alphaDef+=" ,`"+"topSubScore8`"+" REAL";
+						MainActivity.alphaName+=" ,"+"topSubScore8";
+						MainActivity.alphaVal+=" ,"+tss8+"";
+						//*******
+						MainActivity.scoreDef+=" ,`"+"topSubScore8`"+" REAL";
+						MainActivity.scoreName+=" ,"+"topSubScore8";
+						MainActivity.scoreVal+=" ,"+tss8+"";
+						
+						Log.w("QP!", " fradio MainActivity.topEquation8: "+MainActivity.topEquation8);
+						Log.w("QP!", " fradio tss8: "+tss8);
+					}
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+		   			logErr+="Problem with equation in survey #1252 | Top: "+cSurvey.file+"TOP eq8: "+MainActivity.topEquation8+" | "+" | "  ;
+		   			for (int ik=0; ik < 3; ik++)
+		   			{
+						Toast.makeText(context, "Problem with equation in survey: TOP: "+cSurvey.file+"TOP eq8: "+MainActivity.topEquation8+" | "+" | " , Toast.LENGTH_LONG).show();
+		   			}
+				}
+			//#-#
+				try {
+					if(MainActivity.topEquation9!=null){  
+						//NEW
+						tss9 += cSurvey.evaluator.evaluate(MainActivity.topEquation9); 
+						cSurvey.evaluator.putVariable("eq9", tss9);				
+
+						Log.w("QP", " beta gama tss9: "+tss9);
+						document.add(new Paragraph(" tss9: "+tss9+""));
+						//*******
+						MainActivity.alphaDef+=" ,`"+"topSubScore9`"+" REAL";
+						MainActivity.alphaName+=" ,"+"topSubScore9";
+						MainActivity.alphaVal+=" ,"+tss9+"";
+						//*******
+						MainActivity.scoreDef+=" ,`"+"topSubScore9`"+" REAL";
+						MainActivity.scoreName+=" ,"+"topSubScore9";
+						MainActivity.scoreVal+=" ,"+tss9+"";
+						
+						Log.w("QP!", " fradio MainActivity.topEquation9: "+MainActivity.topEquation9);
+						Log.w("QP!", " fradio tss9: "+tss9);
+					}
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+		   			logErr+="Problem with equation in survey #1252 | Top: "+cSurvey.file+"TOP eq9: "+MainActivity.topEquation9+" | "+" | "  ;
+		   			for (int ik=0; ik < 3; ik++)
+		   			{
+						Toast.makeText(context, "Problem with equation in survey: TOP: "+cSurvey.file+"TOP eq9: "+MainActivity.topEquation9+" | "+" | " , Toast.LENGTH_LONG).show();
+		   			}
+				}
+			//#-#	
 			//#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
-			if(cSurvey.equation!=null)
-			{
-                overall=cSurvey.evaluator.evaluate(cSurvey.equation);
-				//*******
-				MainActivity.alphaDef+=" ,`"+"overall_score`"+" REAL";
-				MainActivity.alphaName+=" ,"+"overall_score";
-				MainActivity.alphaVal+=" ,"+overall+"";
-				//*******
-				MainActivity.scoreDef+=" ,`"+"overall_score`"+" REAL";
-				MainActivity.scoreName+=" ,"+"overall_score";
-				MainActivity.scoreVal+=" ,"+overall+"";
-				//*******
-                document.add(new Paragraph(" \nOverall Score: "+overall+"\n\n"));
+			
+			
+			try {
+				if(cSurvey.equation!=null)
+				{
+				    overall=cSurvey.evaluator.evaluate(cSurvey.equation);
+					Log.w("QP!", " MULL2-OS  surveyFileName: "+surveyFileName);
+					Log.w("QP!", " MULL2-OS OVERALL EQ. cSurvey.equation: "+cSurvey.equation);
+					Log.w("QP!", " MULL2-OS OVERALL EQ. overall: "+overall);
+
+					//*******
+					MainActivity.alphaDef+=" ,`"+"overall_score`"+" REAL";
+					MainActivity.alphaName+=" ,"+"overall_score";
+					MainActivity.alphaVal+=" ,"+overall+"";
+					//*******
+					MainActivity.scoreDef+=" ,`"+"overall_score`"+" REAL";
+					MainActivity.scoreName+=" ,"+"overall_score";
+					MainActivity.scoreVal+=" ,"+overall+"";
+					//*******
+				    document.add(new Paragraph("\nOverall Score: "+overall+"\n\n"));	
+				    //******************************************************************************
+
+			 	        if (surveyFileName.contains("Sg")) { 
+							//document.add(new Paragraph("---------Untershrieft---------- "+"\n\n"));
+							Matrix matrix = new Matrix();
+							matrix.postRotate(90);
+							// pdf-logo Logo LOGO 		
+							String sgPath = Environment
+									.getExternalStorageDirectory()
+									.getAbsolutePath()
+									+ "/4Survey/outbox/pdfbox/sg.jpg";
+							ByteArrayOutputStream stream2 = new ByteArrayOutputStream();
+							Bitmap bitmap2 = BitmapFactory.decodeFile(sgPath);
+							bitmap2 = Bitmap.createBitmap(bitmap2, 100, 188, 685, 1083, matrix, true);
+							//bitmap2 = Bitmap.createBitmap(bitmap2, x, y, width, height)						
+							bitmap2.compress(
+									Bitmap.CompressFormat.JPEG /* FileType */,
+									100 /* Ratio */, stream2);
+							Image jpg2 = Image.getInstance(stream2
+									.toByteArray());
+							jpg2.scalePercent(30f, 30f);
+							document.add(jpg2);
+							//document.add(new Paragraph("---------Untershrieft---------- "+"\n\n"));
+							String sg = "sg.jpg";
+		                    File yFile = new File(pathP, sg);
+							if(yFile.delete()){
+		                		Log.w("del", "  delete: "+pathP );
+		            		}else{
+		                		Log.w("del", "  not delete: "+pathP );
+		            		}
+						
+							
+						}
+			 	        
+					
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+	   			logErr+="Problem with equation in survey #1252 | Top: "+cSurvey.file+"TOP eq: "+cSurvey.equation+" | "+" | "  ;
+	   			for (int ik=0; ik < 3; ik++)
+	   			{
+					Toast.makeText(context, "Problem with equation in survey: TOP: "+cSurvey.file+"TOP eq: "+cSurvey.equation+" | "+" | " , Toast.LENGTH_LONG).show();
+	   			}
 			}
 		    Log.w("iiiB:", "iii: "+i);
-			outer.write(outBuf);
+			outer.write(outBuf); // ???!!!log-O-was
 			outer.close();
 			document.close();
 			logWriter.close();
+			
+						
             //***************KRASNODON here soll SQL **********************************************
+			/*
 			MainActivity.topEquation2="null";
 			MainActivity.topEquation3="null";
 			MainActivity.topEquation4="null";
@@ -1397,7 +1855,7 @@ public void saveToPdf (String filename,String PatDign, Context context) {
 			MainActivity.topEquation6="null";
 			MainActivity.topEquation7="null";
 			MainActivity.topEquation8="null";
-
+            */
             //*****NotRadioVal******ANGARA ************ ANGARA *********ANGARA *************************N+1
             MainActivity.alphaName = "_ID,SER,TimeMS,Date,SName,Survay" + MainActivity.alphaName; // survay added //
             MainActivity.scoreName = "_ID,SER,TimeMS,Date,SName,Survay" + MainActivity.scoreName; // survay added //
@@ -1432,10 +1890,24 @@ public void saveToPdf (String filename,String PatDign, Context context) {
                 copyBody(extLogFile , MainActivity.alphaVal ); //*****extLogFile******	                
                 copyBody(scorelogFile , MainActivity.scoreVal ); //*****scorelogFile****
             } 
-    		
+            
             //****************** score SQL-HEAD *********************************
-            //****************** score SQL-HEAD *********************************
-            //****************** score SQL-HEAD *********************************
+
+            //??????????????????????????????????????????????????????????????????????
+        	String pathRsaPub = rootA+"/4Survey/key/rsa/id_rsa.pub";
+        	String pathRsaPubPem = rootA+"/4Survey/key/rsa/id_rsa.pub.pem";
+        	String pathRsaPubMac = rootA+"/4Survey/key/rsa/id_rsa.ab.pub";        	
+        	String pathPubPGP= rootA+"/4Survey/key/ABKEY.asc";
+    		//readPublicKeyFromFile(pathRsaPubMac);	//BigTest	doesnt work
+              		
+           	
+            //??        
+            //??????????????????????????????????????????????????????????????????????
+          	try {	} catch (Exception e2) {
+        		// TODO Auto-generated catch block
+        		e2.printStackTrace();
+        	}
+        	
             //****************** score SQL-HEAD *********************************
             if(!sv_set.exists()){
                 String createSET= "CREATE TABLE IF NOT EXISTS `sv_set` ( `_ID` INT,`SER` TEXT,`TimeMS` REAL,`Date` datetime,`SName` TEXT );";
@@ -1479,17 +1951,17 @@ public void saveToPdf (String filename,String PatDign, Context context) {
                 //******************// VALUES-SQL //*******************************************
                 String firstSQL ="";
                 csvValCont = csvValCont.replace(",", "','");
-                firstSQL = "  INTO `"+surveyFileName+"` VALUES ('"+csvValCont+"');";
+                firstSQL = "INSERT INTO `"+surveyFileName+"` VALUES ('"+csvValCont+"');";
                 copyBody(stQlogFile , firstSQL ); //*****csvLogFile******	                
                     sqIn+=firstSQL+"\n";
                     firstSQL="";
                 //******************// VALUES-SQL //*******************************************
-                MainActivity.alphaIn = "INSERT INTO `"+surveyFileName+"-ExtInput` VALUES ("+MainActivity.alphaVal+" );";
+                MainActivity.alphaIn = " INSERT INTO `"+surveyFileName+"-ExtInput` VALUES ("+MainActivity.alphaVal+" );";
                 copySql(extQLogFile , MainActivity.alphaIn ); //*****
                     sqIn+=MainActivity.alphaIn+"\n";
                     MainActivity.alphaIn="";
                 //******************// VALUES-SQL //*******************************************
-                MainActivity.scoreIn = "INSERT INTO `"+surveyFileName+"-ScoreInput` VALUES ("+MainActivity.scoreVal+" );";
+                MainActivity.scoreIn = "  INSERT INTO `"+surveyFileName+"-ScoreInput` VALUES ("+MainActivity.scoreVal+" );";
                 copySql(scoreSQlogFile , MainActivity.scoreIn ); //*****
                     sqIn+=MainActivity.scoreIn+"\n";
                     MainActivity.scoreIn="";
@@ -1510,7 +1982,7 @@ public void saveToPdf (String filename,String PatDign, Context context) {
    		    Log.w("iiiC:", "iiiC: "+i); 		    
             //pritLogFile   		    
    			logErr+="Survey saved #1350, ";
-			Toast toast = Toast.makeText(context,"Survey saved: "+surveyFileName+" "+MainActivity.sname , Toast.LENGTH_LONG);
+			Toast toast = Toast.makeText(context,"Survey saved: "+surveyFileName+" | "+MainActivity.sname , Toast.LENGTH_LONG);
 		    TextView text = (TextView) toast.getView().findViewById(android.R.id.message);
 			toast.setGravity(Gravity.TOP, 0, 0);
 		    toast.getView().setBackgroundColor(Color.GREEN);
@@ -1523,7 +1995,7 @@ public void saveToPdf (String filename,String PatDign, Context context) {
 			e.printStackTrace();
    			logErr+="Couldn't save Survey #1360, ";
 			// Toast.makeText(context, "Couldn't save Survey", Toast.LENGTH_LONG).show();
-			Toast toast = Toast.makeText(context,"Couldn't save Survey !!! : "+MainActivity.sname , Toast.LENGTH_LONG);
+			Toast toast = Toast.makeText(context,"Couldn't save Survey !!! : "+surveyFileName+" | "+MainActivity.sname , Toast.LENGTH_LONG);
 		    TextView text = (TextView) toast.getView().findViewById(android.R.id.message);
 			toast.setGravity(Gravity.TOP, 0, 0);
 		    toast.getView().setBackgroundColor(Color.RED);
@@ -1536,15 +2008,15 @@ public void saveToPdf (String filename,String PatDign, Context context) {
 			// TODO Auto-generated catch block
    			logErr+="Couldn't save Survey #1366, ";
 			e.printStackTrace();
+			Toast toast = Toast.makeText(context,"Couldn't save Survey #2!! : "+surveyFileName+" | " , Toast.LENGTH_LONG);
+
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
    			logErr+="Couldn't save Survey #1371, ";
 			e.printStackTrace();
-		} catch (EvaluationException e) {
-			// TODO Auto-generated catch block
-   			logErr+="Couldn't save Survey #1375, ";
-			e.printStackTrace();
-		}
+			Toast toast = Toast.makeText(context,"Couldn't save Survey #3!! : "+surveyFileName+" | " , Toast.LENGTH_LONG);
+
+		} 
 		Log.w("historyIn ", "ssumS core1: "+historyIn);
 		//***************************************//***************************************//
 		//***************************************//***************************************//
@@ -1560,14 +2032,7 @@ public void saveToPdf (String filename,String PatDign, Context context) {
                 //****NR old gut history*************************************************** 
                 copyBody(historyFile ,historyIn ); //*****
 				sumScore=0;
-				//=========================sv_historyFile================================//
-                Log.w("Seide", "Sun Diler gen:strGenderI "+MainActivity.strGenderIs);
-                Log.w("Seide", "sun Diler gen:strStudyIs "+MainActivity.strStudyIs);
-                Log.w("Seide", "sun Diler gen:strSubject "+MainActivity.strSubjectIs);
-                Log.w("Seide", "sun Diler gen:strTreatme "+MainActivity.strTreatmentIs);
-                Log.w("Seide", "sun Diler gen:strAgainIs "+MainActivity.strAgainIs);
-                Log.w("Seide", "sun Diler gen:strComment "+MainActivity.strCommentIs);
-                Log.w("Seide", "sun Diler gen:intAgeIs:"+MainActivity.intAgeIs+"XX");                             
+				//=========================sv_historyFile================================//                           
                 //**********************************************************************
 	                String svh_Head="";
 	                svh_Head+="_ID"; 
@@ -1589,7 +2054,7 @@ public void saveToPdf (String filename,String PatDign, Context context) {
 	                svh_Head+=";Survay";
 	                svh_Head+=";Score";
 	                Log.w("Seide", "7 spic svh_Head: "+svh_Head);
-			    //**************
+			    //************** Vals ********************************************
                     String svh_Vals="";
 	                svh_Vals+="'"+MainActivity.theID+"'"+"," ; 
 	                svh_Vals+="'"+DirectoryChooserDialog.iSER+"'"+","; 
@@ -1607,10 +2072,12 @@ public void saveToPdf (String filename,String PatDign, Context context) {
 	                svh_Vals+="'"+DirectoryChooserDialog.iTimeString+"'"+",";
 	                svh_Vals+="'"+filename+"'"+",";
 	                svh_Vals+="'"+PatDign+"'"+",";
-	                svh_Vals+="'"+surveyFileName+"'"+",";
+	                svh_Vals+="'"+surveyFileName+MainActivity.surveyName+"'"+",";
 	                svh_Vals+="'"+overall+"'";
 	                Log.w("Seide", "8 spic XX svh_Vals: "+svh_Vals);  
-                //***NR5*********** HEAD sv_hist *********************************            
+                //***NR5*********** HEAD sv_hist *********************************  
+	            //***NR5*********** HEAD sv_hist *********************************            
+    
 				if(!sv_historyFile.exists()){
 					sv_historyFile.createNewFile();
                     copyHead(sv_historyFile ,svh_Head ); //*****
@@ -1618,13 +2085,13 @@ public void saveToPdf (String filename,String PatDign, Context context) {
 				}//
                     copyBody(sv_historyFile , svh_Vals ); //*****
                     Log.w("Seide", "10B spic n2Info: ");             
-				//-DB-DB-DB-DB-DB-DB-DB-DB-DB-DB-DB-DB-DB-DB-DB-DB-DB-DB-DB-DB-                
 	                String n2Info ="";
 	                n2Info = "INSERT INTO `sv_history` VALUES ("+svh_Vals+");"; 
                     copySql(sv_historyFileQ , n2Info ); //*****Leon
 					sqIn+=n2Info+"\n";
                     n2Info ="";
     			//****NR11****SQlight PAUSE ********************************************
+    			//-DB-DB-DB-DB-DB-DB-DB-DB-DB-DB-DB-DB-DB-DB-DB-DB-DB-DB-DB-DB-                
                     Log.w("Seide", "11 spic vorher n2Info: "+n2Info);
 				    String sts="";
 				    DBHelper db = new DBHelper(context); //LeonLeon
@@ -1639,9 +2106,29 @@ public void saveToPdf (String filename,String PatDign, Context context) {
 			
 		}//end LoBeZman
 		Log.w("logErr ", "logErr1: "+logErr);
- 	    Log.w("Seide", "30 spic " ); 	    
-	}// 111000
-	//==============================================================================
+ 	    Log.w("Seide", "30 spic " ); 	
+	   
+			
+	        try { 
+			    if(!sv_qIn.exists()) { sv_qIn.createNewFile(); } //+++
+	            copySql(sv_qIn , sqIn ); //+++Leon
+	            sqIn=""; //ZERO
+			} catch (IOException e) {
+			  	logErr+="sqIn write out err #1848, ";
+				e.printStackTrace();
+			}//	
+	        //***************************
+			MainActivity.alphaDef = "";
+			MainActivity.alphaName = "";
+			MainActivity.alphaVal = "";
+			//***
+			MainActivity.scoreDef = "";
+			MainActivity.scoreName = "";
+			MainActivity.scoreVal = "";  
+			//***
+			MainActivity.surveyName = "";
+	}// 111000 111000 111000 111000 111000 111000 111000 111000 111000 111000 
+    // 111000 111000 111000 111000 111000 111000 111000 111000 111000 111000 
     //****NR10***********************************************************     
 	    		        
         try {
@@ -1650,8 +2137,7 @@ public void saveToPdf (String filename,String PatDign, Context context) {
 			copySql( sv_set, setSQL  );
 			sqIn+=setSQL+"\n";
 	        setSQL="";
-            sqIn+="\n";
-            sqIn+="\n";
+            sqIn="\n";
 
 	        Log.w("mdr", "mdr YOUROPE SHAPKAa setSQL:  "+setSQL );
 		} catch (IOException e1) {
@@ -1668,8 +2154,14 @@ public void saveToPdf (String filename,String PatDign, Context context) {
 		  	logErr+="sqIn write out err #1563, ";
 			e.printStackTrace();
 		}//
-    //**** NR13 ********* sqIN  ********************************************
-		 File oldFile = new File (srcPath);
+		//**** NR13 ********* sqIN  ********************************************
+
+	    try {
+			deleteFiles(pathX); //dddd
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		File oldFile = new File (srcPath);
 		 File newFile = new File (tgtPath);		
 		 try{
 			  FileUtils.copyDirectoryToDirectory(oldFile, newFile);
@@ -1701,7 +2193,81 @@ current = 0;
 //-----------------------------/YYY/------------------------------------------------
 //--------------------------/FUNKTIONS/---------------------------------------------  
 //-----------------------------/YYY/------------------------------------------------ 
+/** 
+ * read Public Key From File 
+ * @param fileName 
+ * @return PublicKey 
+ * @throws IOException 
+ */  
+public PublicKey readPublicKeyFromFile(String fileName) throws IOException{  
+ FileInputStream fis = null;  
+ ObjectInputStream ois = null;  
+	Log.w("PGP", "--- RSA 0001 ---------------- fileName "+fileName );
 
+ try {  
+    Log.w("PGP", "--- RSA 0002 ---------------- fileName "+fileName );
+
+  fis = new FileInputStream(new File(fileName));  
+  Log.w("PGP", "--- RSA 00021 ---------------- fileName "+fileName );
+
+  ois = new ObjectInputStream(fis);  
+  Log.w("PGP", "--- RSA 00022 ---------------- fileName "+fileName );
+  
+  BigInteger modulus = (BigInteger) ois.readObject();  
+     BigInteger exponent = (BigInteger) ois.readObject();  
+  	Log.w("PGP", "--- RSA 0003 ---------------- fileName "+fileName );
+
+     //Get Public Key  
+     RSAPublicKeySpec rsaPublicKeySpec = new RSAPublicKeySpec(modulus, exponent); 
+  	Log.w("PGP", "--- RSA 0004 ---------------- fileName "+fileName );
+
+     KeyFactory fact = KeyFactory.getInstance("RSA");  
+  	Log.w("PGP", "--- RSA 0005 ---------------- fileName "+fileName );
+
+     PublicKey publicKey = fact.generatePublic(rsaPublicKeySpec);  
+     
+ 	Log.w("PGP", "--- RSA 0006 ---------------- fileName "+fileName );
+    Cipher cipher = Cipher.getInstance("RSA");
+    cipher.init(Cipher.ENCRYPT_MODE, publicKey); 
+    String data ="frust botomup";
+	Log.w("PGP", "--- RSA 0007 ---------------- data "+data );
+	String encoData = Base64.encodeBase64String(cipher.doFinal(data.getBytes("UTF-8")));
+	Log.w("PGP", "--- RSA 0008 ---------------- encoData "+encoData );
+
+     return publicKey;  
+       
+ } catch (Exception e) {  
+  e.printStackTrace();  
+ }  
+ finally{  
+  if(ois != null){  
+   ois.close();  
+   if(fis != null){  
+    fis.close();  
+   }  
+  }  
+ }  
+	Log.w("PGP", "--- RSA 0006 ---------------- fileName "+fileName );
+
+ return null;  
+}  
+//** RSA **
+public static PublicKey getRsaPub(String filename)
+	    throws Exception {
+	    File f = new File(filename);
+	    FileInputStream fis = new FileInputStream(f);
+	    DataInputStream dis = new DataInputStream(fis);
+	    byte[] keyBytes = new byte[(int)f.length()];
+	    dis.readFully(keyBytes);
+	    dis.close();
+
+	    X509EncodedKeySpec spec = new X509EncodedKeySpec(keyBytes);
+	    KeyFactory kf = KeyFactory.getInstance("RSA");
+		Log.w("PGP", "--- RSA kf1:  "+kf );
+		Log.w("PGP", "--- RSA kf2:  "+kf.generatePublic(spec) );
+
+	    return kf.generatePublic(spec);
+	  }
 //------------------------------/Y/-------------------------------------------------
 public void copyBody(File  csvLogFile , String txtBuf ) throws IOException
 {
@@ -1755,6 +2321,18 @@ private Context getApplicationContext() {
 }
 
 //---copy-
+public static void deleteFiles(String path) {
+
+    File file = new File(path);
+
+    if (file.exists()) {
+        String deleteCmd = "rm -r " + path;
+        Runtime runtime = Runtime.getRuntime();
+        try {
+            runtime.exec(deleteCmd);
+        } catch (IOException e) { }
+    }
+}
 //If targetLocation does not exist, it will be created.
 public void copyDirectory(File sourceLocation , File targetLocation) throws IOException {
 

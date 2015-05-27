@@ -66,6 +66,7 @@ import com.example.android.effectivenavigation.R;
 import com.example.android.surveyapk.QuestionParser.*;
 import com.example.android.surveyapk.QuestionTypes.*;
 import com.example.android.surveyapk.SimpleGestureFilter.SimpleGestureListener;
+import com.example.android.surveyapk.asignature.SignatureView;
 import com.example.android.surveyapk.directorychooser.DirectoryChooserDialog;
 
 
@@ -311,6 +312,8 @@ public boolean dispatchTouchEvent(MotionEvent me){
 	            Log.w("@EEE2 CDA:", "RadioButtonGroup.statBoxG:"+RadioButtonGroup.statBoxG );
 	            Log.w("@EEE3 CDA:", "Radio.isValidCount:"+Radio.isValidCount );
 	            Log.w("@EEE4 CDA:", "RadioButtonGroup.statBoxIGV:"+RadioButtonGroup.statBoxIGV );
+	        	//ULI  init // ULI init // ULI init // ULI init // ULI init //
+	        	RadioButtonGroup.statBoxBuffer = CollectionDemoActivity.albertEquationNow;
 	      // --- ---- ---- ---- ---- ---- --- --- --- --- --- -- -
           //###  BIG switch !!! //
 		      dofCurrent = mViewPager.getCurrentItem();
@@ -431,10 +434,17 @@ public boolean dispatchTouchEvent(MotionEvent me){
 			Log.w("CDA", "sliv2  bord24:"+bord24); //SLIV
 			Log.w("CDA", "sliv2  bord25:"+bord25); //SLIV
 			Log.w("CDA", "sliv2  bord26:"+bord26); //SLIV
-
+			
+			  //no SignatureView SV = new SignatureView(getBaseContext());
+			  // SignatureView mSignature;
+			  // mSignature = (SignatureView) findViewById(R.id.signaturePad);
+			  // mSignature.draw(null);
 
                    //----MAD----
 				  if(mViewPager.getCurrentItem()==questions.size())
+					  
+				  
+				  
 		            {
 					  dofID = 0;
 					  dofID2 =0;
@@ -636,7 +646,7 @@ public boolean dispatchTouchEvent(MotionEvent me){
             
         	Log.w("BUR onCreate:", "BUR  DOF, CollectionDemoActivity.albertIdNow %:"+CollectionDemoActivity.albertIdNow); // CollectionDemoActivity.albertIdNow= currentNow ; 
         	Log.w("BUR onCreate:", "BUR  DOF, CollectionDemoActivity.albertNameNow %:"+CollectionDemoActivity.albertNameNow); // CollectionDemoActivity.albertIdNow= currentNow ; 
-        	Log.w("BUR onCreate:", "BUR  DOF, CollectionDemoActivity.albertEquationNow %:"+CollectionDemoActivity.albertEquationNow); // CollectionDemoActivity.albertIdNow= currentNow ; 
+        	Log.w("BUR onCreate:", "BUR  DOF OOO2, CollectionDemoActivity.albertEquationNow %:"+CollectionDemoActivity.albertEquationNow); // CollectionDemoActivity.albertIdNow= currentNow ; 
         	Log.w("BUR onCreate:", "BUR  DOF, CollectionDemoActivity.albertIdPre %:"+CollectionDemoActivity.albertIdPre); // CollectionDemoActivity.albertIdNow= currentNow ; 
         	Log.w("BUR onCreate:", "BUR  DOF, CollectionDemoActivity.albertNamePre %:"+CollectionDemoActivity.albertNamePre); // CollectionDemoActivity.albertIdNow= currentNow ; 
             //**************************************************************************
@@ -647,6 +657,9 @@ public boolean dispatchTouchEvent(MotionEvent me){
             Log.w("05CDA FRAGMENT onCreateView:", "CDA10 888 Radio.isValidCount:"+Radio.isValidCount );
             //**************************************************************************
             // (".*[\\~\\!\\@\\#\\$\\%\\^\\&\\*\\(\\)\\_\\+].*") ||
+        	Log.w("07CDA FRAGMENT onCreateView:", " OOO2 CURRENT-Next %: "+CollectionDemoActivity.albertNameNext);
+        	Log.w("07CDA FRAGMENT onCreateView:", " OOO2 PRE: CURRENT-Now %: "+CollectionDemoActivity.albertNameNow);	
+
             //**************************************************************************    
         	Log.w("06--------TRIO:", "CDA10- PRE --------------=---");  	
 	            if(current >1) //PRE 
@@ -655,8 +668,11 @@ public boolean dispatchTouchEvent(MotionEvent me){
 	            	Question questionNow=questions.get(current-2); //&&&&&
 	            	//+++++++++
 	            	Log.w("06---=******** CDA FRAGMENT. PRE-Frage ?", "*******=---");  
+	            	Log.w("07CDA FRAGMENT onCreateView:", " OOO CURRENT-Next %: "+CollectionDemoActivity.albertNameNext);
+	            	Log.w("07CDA FRAGMENT onCreateView:", " OOO PRE: CURRENT-Now %: "+CollectionDemoActivity.albertNameNow);	            	
 	            	Log.w("07CDA FRAGMENT onCreateView:", "CDA10 PRE: CURRENT-Now %: "+currentNow);
-	            	Log.w("08CDA FRAGMENT onCreateView:", "CDA10 PRE: questionNow.equation %:"+questionNow.equation);
+
+	            	Log.w("08CDA FRAGMENT onCreateView:", "CDA10 OOO PRE: questionNow.equation %:"+questionNow.equation);
 	            	Log.w("09CDA FRAGMENT onCreateView:", "CDA10 PRE: nowFrage: questionNow.content %: "+questionNow.content);           	
 	            	Log.w("10CDA FRAGMENT onCreateView:", "CDA10 PRE: questionNow.name %:"+questionNow.name);
 	            	// Log.w("11CDA FRAGMENT onCreateView:", "CDA10 PRE: questionNow.id %:"+questionNow.id);
@@ -703,6 +719,7 @@ public boolean dispatchTouchEvent(MotionEvent me){
 		            if( CollectionDemoActivity.albertNameNow.matches(".*q.*") && CollectionDemoActivity.dofRelease == 0)
 		            {  				       
 		        	    CustomViewPager.enabled = false; //$$$$$ //REDO
+		          	     //Toast.makeText( getBaseContext(), "## Left | CustomViewPager.enabled = false",   Toast.LENGTH_SHORT).show(); //suspend   
 		          	     Log.w("21CDA FRAGMENT onCreateView: ", "CDA10 kluch @333 Now FALSE CustomViewPager.enabled: "+CustomViewPager.enabled+"###");
 		            }// end_if
 		        	//++++++++ 

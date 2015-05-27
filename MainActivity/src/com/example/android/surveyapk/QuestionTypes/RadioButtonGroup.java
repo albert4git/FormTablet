@@ -200,12 +200,18 @@ public class RadioButtonGroup implements OnClickListener
 				//--------------------------------------------------------------------------------
 				Log.w(" RBG  #########", "B RBG100 ################### ");
 				//---POINT---
-				Log.w("-22RBG onClick:", "B2 RBG100-!!!-radioCont.name: "+radioCont.name);
+				Log.w("-22RBG onClick:", "YY kluch1 !!!-radioCont.name: "+radioCont.name);
+					if(radioCont.name.length()==4 && radioCont.name.contains("yy")){
+					// radioCont.name = radioCont.name.substring(0,3); // yy10 
+					Log.w("-22RBG onClick:", "YY kluch1-444 !!!-radioCont.name: "+radioCont.name);
+					}
+
 			    // DUPONT //
 					try { 
+						
 					Log.w("-22RBG onClick:", "B2 RBG100- kluch1 333 -RadioButtonGroup.statBoxBuffer: "+RadioButtonGroup.statBoxBuffer);	
 					RadioButtonGroup.statBoxBuffer=RadioButtonGroup.statBoxBuffer.replaceAll(radioCont.name, "KK");					
-					Log.w("-22RBG onClick:", "B2 RBG100- kluch2 333 -RadioButtonGroup.statBoxBuffer: "+RadioButtonGroup.statBoxBuffer);	
+					Log.w("-22RBG onClick:", "B2 RBG100- kluch12 333 -RadioButtonGroup.statBoxBuffer: "+RadioButtonGroup.statBoxBuffer);	
 					} catch (Exception e) {
 			    	    Log.w("#MATCH", " RBG100- CATCH radioCont.name"+radioCont.name);
 			    	    //Log.wtf("DO THIS", " WHEN SAVE() FAILS");	
